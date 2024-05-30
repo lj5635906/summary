@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.summary.biz.authority.mapper.AdminMapper">
+
+    <select id="getAdminMenuByAdminId" resultType="com.summary.client.authority.dto.MenuTreeDTO">
+        SELECT DISTINCT m.menu_id          menuId,
+        m.menu_name        menuName,
+        m.parent_id        parentId,
+        m.parent_menu_name parentMenuName,
+        m.menu_alias       menuAlias,
+        m.menu_icon        menuIcon,
+        m.menu_type        menuType,
+        m.sort,
+        m.description,
+        m.menu_status      menuStatus,
+        m.menu_router_path menuRouterPath,
+        m.button_code      buttonCode,
+        m.create_time      createTime
+        FROM auth_admin a
+        INNER JOIN auth_admin_role ar ON a.admin_id = ar.admin_id AND ar.delete_flag = 0
+        INNER JOIN auth_role r ON ar.role_id = r.role_id AND r.delete_flag = 0
+        INNER JOIN auth_role_menu rm ON r.role_id = rm.role_id AND rm.delete_flag = 0
+        INNER JOIN auth_menu m ON rm.menu_id = m.menu_id AND m.delete_flag = 0
+        WHERE a.admin_id = #{adminId}
+    </select>
+</mapper>

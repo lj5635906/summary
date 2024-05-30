@@ -1,0 +1,33 @@
+server:
+  port: 8090
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  application:
+    name: summary-front-admin
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.100.207:18848
+        username: nacos
+        password: nacos
+
+logging:
+  config: classpath:logback.xml
+  level:
+    com.summary: debug
+    com.alibaba: debug
+
+dubbo:
+  application:
+    name: ${spring.application.name}
+  protocol:
+    # dubbo 协议
+    name: dubbo
+    # dubbo 协议端⼝（ -1 表示⾃增端⼝，从 20880 开始）
+    port: -1
+  registry:
+    # 挂载到 Spring Cloud 的注册中心
+    address: nacos://${spring.cloud.nacos.discovery.server-addr}
+    username: ${spring.cloud.nacos.discovery.username}
+    password: ${spring.cloud.nacos.discovery.password}

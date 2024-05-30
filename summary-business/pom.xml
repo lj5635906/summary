@@ -1,0 +1,110 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.summary</groupId>
+        <artifactId>summary</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>summary-business</artifactId>
+    <packaging>pom</packaging>
+    <modules>
+        <module>summary-authority</module>
+        <module>summary-order</module>
+        <module>summary-product</module>
+    </modules>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- 自定义组件 start -->
+        <dependency>
+            <groupId>com.summary</groupId>
+            <artifactId>summary-common-core</artifactId>
+            <version>${summary.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.summary</groupId>
+            <artifactId>component-logs</artifactId>
+            <version>${summary.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.summary</groupId>
+            <artifactId>component-exception</artifactId>
+            <version>${summary.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.summary</groupId>
+            <artifactId>component-repository</artifactId>
+            <version>${summary.version}</version>
+        </dependency>
+        <!-- 自定义组件 end -->
+
+        <!-- client start -->
+        <dependency>
+            <groupId>com.summary</groupId>
+            <artifactId>summary-authority-client</artifactId>
+            <version>${summary.version}</version>
+        </dependency>
+        <!-- client end -->
+
+        <!-- 声明式服务调用组件 openfeign start -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+        </dependency>
+        <!-- 声明式服务调用组件 openfeign end-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-loadbalancer</artifactId>
+        </dependency>
+        <!-- nacos 服务发现 start -->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+        </dependency>
+        <!-- nacos 服务发现 end -->
+
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <exclusions>
+                <!-- 排除1.4.14,使用1.4.5,解决版本冲突 -->
+                <!-- Load Logback Configuration of Nacos fail, message: 'void ch.qos.logback.classic.util.ContextInitializer.configureByResource(java.net.URL)' -->
+                <exclusion>
+                    <groupId>ch.qos.logback</groupId>
+                    <artifactId>logback-classic</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.4.5</version>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba.nacos</groupId>
+            <artifactId>logback-adapter</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>3.1.2</version>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
