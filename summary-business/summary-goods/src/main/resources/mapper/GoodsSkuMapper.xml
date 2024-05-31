@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.summary.biz.goods.mapper.GoodsSkuMapper">
+
+    <select id="selectCreateOrderCheckGoodsSku"
+            resultType="com.summary.client.goods.dto.CreateOrderCheckGoodsSkuDTO">
+        SELECT
+            g.goods_id,
+            g.goods_name,
+            s.sku_id,
+            s.sku_name,
+            s.price,
+            s.stock_num
+        FROM
+        goods g
+        INNER JOIN goods_sku s ON g.goods_id = s.goods_id
+        WHERE
+        <foreach collection="params" item="param" separator=" or ">
+            ( g.goods_id = #{param.goodsId} AND s.sku_id = #{param.skuId} )
+        </foreach>
+    </select>
+</mapper>

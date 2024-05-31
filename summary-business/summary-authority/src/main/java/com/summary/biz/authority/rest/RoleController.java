@@ -9,7 +9,7 @@ import com.summary.client.authority.dto.RoleDTO;
 import com.summary.client.authority.param.AddRoleParam;
 import com.summary.client.authority.param.RoleCheckMenuParam;
 import com.summary.client.authority.param.UpdateRoleParam;
-import com.summary.client.remote.feign.RoleRemoteService;
+import com.summary.client.remote.RoleRemoteService;
 import com.summary.common.core.dto.R;
 import com.summary.common.core.page.PageResult;
 import jakarta.validation.Valid;

@@ -1,6 +1,8 @@
+server:
+  port: 10010
 spring:
-  main:
-    allow-bean-definition-overriding: true
+#  main:
+#    allow-bean-definition-overriding: true
   application:
     name: summary-authority
   datasource:
@@ -25,20 +27,3 @@ mybatis-plus:
   mapper-locations:
     - classpath*:/mapper/*.xml
     - classpath*:/repository/*.xml
-
-dubbo:
-  application:
-    name: ${spring.application.name}
-  scan:
-    base-packages:
-      - com.summary.biz.authority.provider
-  protocol:
-    # dubbo 协议
-    name: dubbo
-    # dubbo 协议端⼝（ -1 表示⾃增端⼝，从 20880 开始）
-    port: -1
-  registry:
-    # 挂载到 Spring Cloud 的注册中心
-    address: nacos://${spring.cloud.nacos.discovery.server-addr}
-    username: ${spring.cloud.nacos.discovery.username}
-    password: ${spring.cloud.nacos.discovery.password}

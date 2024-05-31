@@ -2,7 +2,7 @@ package com.summary.front.admin.rest.login;
 
 import com.summary.client.authority.dto.AdminDTO;
 import com.summary.client.authority.enums.UserStatusEnum;
-import com.summary.client.remote.feign.AdminRemoteService;
+import com.summary.client.remote.AdminRemoteService;
 import com.summary.common.core.dto.R;
 import com.summary.common.core.dto.TokenDTO;
 import com.summary.common.core.exception.CustomException;

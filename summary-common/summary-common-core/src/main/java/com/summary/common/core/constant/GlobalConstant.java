@@ -9,6 +9,21 @@ package com.summary.common.core.constant;
 public class GlobalConstant {
 
     /**
+     * 初始化常量
+     */
+    public interface DefaultConstant {
+        /**
+         * 默认0
+         */
+        Integer ZERO = 0;
+        /**
+         * 默认0
+         */
+        Long ZERO_LONG = 0L;
+
+    }
+
+    /**
      * 菜单常量
      */
     public interface MenuConstant {
@@ -34,6 +49,10 @@ public class GlobalConstant {
          * 字符串 .
          */
         String STRING_POINT = ".";
+        /**
+         * 英文逗号
+         */
+        String STRING_COMMA = ",";
         /**
          * header 中 access_token 名
          */

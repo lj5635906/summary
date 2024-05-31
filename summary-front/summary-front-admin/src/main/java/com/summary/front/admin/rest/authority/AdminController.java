@@ -6,7 +6,7 @@ import com.summary.client.authority.dto.MenuTreeDTO;
 import com.summary.client.authority.param.AddAdminParam;
 import com.summary.client.authority.param.ModifyAdminParam;
 import com.summary.client.authority.param.ModifyAdminRoleParam;
-import com.summary.client.remote.feign.AdminRemoteService;
+import com.summary.client.remote.AdminRemoteService;
 import com.summary.common.core.dto.R;
 import com.summary.common.core.page.PageResult;
 import com.summary.front.admin.common.SessionManager;

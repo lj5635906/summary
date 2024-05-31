@@ -1,6 +1,8 @@
 package com.summary.common.core.utils;
 
-import net.sf.cglib.beans.BeanCopier;
+//import net.sf.cglib.beans.BeanCopier;
+
+import org.springframework.cglib.beans.BeanCopier;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -97,4 +99,5 @@ public class ConvertUtils {
     public interface ConvertCallback<S, D> {
         void callback(S source, D dest);
     }
+
 }

@@ -12,7 +12,8 @@
     <modules>
         <module>summary-authority-client</module>
         <module>summary-order-client</module>
-        <module>summary-product-client</module>
+        <module>summary-customer-client</module>
+        <module>summary-goods-client</module>
     </modules>
 
     <dependencies>

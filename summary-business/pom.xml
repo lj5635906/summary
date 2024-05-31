@@ -12,7 +12,8 @@
     <modules>
         <module>summary-authority</module>
         <module>summary-order</module>
-        <module>summary-product</module>
+        <module>summary-customer</module>
+        <module>summary-goods</module>
     </modules>
 
     <dependencies>
@@ -51,6 +52,23 @@
             <artifactId>summary-authority-client</artifactId>
             <version>${summary.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.summary</groupId>
+            <artifactId>summary-customer-client</artifactId>
+            <version>${summary.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.summary</groupId>
+            <artifactId>summary-order-client</artifactId>
+            <version>${summary.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.summary</groupId>
+            <artifactId>summary-goods-client</artifactId>
+            <version>${summary.version}</version>
+        </dependency>
+
+
         <!-- client end -->
 
         <!-- 声明式服务调用组件 openfeign start -->

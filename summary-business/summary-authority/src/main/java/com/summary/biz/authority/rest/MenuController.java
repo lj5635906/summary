@@ -5,7 +5,7 @@ import com.summary.client.authority.dto.MenuTreeDTO;
 import com.summary.client.authority.param.AddMenuParam;
 import com.summary.client.authority.param.DeleteMenuParam;
 import com.summary.client.authority.param.ModifyMenuParam;
-import com.summary.client.remote.feign.MenuRemoteService;
+import com.summary.client.remote.MenuRemoteService;
 import com.summary.common.core.dto.R;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
