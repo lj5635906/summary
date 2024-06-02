@@ -1,11 +1,11 @@
 package com.summary.biz.order.service.impl;
 
-import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.summary.biz.order.entity.OrderWaterDO;
 import com.summary.biz.order.mapper.OrderWaterMapper;
 import com.summary.biz.order.service.OrderWaterService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.summary.client.order.enums.OrderStateEnum;
+import com.summary.component.generator.id.snowflake.IdWorker;
 import org.springframework.stereotype.Service;
 
 /**
@@ -22,10 +22,11 @@ public class OrderWaterServiceImpl extends ServiceImpl<OrderWaterMapper, OrderWa
     @Override
     public void saveCreateOrderWater(Long orderId) {
         OrderWaterDO waterDO = OrderWaterDO.builder()
-                .waterId(IdWorker.getId())
+                .waterId(IdWorker.nextId())
                 .orderId(orderId)
                 .toOrderState(OrderStateEnum.WAIT_PAY.getCode())
                 .toOrderStateDesc(OrderStateEnum.WAIT_PAY.getMessage())
+                .remark("创建订单")
                 .build();
         this.save(waterDO);
     }

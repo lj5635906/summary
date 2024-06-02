@@ -13,6 +13,9 @@
         <module>component-logs</module>
         <module>component-repository</module>
         <module>component-exception</module>
+        <module>component-redis</module>
+        <module>component-lock</module>
+        <module>component-generator-id</module>
     </modules>
 
     <dependencies>

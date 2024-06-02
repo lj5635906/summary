@@ -7,6 +7,7 @@ import java.util.Map;
 
 /**
  * 订单相关异常码
+ * 40000-49999
  *
  * @author jie.luo
  * @since 2024/5/31
@@ -15,7 +16,7 @@ public enum OrderExceptionCode implements CustomCodeService {
     /**
      * 业务模块-权限服务-异常码
      */
-    by_goods_check_error(10000, "购买商品验证出现异常"),
+    by_goods_check_error(40000, "购买商品验证出现异常"),
 
     UNKNOWN_EXCEPTION(-1, "未知错误");
 

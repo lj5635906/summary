@@ -5,7 +5,7 @@ import java.util.Map;
 
 /**
  * 基础异常码
- *
+ * 0-9999
  * @author jie.luo
  * @since 2024/5/29
  */
@@ -39,6 +39,12 @@ public enum BaseExceptionCode implements CustomCodeService{
     ENCRYPT_FAIL(702, "数据编码失败"),
 
     RATIO_ERROR(2002, "折扣计算比例范围[0-100]"),
+
+
+    GET_HOST_IP_ERROR(2003, "获取本机IP出现异常"),
+    GREATER_THAN_MAX_WORK_ID(2004, "每个机房服务器最大work_id: 31"),
+    GREATER_THAN_MAX_DATA_ID(2004, "每台设备最大data_id: 31"),
+
     /**
      * 未知错误
      */

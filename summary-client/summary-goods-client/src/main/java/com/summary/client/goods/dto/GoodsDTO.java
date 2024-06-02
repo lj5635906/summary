@@ -29,7 +29,11 @@ public class GoodsDTO {
     /*** 评论数量 */
     private Integer commentNum;
     /*** 是否上架: 0-已上架,1-已下架 */
-    private Integer marketable;
+    private Boolean enableMarketable;
+    /*** 是否启用规格: 0/false-未启用,1/true-启用 */
+    private Boolean enableSpec;
+    /*** 商品spu规格 */
+    private List<GoodsSpecItemDTO> specItem;
     /*** 商品SKU */
     private List<GoodsSkuDTO> skus;
 }

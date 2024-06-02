@@ -67,4 +67,14 @@ public class GlobalConstant {
         String X_REQUEST_IP = "x-request-ip";
     }
 
+    /**
+     * redis 缓存Key名称前缀
+     */
+    public interface RedisCacheConstant {
+        /**
+         * 分布式锁前缀
+         */
+        String LOCK_NAME = "global:lock:";
+    }
+
 }

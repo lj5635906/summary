@@ -4,8 +4,11 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.summary.component.repository.base.BaseDO;
+
 import java.io.Serializable;
+
 import lombok.*;
+
 import java.time.LocalDateTime;
 
 /**
@@ -35,7 +38,11 @@ public class GoodsDO extends BaseDO<GoodsDO> {
     /*** 评论数量 */
     private Integer commentNum;
     /*** 是否上架: 0-已上架,1-已下架 */
-    private Integer marketable;
+    private Boolean enableMarketable;
+    /*** 是否启用规格: 0/false-未启用,1/true-启用 */
+    private Boolean enableSpec;
+    /*** 规格列表 */
+    private String specItem;
 
     @Builder
     public GoodsDO(
@@ -48,7 +55,9 @@ public class GoodsDO extends BaseDO<GoodsDO> {
             String image,
             Integer saleNum,
             Integer commentNum,
-            Integer marketable
+            Boolean enableMarketable,
+            Boolean enableSpec,
+            String specItem
     ) {
         super(version, createTime, updateTime, deleteFlag);
         this.goodsId = goodsId;
@@ -56,7 +65,9 @@ public class GoodsDO extends BaseDO<GoodsDO> {
         this.image = image;
         this.saleNum = saleNum;
         this.commentNum = commentNum;
-        this.marketable = marketable;
+        this.enableMarketable = enableMarketable;
+        this.enableSpec = enableSpec;
+        this.specItem = specItem;
     }
 
 

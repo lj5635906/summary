@@ -7,7 +7,7 @@ import java.util.Map;
 
 /**
  * 业务模块-权限服务-异常码
- * 40000-44999
+ * 10000-19999
  *
  * @author jie.luo
  * @since 2024/5/30
@@ -17,17 +17,17 @@ public enum AuthorityExceptionCode implements CustomCodeService {
     /**
      * i甲专线-业务模块-权限服务-异常码
      */
-    ADMIN_NON_EXIT(40001, "管理员信息不存在"),
-    MENU_NON_EXIT(40002, "菜单信息不存在"),
-    ADMIN_PASSWORD_ERROR(40003, "密码错误"),
-    ADMIN_MOBILE_EXISTS(40004, "电话号码已经存在"),
-    ADMIN_ACCOUNT_EXISTS(40005, "账号已经存在"),
-    ROLE_EXISTS(40006, "角色已经存在"),
-    ROLE_NON_EXIT(40007, "角色信息不存在"),
-    OLD_PASSWORD_ERROR(40008, "旧密码错误"),
-    ADMIN_NON_EXIT_OR_PASSWORD_ERROR(40009, "管理员信息不存在或密码错误"),
-    ADMIN_LOGIN_LOCKED(40010, "管理员账号已锁定{0}"),
-    PASSWORD_RULE_ERROR(40011, "密码至少8个字符并至少包含一个大写字母、一个小写字母和一个数字"),
+    ADMIN_NON_EXIT(10001, "管理员信息不存在"),
+    MENU_NON_EXIT(10002, "菜单信息不存在"),
+    ADMIN_PASSWORD_ERROR(10003, "密码错误"),
+    ADMIN_MOBILE_EXISTS(10004, "电话号码已经存在"),
+    ADMIN_ACCOUNT_EXISTS(10005, "账号已经存在"),
+    ROLE_EXISTS(10006, "角色已经存在"),
+    ROLE_NON_EXIT(10007, "角色信息不存在"),
+    OLD_PASSWORD_ERROR(10008, "旧密码错误"),
+    ADMIN_NON_EXIT_OR_PASSWORD_ERROR(10009, "管理员信息不存在或密码错误"),
+    ADMIN_LOGIN_LOCKED(10010, "管理员账号已锁定{0}"),
+    PASSWORD_RULE_ERROR(10011, "密码至少8个字符并至少包含一个大写字母、一个小写字母和一个数字"),
 
     UNKNOWN_EXCEPTION(-1, "未知错误");
 

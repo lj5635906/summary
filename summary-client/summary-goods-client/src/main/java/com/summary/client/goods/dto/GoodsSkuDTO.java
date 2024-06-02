@@ -32,6 +32,8 @@ public class GoodsSkuDTO {
     private Integer commentNum;
     /*** 销售状态: 0-销售中,-1-已售罄 */
     private Integer saleState;
+    /*** 商品sku规格 */
+    private List<GoodsSkuSpecDTO> specs;
     /*** 排序 */
     private Integer sort;
 }

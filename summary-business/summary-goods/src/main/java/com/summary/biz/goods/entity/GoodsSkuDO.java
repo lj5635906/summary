@@ -44,6 +44,8 @@ public class GoodsSkuDO extends BaseDO<GoodsSkuDO> {
     private Integer commentNum;
     /*** 销售状态: 0-销售中,-1-已售罄 */
     private Integer saleState;
+    /*** 规格 */
+    private String spec;
     /*** 排序 */
     private Integer sort;
 
@@ -63,6 +65,7 @@ public class GoodsSkuDO extends BaseDO<GoodsSkuDO> {
             Integer saleNum,
             Integer commentNum,
             Integer saleState,
+            String spec,
             Integer sort
     ) {
         super(version, createTime, updateTime, deleteFlag);
@@ -76,6 +79,7 @@ public class GoodsSkuDO extends BaseDO<GoodsSkuDO> {
         this.saleNum = saleNum;
         this.commentNum = commentNum;
         this.saleState = saleState;
+        this.spec = spec;
         this.sort = sort;
     }
 

@@ -7,6 +7,7 @@ import java.util.Map;
 
 /**
  * 商品相关异常码
+ * 30000-39999
  *
  * @author jie.luo
  * @since 2024/5/31
@@ -15,7 +16,7 @@ public enum GoodsExceptionCode implements CustomCodeService {
     /**
      * 业务模块-权限服务-异常码
      */
-    customer_non_existent(10000, "用户信息为空"),
+    goods_non_existent(30000, "商品信息为空"),
 
     UNKNOWN_EXCEPTION(-1, "未知错误");
 

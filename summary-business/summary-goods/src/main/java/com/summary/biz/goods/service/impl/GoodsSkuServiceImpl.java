@@ -1,7 +1,7 @@
 package com.summary.biz.goods.service.impl;
 
+import cn.hutool.json.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.summary.biz.goods.entity.GoodsSkuDO;
 import com.summary.biz.goods.mapper.GoodsSkuMapper;
@@ -11,7 +11,9 @@ import com.summary.client.goods.dto.CreateOrderCheckGoodsSkuDTO;
 import com.summary.client.goods.enums.ImageTypeEnum;
 import com.summary.client.goods.enums.SaleStateEnum;
 import com.summary.client.goods.param.CreateGoodsSkuParam;
+import com.summary.client.goods.param.CreateGoodsSkuSpecParam;
 import com.summary.client.goods.param.CreateOrderCheckParam;
+import com.summary.component.generator.id.snowflake.IdWorker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -47,7 +49,7 @@ public class GoodsSkuServiceImpl extends ServiceImpl<GoodsSkuMapper, GoodsSkuDO>
         GoodsSkuDO sku = null;
         for (CreateGoodsSkuParam param : params) {
             sku = GoodsSkuDO.builder()
-                    .skuId(IdWorker.getId())
+                    .skuId(IdWorker.nextId())
                     .goodsId(goodsId)
                     .skuName(param.getSkuName())
                     .price(param.getPrice())
@@ -59,6 +61,16 @@ public class GoodsSkuServiceImpl extends ServiceImpl<GoodsSkuMapper, GoodsSkuDO>
                     .saleState(SaleStateEnum.sale.getCode())
                     .sort(param.getSort())
                     .build();
+
+            // 处理规格
+            List<CreateGoodsSkuSpecParam> specs = param.getSpecs();
+            if (!CollectionUtils.isEmpty(specs)) {
+                JSONObject jsonObject = new JSONObject();
+                for (CreateGoodsSkuSpecParam spec : specs) {
+                    jsonObject.put(spec.getName(), spec.getOption());
+                }
+                sku.setSpec(jsonObject.toString());
+            }
 
             // 保存sku图片
             goodsImageService.saveGoodsImage(null, sku.getSkuId(), ImageTypeEnum.sku, param.getImages());

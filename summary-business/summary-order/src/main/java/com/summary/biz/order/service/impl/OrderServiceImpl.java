@@ -1,10 +1,8 @@
 package com.summary.biz.order.service.impl;
 
-import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.summary.biz.order.entity.OrderDO;
 import com.summary.biz.order.entity.OrderItemDO;
-import com.summary.biz.order.entity.OrderWaterDO;
 import com.summary.biz.order.mapper.OrderMapper;
 import com.summary.biz.order.service.OrderItemService;
 import com.summary.biz.order.service.OrderService;
@@ -16,14 +14,15 @@ import com.summary.client.goods.param.CreateOrderCheckParam;
 import com.summary.client.order.code.OrderExceptionCode;
 import com.summary.client.order.enums.OrderStateEnum;
 import com.summary.client.order.enums.OrderTypeEnum;
-import com.summary.client.order.param.CreateOrderParam;
 import com.summary.client.order.param.CreateOrderGoodsParam;
+import com.summary.client.order.param.CreateOrderParam;
 import com.summary.client.remote.CustomerRemoteService;
 import com.summary.client.remote.GoodsRemoteService;
 import com.summary.common.core.dto.R;
 import com.summary.common.core.utils.Assert;
 import com.summary.common.core.utils.ConvertUtils;
 import com.summary.common.core.utils.VerificationUtil;
+import com.summary.component.generator.id.snowflake.IdWorker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -33,7 +32,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static com.summary.common.core.constant.GlobalConstant.DefaultConstant.ZERO;
 import static com.summary.common.core.constant.GlobalConstant.DefaultConstant.ZERO_LONG;
 
 /**
@@ -95,7 +93,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, OrderDO> implemen
     private List<OrderItemDO> buildOrderItemDO(OrderDO order, List<CreateOrderGoodsParam> buyGoods, List<CreateOrderCheckGoodsSkuDTO> goodsSkus) {
 
         // <skuId,CreateOrderCheckGoodsSkuDTO>
-        Map<Long, CreateOrderCheckGoodsSkuDTO> goodsSkusMap = goodsSkus.stream().collect(Collectors.toMap(CreateOrderCheckGoodsSkuDTO::getGoodsId, obj -> obj));
+        Map<Long, CreateOrderCheckGoodsSkuDTO> goodsSkusMap = goodsSkus.stream().collect(Collectors.toMap(CreateOrderCheckGoodsSkuDTO::getSkuId, obj -> obj));
 
         List<OrderItemDO> orderItems = new ArrayList<>(goodsSkus.size());
         OrderItemDO item = null;
@@ -120,7 +118,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, OrderDO> implemen
             long payMoney = money - discountMoney;
 
             item = new OrderItemDO();
-            item.setItemId(IdWorker.getId());
+            item.setItemId(IdWorker.nextId());
             item.setOrderId(order.getOrderId());
             item.setGoodsId(goodsSku.getGoodsId());
             item.setGoodsName(goodsSku.getGoodsName());
@@ -159,7 +157,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, OrderDO> implemen
         OrderTypeEnum orderType = OrderTypeEnum.getByCode(param.getOrderType());
 
         OrderDO order = new OrderDO();
-        order.setOrderId(IdWorker.getId());
+        order.setOrderId(IdWorker.nextId());
         order.setCustomerId(customer.getCustomerId());
         order.setCustomerName(customer.getCustomerName());
         order.setCustomerMobile(customer.getCustomerMobile());

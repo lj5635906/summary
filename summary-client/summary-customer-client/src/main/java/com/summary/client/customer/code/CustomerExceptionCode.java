@@ -7,7 +7,7 @@ import java.util.Map;
 
 /**
  * 业务模块-权限服务-异常码
- * 10000-19999
+ * 20000-29999
  *
  * @author jie.luo
  * @since 2024/5/31
@@ -16,7 +16,7 @@ public enum CustomerExceptionCode implements CustomCodeService {
     /**
      * 业务模块-权限服务-异常码
      */
-    customer_non_existent(10000, "用户信息为空"),
+    customer_non_existent(20000, "用户信息为空"),
 
     UNKNOWN_EXCEPTION(-1, "未知错误");
 

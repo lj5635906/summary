@@ -20,10 +20,10 @@ CREATE TABLE o_order(
 
     customer_message        varchar(512)            DEFAULT  NULL              COMMENT '订单备注',
 
-    version 				int(11) 		NOT NULL 					COMMENT '版本号',
-    create_time 			datetime 		DEFAULT CURRENT_TIMESTAMP 	COMMENT '创建时间/下单时间',
+    version 				int(11) 		NOT NULL DEFAULT 0			COMMENT '版本号',
+    create_time 			datetime 		DEFAULT CURRENT_TIMESTAMP 	COMMENT '创建时间',
     update_time 			datetime 		DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    delete_flag 			boolean 		NOT NULL 					COMMENT '删除标志(0/false-未删除,1/true-已删除)',
+    delete_flag 			boolean 		NOT NULL DEFAULT 0			COMMENT '删除标志(0/false-未删除,1/true-已删除)',
   KEY index_customer_id (customer_id)
 
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '订单表';
@@ -46,10 +46,10 @@ CREATE  TABLE  order_item(
     pay_money                           bigint(20)              NOT  NULL                   COMMENT '该商品实际支付金额(分)',
     buy_number                          int(11)                 NOT NULL                    COMMENT '商品的数量/购买数量',
 
-    version                               int(11)                  NOT NULL DEFAULT 0                      COMMENT '版本号',
-    create_time                           datetime                 NOT NULL DEFAULT   CURRENT_TIMESTAMP    COMMENT '创建时间',
-    update_time                           datetime                 NOT NULL ON  UPDATE CURRENT_TIMESTAMP    COMMENT '更新时间',
-    delete_flag                           tinyint(1)               NOT NULL DEFAULT 0                      COMMENT '删除标志(0/false-未删除,1/true-已删除)',
+    version 				int(11) 		NOT NULL DEFAULT 0			COMMENT '版本号',
+    create_time 			datetime 		DEFAULT CURRENT_TIMESTAMP 	COMMENT '创建时间',
+    update_time 			datetime 		DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    delete_flag 			boolean 		NOT NULL DEFAULT 0			COMMENT '删除标志(0/false-未删除,1/true-已删除)',
     KEY index_order_id (order_id)
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '订单-类目表';
 
@@ -68,10 +68,10 @@ CREATE TABLE order_water(
 
     remark                      varchar(256) 	DEFAULT NULL				COMMENT '备注',
 
-    version 				int(11) 		NOT NULL  DEFAULT 0			COMMENT '版本号',
+    version 				int(11) 		NOT NULL DEFAULT 0			COMMENT '版本号',
     create_time 			datetime 		DEFAULT CURRENT_TIMESTAMP 	COMMENT '创建时间',
     update_time 			datetime 		DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    delete_flag 			boolean 		NOT NULL  default 0			COMMENT '删除标志(0/false-未删除,1/true-已删除)',
+    delete_flag 			boolean 		NOT NULL DEFAULT 0			COMMENT '删除标志(0/false-未删除,1/true-已删除)',
 
     KEY index_order_id (order_id)
 )ENGINE=InnoDB CHARSET=utf8mb4 COMMENT='订单流水';

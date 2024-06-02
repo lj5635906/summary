@@ -1,0 +1,199 @@
+------- 添加商品-不启用规格
+{
+	"goodsName": "百合康牌维生素K2软胶囊",
+	"image": "https://p1.maiyaole.com/img/202207/18/20220718125043522.jpg",
+	"introduction": "百合康牌维生素K2软胶囊 60粒*2瓶 补充维生素k2 中老年青少年成人孕妇 领钙入骨 补钙好搭档vk2",
+	"parameters": [
+		{
+			"paramName": "快递发货",
+			"paramValue": "快递发货配送上门，本商品免运费"
+		}
+	],
+	"enableSpec": false,
+	"skus": [
+		{
+			"skuName": "百合康牌维生素K2软胶囊 60粒 补充维生素k2 中老年青少年成人孕妇 领钙入骨 补钙好搭档vk2",
+			"price": 6900,
+			"image": "https://p1.maiyaole.com/img/202207/18/20220718125043522.jpg",
+			"images": [
+				"https://img.pddpic.com/mms-material-img/2022-03-26/81bb458d-2d39-4c7d-898c-caa5d7df0ea8.jpeg",
+				"http://t14.baidu.com/it/u=725648781,2281708957&fm=224&app=112&f=JPEG?w=500&h=500",
+				"https://img0.baidu.com/it/u=3353974261,2153444184&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=388"
+			],
+			"stockNum": 500,
+			"alertNum": 10,
+			"sort": 1
+		}
+	]
+}
+
+
+
+------------  添加商品-启用规格
+{
+	"goodsName": "华为（HUAWEI）旗舰手机 Mate 60 Pro",
+	"image": "https://imgservice.suning.cn/uimg1/b2c/image/vv911Qns_4th5GNJ009dzQ.png_800w_800h_4e",
+	"images": [
+		"https://pic2.zhimg.com/v2-54b9998c71c9ec5f312acea4b2603901_r.jpg",
+		"https://img1.baidu.com/it/u=3905784761,813784250&fm=253&fmt=auto&app=120&f=JPEG?w=667&h=500"
+	],
+	"introduction": "这是商品简介",
+	"parameters": [
+		{
+			"paramName": "快递发货",
+			"paramValue": "快递发货配送上门，本商品免运费"
+		}
+	],
+	"enableSpec": true,
+	"specItem": [
+		{
+			"name": "颜色",
+			"options": [
+				"雅典黑",
+				"雅川青",
+				"白沙银"
+			]
+		},
+		{
+			"name": "版本",
+			"options": [
+				"12+512GB",
+				"12+1TB"
+			]
+		}
+	],
+	"skus": [
+		{
+			"skuName": "华为（HUAWEI）旗舰手机 Mate 60 Pro 雅典黑 12+512GB",
+			"price": 6999,
+			"image": "https://pic2.zhimg.com/v2-54b9998c71c9ec5f312acea4b2603901_r.jpg",
+			"images": [
+				"https://imgservice.suning.cn/uimg1/b2c/image/vv911Qns_4th5GNJ009dzQ.png_800w_800h_4e",
+				"https://img1.baidu.com/it/u=3905784761,813784250&fm=253&fmt=auto&app=120&f=JPEG?w=667&h=500"
+			],
+			"stockNum": 90,
+			"alertNum": 10,
+			"sort": 1,
+			"specs": [
+				{
+					"name": "颜色",
+					"option": "雅典黑"
+				},
+				{
+					"name": "版本",
+					"option": "12+512GB"
+				}
+			]
+		},
+		{
+			"skuName": "华为（HUAWEI）旗舰手机 Mate 60 Pro 雅典黑 12+1TB",
+			"price": 6999,
+			"image": "https://pic2.zhimg.com/v2-54b9998c71c9ec5f312acea4b2603901_r.jpg",
+			"images": [
+				"https://imgservice.suning.cn/uimg1/b2c/image/vv911Qns_4th5GNJ009dzQ.png_800w_800h_4e",
+				"https://img1.baidu.com/it/u=3905784761,813784250&fm=253&fmt=auto&app=120&f=JPEG?w=667&h=500"
+			],
+			"stockNum": 80,
+			"alertNum": 10,
+			"sort": 1,
+			"specs": [
+				{
+					"name": "颜色",
+					"option": "雅典黑"
+				},
+				{
+					"name": "版本",
+					"option": "12+1TB"
+				}
+			]
+		},
+		{
+			"skuName": "华为（HUAWEI）旗舰手机 Mate 60 Pro 雅川青 12+512GB",
+			"price": 6999,
+			"image": "https://pic2.zhimg.com/v2-54b9998c71c9ec5f312acea4b2603901_r.jpg",
+			"images": [
+				"https://imgservice.suning.cn/uimg1/b2c/image/vv911Qns_4th5GNJ009dzQ.png_800w_800h_4e",
+				"https://img1.baidu.com/it/u=3905784761,813784250&fm=253&fmt=auto&app=120&f=JPEG?w=667&h=500"
+			],
+			"stockNum": 88,
+			"alertNum": 10,
+			"sort": 1,
+			"specs": [
+				{
+					"name": "颜色",
+					"option": "雅川青"
+				},
+				{
+					"name": "版本",
+					"option": "12+512GB"
+				}
+			]
+		},
+		{
+			"skuName": "华为（HUAWEI）旗舰手机 Mate 60 Pro 雅川青 12+1TB",
+			"price": 6999,
+			"image": "https://pic2.zhimg.com/v2-54b9998c71c9ec5f312acea4b2603901_r.jpg",
+			"images": [
+				"https://imgservice.suning.cn/uimg1/b2c/image/vv911Qns_4th5GNJ009dzQ.png_800w_800h_4e",
+				"https://img1.baidu.com/it/u=3905784761,813784250&fm=253&fmt=auto&app=120&f=JPEG?w=667&h=500"
+			],
+			"stockNum": 76,
+			"alertNum": 10,
+			"sort": 1,
+			"specs": [
+				{
+					"name": "颜色",
+					"option": "雅川青"
+				},
+				{
+					"name": "版本",
+					"option": "12+1TB"
+				}
+			]
+		},
+		{
+			"skuName": "华为（HUAWEI）旗舰手机 Mate 60 Pro 白沙银 12+512GB",
+			"price": 6999,
+			"image": "https://pic2.zhimg.com/v2-54b9998c71c9ec5f312acea4b2603901_r.jpg",
+			"images": [
+				"https://imgservice.suning.cn/uimg1/b2c/image/vv911Qns_4th5GNJ009dzQ.png_800w_800h_4e",
+				"https://img1.baidu.com/it/u=3905784761,813784250&fm=253&fmt=auto&app=120&f=JPEG?w=667&h=500"
+			],
+			"stockNum": 103,
+			"alertNum": 10,
+			"sort": 1,
+			"specs": [
+				{
+					"name": "颜色",
+					"option": "白沙银"
+				},
+				{
+					"name": "版本",
+					"option": "12+512GB"
+				}
+			]
+		},
+		{
+			"skuName": "华为（HUAWEI）旗舰手机 Mate 60 Pro 白沙银 12+1TB",
+			"price": 6999,
+			"image": "https://pic2.zhimg.com/v2-54b9998c71c9ec5f312acea4b2603901_r.jpg",
+			"images": [
+				"https://imgservice.suning.cn/uimg1/b2c/image/vv911Qns_4th5GNJ009dzQ.png_800w_800h_4e",
+				"https://img1.baidu.com/it/u=3905784761,813784250&fm=253&fmt=auto&app=120&f=JPEG?w=667&h=500"
+			],
+			"stockNum": 156,
+			"alertNum": 10,
+			"sort": 1,
+			"specs": [
+				{
+					"name": "颜色",
+					"option": "白沙银"
+				},
+				{
+					"name": "版本",
+					"option": "12+1TB"
+				}
+			]
+		}
+	]
+}

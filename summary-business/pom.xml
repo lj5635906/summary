@@ -14,6 +14,7 @@
         <module>summary-order</module>
         <module>summary-customer</module>
         <module>summary-goods</module>
+        <module>summary-seckill</module>
     </modules>
 
     <dependencies>
@@ -44,6 +45,17 @@
             <artifactId>component-repository</artifactId>
             <version>${summary.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.summary</groupId>
+            <artifactId>component-lock</artifactId>
+            <version>${summary.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.summary</groupId>
+            <artifactId>component-generator-id</artifactId>
+            <version>${summary.version}</version>
+        </dependency>
+
         <!-- 自定义组件 end -->
 
         <!-- client start -->

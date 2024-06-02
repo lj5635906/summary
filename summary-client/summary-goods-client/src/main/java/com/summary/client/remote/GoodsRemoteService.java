@@ -3,6 +3,7 @@ package com.summary.client.remote;
 import com.summary.client.goods.dto.CreateOrderCheckGoodsSkuDTO;
 import com.summary.client.goods.dto.GoodsDTO;
 import com.summary.client.goods.dto.GoodsSimpleDTO;
+import com.summary.client.goods.param.ChangeStockAndSaleParam;
 import com.summary.client.goods.param.CreateGoodsParam;
 import com.summary.client.goods.param.CreateOrderCheckParam;
 import com.summary.common.core.dto.R;
@@ -55,9 +56,19 @@ public interface GoodsRemoteService {
      * 获取创建订单时的商品信息
      *
      * @param params 下单check商品参数
-     * @return 商品详情简化版
+     * @return 创建订单时的商品信息
      */
-    @GetMapping("/getCreateOrderGoods")
+    @PostMapping("/getCreateOrderGoods")
     R<List<CreateOrderCheckGoodsSkuDTO>> getCreateOrderGoods(@Valid @RequestBody List<CreateOrderCheckParam> params);
+
+    /**
+     * 商品下单扣库存与增加销量
+     *
+     * @param params 下单check商品参数
+     * @return 是否成功
+     */
+    @PostMapping("/changeStockAndSale")
+    R<Boolean> changeStockAndSale(@Valid @RequestBody List<ChangeStockAndSaleParam> params);
+
 
 }

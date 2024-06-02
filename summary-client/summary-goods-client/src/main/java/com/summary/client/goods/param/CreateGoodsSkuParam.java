@@ -34,6 +34,8 @@ public class CreateGoodsSkuParam {
     @NotNull(message = "库存数量不能为空")
     @Range(message = "库存数量不合法(0-n)", min = 0)
     private Long alertNum;
+    /*** 商品sku规格 */
+    private List<CreateGoodsSkuSpecParam> specs;
     /*** 排序 */
     private Integer sort;
 }

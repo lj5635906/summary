@@ -5,6 +5,7 @@ import com.summary.biz.goods.service.GoodsSkuService;
 import com.summary.client.goods.dto.CreateOrderCheckGoodsSkuDTO;
 import com.summary.client.goods.dto.GoodsDTO;
 import com.summary.client.goods.dto.GoodsSimpleDTO;
+import com.summary.client.goods.param.ChangeStockAndSaleParam;
 import com.summary.client.goods.param.CreateGoodsParam;
 import com.summary.client.goods.param.CreateOrderCheckParam;
 import com.summary.client.remote.GoodsRemoteService;
@@ -24,7 +25,7 @@ import java.util.List;
  * @author myabtis-plus
  * @since 2024-06-01
  */
-@Controller
+@RestController
 @RequestMapping("/goods")
 public class GoodsController implements GoodsRemoteService {
 
@@ -73,10 +74,22 @@ public class GoodsController implements GoodsRemoteService {
      * 获取创建订单时的商品信息
      *
      * @param params 下单check商品参数
-     * @return 商品详情简化版
+     * @return 创建订单时的商品信息
      */
-    @GetMapping("/getCreateOrderGoods")
+    @PostMapping("/getCreateOrderGoods")
     public R<List<CreateOrderCheckGoodsSkuDTO>> getCreateOrderGoods(@Valid @RequestBody List<CreateOrderCheckParam> params) {
         return R.success(goodsSkuService.getCreateOrderGoods(params));
+    }
+
+    /**
+     * 商品下单扣库存与增加销量
+     *
+     * @param params 下单check商品参数
+     * @return 是否成功
+     */
+    @Override
+    @PostMapping("/changeStockAndSale")
+    public R<Boolean> changeStockAndSale(List<ChangeStockAndSaleParam> params) {
+        return null;
     }
 }

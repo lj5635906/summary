@@ -12,12 +12,14 @@ CREATE TABLE goods(
     sale_num                int(11)         NOT NULL    DEFAULT 0       COMMENT '销售数量',
     comment_num             int(11)         NOT NULL    DEFAULT 0       COMMENT '评论数量',
 
-    marketable              int(1)          NOT NULL    DEFAULT 0       COMMENT '是否上架: 0-已上架,1-已下架',
+    enable_marketable       int(1)          NOT NULL    DEFAULT 0       COMMENT '是否上架: 0/false-已下架,1/true-已上架',
+    enable_spec             int(1)          NOT NULL    DEFAULT 0       COMMENT '是否启用规格: 0/false-未启用,1/true-启用',
+    spec_item               json            DEFAULT NULL 	            COMMENT '规格列表',
 
-    version 				int(11) 		NOT NULL 					COMMENT '版本号',
+    version 				int(11) 		NOT NULL DEFAULT 0			COMMENT '版本号',
     create_time 			datetime 		DEFAULT CURRENT_TIMESTAMP 	COMMENT '创建时间',
     update_time 			datetime 		DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    delete_flag 			boolean 		NOT NULL 					COMMENT '删除标志(0/false-未删除,1/true-已删除)'
+    delete_flag 			boolean 		NOT NULL DEFAULT 0			COMMENT '删除标志(0/false-未删除,1/true-已删除)'
 
 )ENGINE=InnoDB CHARSET=utf8mb4 COMMENT='商品-SPU';
 
@@ -40,31 +42,50 @@ CREATE TABLE goods_sku(
     comment_num             int(11)         NOT NULL    DEFAULT 0       COMMENT '评论数量',
 
     sale_state              int(1)          NOT NULL    DEFAULT 0       COMMENT '销售状态: 0-销售中,-1-已售罄',
+    spec                    json            DEFAULT NULL 	            COMMENT '规格',
 
     sort                    int(11)         NOT NULL    DEFAULT 0       COMMENT '排序',
 
-    version 				int(11) 		NOT NULL 					COMMENT '版本号',
+    version 				int(11) 		NOT NULL DEFAULT 0			COMMENT '版本号',
     create_time 			datetime 		DEFAULT CURRENT_TIMESTAMP 	COMMENT '创建时间',
     update_time 			datetime 		DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    delete_flag 			boolean 		NOT NULL 					COMMENT '删除标志(0/false-未删除,1/true-已删除)'
+    delete_flag 			boolean 		NOT NULL DEFAULT 0			COMMENT '删除标志(0/false-未删除,1/true-已删除)',
+    KEY index_goods_id (goods_id)
 
 )ENGINE=InnoDB CHARSET=utf8mb4 COMMENT='商品-SKU';
 
+
+/* 商品规格 */
+drop table if exists goods_spec;
+CREATE TABLE goods_spec(
+    spec_id 	            bigint(20)	 	NOT NULL PRIMARY KEY 	AUTO_INCREMENT	COMMENT '商品规格id',
+
+    spec_name               varchar(25)	 	NOT NULL                    COMMENT '商品规格名称',
+    spec_options            varchar(255) 	NOT NULL				    COMMENT '商品规格选项,选项有多个通过英文逗号分隔',
+
+    sort                    int(11)         NOT NULL    DEFAULT 0       COMMENT '排序',
+
+    version 				int(11) 		NOT NULL DEFAULT 0			COMMENT '版本号',
+    create_time 			datetime 		DEFAULT CURRENT_TIMESTAMP 	COMMENT '创建时间',
+    update_time 			datetime 		DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    delete_flag 			boolean 		NOT NULL DEFAULT 0			COMMENT '删除标志(0/false-未删除,1/true-已删除)'
+
+)ENGINE=InnoDB CHARSET=utf8mb4 COMMENT='商品规格';
 
 /* 商品图片 */
 drop table if exists goods_image;
 CREATE TABLE goods_image(
     image_id 	            bigint(20)	 	NOT NULL PRIMARY KEY 	AUTO_INCREMENT	COMMENT '商品图片id',
 
-    goods_id 	            bigint(20)	 	NOT NULL                    COMMENT '商品id',
-    sku_id 	                bigint(20)	 	NOT NULL                    COMMENT '商品-skuId',
+    goods_id 	            bigint(20)	 	DEFAULT NULL                COMMENT '商品id',
+    sku_id 	                bigint(20)	 	DEFAULT NULL                COMMENT '商品-skuId',
     image_url               varchar(255) 	NOT NULL				    COMMENT '商品名称',
     image_type              varchar(10)     NOT NULL                    COMMENT '图片类型: 0-商品SPU、1-商品SKU',
 
-    version 				int(11) 		NOT NULL 					COMMENT '版本号',
+    version 				int(11) 		NOT NULL DEFAULT 0			COMMENT '版本号',
     create_time 			datetime 		DEFAULT CURRENT_TIMESTAMP 	COMMENT '创建时间',
     update_time 			datetime 		DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    delete_flag 			boolean 		NOT NULL 					COMMENT '删除标志(0/false-未删除,1/true-已删除)',
+    delete_flag 			boolean 		NOT NULL DEFAULT 0			COMMENT '删除标志(0/false-未删除,1/true-已删除)',
     KEY index_goods_id (goods_id)
 
 )ENGINE=InnoDB CHARSET=utf8mb4 COMMENT='商品图片';
@@ -78,10 +99,10 @@ CREATE TABLE goods_introduction(
     goods_id 	            bigint(20)	 	NOT NULL                    COMMENT '商品id',
     introduction            text         	NOT NULL				    COMMENT '商品介绍',
 
-    version 				int(11) 		NOT NULL 					COMMENT '版本号',
+    version 				int(11) 		NOT NULL DEFAULT 0			COMMENT '版本号',
     create_time 			datetime 		DEFAULT CURRENT_TIMESTAMP 	COMMENT '创建时间',
     update_time 			datetime 		DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    delete_flag 			boolean 		NOT NULL 					COMMENT '删除标志(0/false-未删除,1/true-已删除)',
+    delete_flag 			boolean 		NOT NULL DEFAULT 0			COMMENT '删除标志(0/false-未删除,1/true-已删除)',
     KEY index_goods_id (goods_id)
 
 )ENGINE=InnoDB CHARSET=utf8mb4 COMMENT='商品介绍';
@@ -96,10 +117,10 @@ CREATE TABLE goods_param(
     param_name              varchar(20)     NOT NULL				    COMMENT '参数名',
     param_value             varchar(125)    NOT NULL				    COMMENT '参数值',
 
-    version 				int(11) 		NOT NULL 					COMMENT '版本号',
+    version 				int(11) 		NOT NULL DEFAULT 0			COMMENT '版本号',
     create_time 			datetime 		DEFAULT CURRENT_TIMESTAMP 	COMMENT '创建时间',
     update_time 			datetime 		DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    delete_flag 			boolean 		NOT NULL 					COMMENT '删除标志(0/false-未删除,1/true-已删除)',
+    delete_flag 			boolean 		NOT NULL DEFAULT 0			COMMENT '删除标志(0/false-未删除,1/true-已删除)',
     KEY index_goods_id (goods_id)
 
 )ENGINE=InnoDB CHARSET=utf8mb4 COMMENT='商品自定义参数';
