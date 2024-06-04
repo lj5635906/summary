@@ -67,8 +67,8 @@ public class Md5Util {
         return HEX_DIG_ITS[d1] + HEX_DIG_ITS[d2];
     }
 
-    public static void main(String[] args) {
-        String utf8 = Md5Util.encrypt("123456", CHARSET_NAME);
-        System.out.println(utf8);
-    }
+//    public static void main(String[] args) {
+//        String utf8 = Md5Util.encrypt("123456", CHARSET_NAME);
+//        System.out.println(utf8);
+//    }
 }

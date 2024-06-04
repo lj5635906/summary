@@ -35,9 +35,9 @@ public class GoodsSkuDO extends BaseDO<GoodsSkuDO> {
     /*** SKU图片-展示图 */
     private String image;
     /*** 库存数量 */
-    private Long stockNum;
+    private Integer stockNum;
     /*** 库存预警数量 */
-    private Long alertNum;
+    private Integer alertNum;
     /*** 销售数量 */
     private Integer saleNum;
     /*** 评论数量 */
@@ -60,8 +60,8 @@ public class GoodsSkuDO extends BaseDO<GoodsSkuDO> {
             String skuName,
             Long price,
             String image,
-            Long stockNum,
-            Long alertNum,
+            Integer stockNum,
+            Integer alertNum,
             Integer saleNum,
             Integer commentNum,
             Integer saleState,

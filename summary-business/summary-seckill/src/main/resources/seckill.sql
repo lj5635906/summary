@@ -10,7 +10,7 @@ CREATE  TABLE  seckill_goods(
     sku_name                            varchar(50) 	        NOT NULL				    COMMENT 'SKU名称',
     sku_price                           bigint(20)              NOT NULL                    COMMENT '商品sku单价(单位/分)',
 
-    stock_num                           bigint(20)              NOT NULL                    COMMENT '库存数量',
+    stock_num                           int(11)                 NOT NULL                    COMMENT '库存数量',
 
     title   		                    varchar(125) 		    NOT NULL				    COMMENT '标题',
     seckill_price                       bigint(20)              NOT NULL                    COMMENT '秒杀价格(单位/分)',

@@ -3,6 +3,8 @@ server:
 spring:
   application:
     name: summary-seckill
+  main:
+    allow-bean-definition-overriding: true
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     url: jdbc:mysql://192.168.100.203:33306/${spring.application.name}?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&useSSL=false
@@ -14,6 +16,18 @@ spring:
         server-addr: 192.168.100.207:18848
         username: nacos
         password: nacos
+  data:
+    redis:
+      host: 192.168.100.205
+      port: 6379
+      password: 123456
+      database: 12
+      timeout: 5000
+
+rocketmq:
+  name-server: 192.168.100.205:9876
+  producer:
+    group: summary
 
 logging:
   config: classpath:logback.xml

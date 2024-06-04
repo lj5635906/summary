@@ -201,9 +201,9 @@ public class NumberUtils {
     }
 
 
-    public static void main(String[] args) {
-
-        System.out.println(new BigDecimal(10.1).compareTo(new BigDecimal(10)) > 0);
-
-    }
+//    public static void main(String[] args) {
+//
+//        System.out.println(new BigDecimal(10.1).compareTo(new BigDecimal(10)) > 0);
+//
+//    }
 }

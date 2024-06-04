@@ -9,13 +9,13 @@ import cn.hutool.jwt.signers.AlgorithmUtil;
 import cn.hutool.jwt.signers.HMacJWTSigner;
 import cn.hutool.jwt.signers.JWTSigner;
 import com.summary.common.core.dto.TokenDTO;
+import com.summary.common.core.enums.AppEnum;
 
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.summary.common.core.constant.GlobalConstant.SessionConstant.X_ADMIN_ID;
-import static com.summary.common.core.constant.GlobalConstant.SessionConstant.X_REQUEST_IP;
+import static com.summary.common.core.constant.GlobalConstant.TokenConstant.*;
 
 /**
  * jwt 工具类
@@ -120,12 +120,13 @@ public class JwtUtils {
         return payload.getClaim(claim);
     }
 
-    public static TokenDTO generateJwtTokenToAdmin(Long adminId, String requestIp) {
+    public static TokenDTO generateJwtToken(Long adminId, AppEnum appEnum, String requestIp) {
 
         TokenDTO tokenDTO = new TokenDTO();
 
         Map<String, Object> payload = new HashMap<>(3);
-        payload.put(X_ADMIN_ID, adminId);
+        payload.put(TOKEN_TYPE, appEnum.getCode());
+        payload.put(X_USER_ID, adminId);
         payload.put(X_REQUEST_IP, requestIp);
         payload.put(JWT_TOKEN_EXP_NAME, generateExpireDate(ACCESS_TOKEN_EXPIRE_TIME_WEB));
 
@@ -139,39 +140,39 @@ public class JwtUtils {
         return tokenDTO;
     }
 
-    public static void main(String[] args) {
-        Map<String, Object> payload = new HashMap<>(3);
-        payload.put(X_ADMIN_ID, "123456789");
-        payload.put(X_REQUEST_IP, "192.168.100.205");
-        payload.put(JWT_TOKEN_EXP_NAME, generateExpireDate(ACCESS_TOKEN_EXPIRE_TIME_WEB));
-
-        String token = JWTUtil.createToken(generateJwtHeader(), payload, signer);
-
-        Object adminId = JwtUtils.getPayloadClaim(token, X_ADMIN_ID);
-        Object requestIp = JwtUtils.getPayloadClaim(token, X_REQUEST_IP);
-        Object exp = JwtUtils.getPayloadClaim(token, JWT_TOKEN_EXP_NAME);
-
-        System.out.println(adminId);
-        System.out.println(requestIp);
-        System.out.println(exp);
-
-//        JWT jwt = JWTUtil.parseToken(token);
-//        JWTPayload payload1 = jwt.getPayload();
+//    public static void main(String[] args) {
+//        Map<String, Object> payload = new HashMap<>(3);
+//        payload.put(X_USER_ID, "123456789");
+//        payload.put(X_REQUEST_IP, "192.168.100.205");
+//        payload.put(JWT_TOKEN_EXP_NAME, generateExpireDate(ACCESS_TOKEN_EXPIRE_TIME_WEB));
 //
-//        System.out.println(payload1.getClaim(X_ADMIN_ID));
-//        System.out.println(payload1.getClaim(X_REQUEST_IP));
-//        System.out.println(payload1.getClaim("exp"));
-//        System.out.println(token);
-
-//        try {
-//            Thread.sleep(5000);
-//        } catch (InterruptedException e) {
-//            throw new RuntimeException(e);
-//        }
-//        boolean verify = verify(token);
-//        System.out.println(verify);
-
-
-    }
+//        String token = JWTUtil.createToken(generateJwtHeader(), payload, signer);
+//
+//        Object adminId = JwtUtils.getPayloadClaim(token, X_USER_ID);
+//        Object requestIp = JwtUtils.getPayloadClaim(token, X_REQUEST_IP);
+//        Object exp = JwtUtils.getPayloadClaim(token, JWT_TOKEN_EXP_NAME);
+//
+//        System.out.println(adminId);
+//        System.out.println(requestIp);
+//        System.out.println(exp);
+//
+////        JWT jwt = JWTUtil.parseToken(token);
+////        JWTPayload payload1 = jwt.getPayload();
+////
+////        System.out.println(payload1.getClaim(X_ADMIN_ID));
+////        System.out.println(payload1.getClaim(X_REQUEST_IP));
+////        System.out.println(payload1.getClaim("exp"));
+////        System.out.println(token);
+//
+////        try {
+////            Thread.sleep(5000);
+////        } catch (InterruptedException e) {
+////            throw new RuntimeException(e);
+////        }
+////        boolean verify = verify(token);
+////        System.out.println(verify);
+//
+//
+//    }
 
 }

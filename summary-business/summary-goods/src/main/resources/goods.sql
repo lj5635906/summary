@@ -36,8 +36,8 @@ CREATE TABLE goods_sku(
 
     image                   varchar(255) 	NOT NULL				    COMMENT 'SKU图片-展示图',
 
-    stock_num               bigint(20)      NOT NULL                    COMMENT '库存数量',
-    alert_num               bigint(20)      NOT NULL                    COMMENT '库存预警数量',
+    stock_num               int(11)         NOT NULL                    COMMENT '库存数量',
+    alert_num               int(11)         NOT NULL                    COMMENT '库存预警数量',
     sale_num                int(11)         NOT NULL    DEFAULT 0       COMMENT '销售数量',
     comment_num             int(11)         NOT NULL    DEFAULT 0       COMMENT '评论数量',
 

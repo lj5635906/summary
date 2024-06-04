@@ -80,18 +80,18 @@ public class RegexUtil {
         return compile("^(([1-9]{1}\\d*)|([0]{1}))(\\.(\\d){0,2})?$").matcher(number.toString()).matches();
     }
 
-    public static void main(String[] args) {
-
-//        System.out.println(validateNumberMaxTwoPoint(new BigDecimal(9999999.25)));
+//    public static void main(String[] args) {
+//
+////        System.out.println(validateNumberMaxTwoPoint(new BigDecimal(9999999.25)));
+////        System.out.println(validateNumberMaxTwoPoint(new BigDecimal(1)));
+//
+//
 //        System.out.println(validateNumberMaxTwoPoint(new BigDecimal(1)));
-
-
-        System.out.println(validateNumberMaxTwoPoint(new BigDecimal(1)));
-        System.out.println(validateNumberMaxTwoPoint(new BigDecimal(0)));
-        System.out.println(validateNumberMaxTwoPoint(new BigDecimal(-1)));
-        System.out.println(validateNumberMaxTwoPoint(new BigDecimal(0.5)));
-        System.out.println(validateNumberMaxTwoPoint(new BigDecimal(11.235)));
-        System.out.println(validateNumberMaxTwoPoint(new BigDecimal(11.23)));
-
-    }
+//        System.out.println(validateNumberMaxTwoPoint(new BigDecimal(0)));
+//        System.out.println(validateNumberMaxTwoPoint(new BigDecimal(-1)));
+//        System.out.println(validateNumberMaxTwoPoint(new BigDecimal(0.5)));
+//        System.out.println(validateNumberMaxTwoPoint(new BigDecimal(11.235)));
+//        System.out.println(validateNumberMaxTwoPoint(new BigDecimal(11.23)));
+//
+//    }
 }

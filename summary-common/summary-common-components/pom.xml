@@ -16,6 +16,8 @@
         <module>component-redis</module>
         <module>component-lock</module>
         <module>component-generator-id</module>
+        <module>component-mq-rocket</module>
+        <module>component-auth</module>
     </modules>
 
     <dependencies>

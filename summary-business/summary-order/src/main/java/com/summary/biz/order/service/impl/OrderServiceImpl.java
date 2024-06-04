@@ -10,7 +10,9 @@ import com.summary.biz.order.service.OrderWaterService;
 import com.summary.client.customer.code.CustomerExceptionCode;
 import com.summary.client.customer.dto.CustomerDTO;
 import com.summary.client.goods.dto.CreateOrderCheckGoodsSkuDTO;
+import com.summary.client.goods.param.ChangeStockAndSaleParam;
 import com.summary.client.goods.param.CreateOrderCheckParam;
+import com.summary.client.order.msg.OrderTimeoutCancelMsg;
 import com.summary.client.order.code.OrderExceptionCode;
 import com.summary.client.order.enums.OrderStateEnum;
 import com.summary.client.order.enums.OrderTypeEnum;
@@ -18,11 +20,17 @@ import com.summary.client.order.param.CreateOrderGoodsParam;
 import com.summary.client.order.param.CreateOrderParam;
 import com.summary.client.remote.CustomerRemoteService;
 import com.summary.client.remote.GoodsRemoteService;
+import com.summary.common.core.constant.topic.OrderTopic;
 import com.summary.common.core.dto.R;
+import com.summary.common.core.exception.CustomException;
+import com.summary.common.core.mq.MqService;
+import com.summary.common.core.mq.rocket.MessageDelayLevel;
 import com.summary.common.core.utils.Assert;
 import com.summary.common.core.utils.ConvertUtils;
+import com.summary.common.core.utils.UUIDUtils;
 import com.summary.common.core.utils.VerificationUtil;
 import com.summary.component.generator.id.snowflake.IdWorker;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -32,6 +40,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import static com.summary.client.goods.code.GoodsExceptionCode.goods_stock_lack;
 import static com.summary.common.core.constant.GlobalConstant.DefaultConstant.ZERO_LONG;
 
 /**
@@ -42,6 +51,7 @@ import static com.summary.common.core.constant.GlobalConstant.DefaultConstant.ZE
  * @author myabtis-plus
  * @since 2024-05-31
  */
+@Slf4j
 @Service
 public class OrderServiceImpl extends ServiceImpl<OrderMapper, OrderDO> implements OrderService {
 
@@ -53,6 +63,10 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, OrderDO> implemen
     private OrderItemService orderItemService;
     @Autowired
     private OrderWaterService orderWaterService;
+    @Autowired
+    private OrderMapper orderMapper;
+    @Autowired
+    private MqService mqService;
 
     @Override
     public Long createOrder(CreateOrderParam param) {
@@ -74,12 +88,95 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, OrderDO> implemen
         // 构建商品类目并计算价格
         List<OrderItemDO> orderItems = buildOrderItemDO(order, buyGoods, goodsSkus);
 
+        // 商品下单扣库存与增加销量
+        R<Boolean> stockAndSaleResponse = goodsRemoteService.changeStockAndSale(order.getOrderId(), buildChangeStockAndSaleParam(orderItems));
+        // false 代表扣库存失败
+        boolean success = null != stockAndSaleResponse && null != stockAndSaleResponse.getData() && stockAndSaleResponse.getData();
+        Assert.isFalse(success, new CustomException(goods_stock_lack));
+
         // 保存订单相关数据
         this.save(order);
         orderItemService.saveBatch(orderItems);
         orderWaterService.saveCreateOrderWater(order.getOrderId());
 
+        // 发送订单超时未支付 取消订单消息
+        sendOrderTimeoutCancelMsg(order.getOrderId());
+
         return order.getOrderId();
+    }
+
+    /**
+     * 发送订单超时未支付取消订单消息
+     *
+     * @param orderId orderId
+     */
+    private void sendOrderTimeoutCancelMsg(Long orderId) {
+        OrderTimeoutCancelMsg orderTimeoutCancelMsg = OrderTimeoutCancelMsg.builder()
+                .messageId(UUIDUtils.generateUuid())
+                .orderId(orderId)
+                .build();
+        mqService.sendDelayed(OrderTopic.OrderTimeoutCancel.DESTINATION, orderTimeoutCancelMsg, MessageDelayLevel.LEVEL_5);
+    }
+
+    @Override
+    public void orderTimeoutCancel(Long orderId) {
+        OrderDO orderDO = this.getById(orderId);
+        if (null == orderDO) {
+            log.error("订单不存在，orderId: {}", orderId);
+            return;
+        }
+
+        // 订单状态
+        OrderStateEnum orderState = OrderStateEnum.getByCode(orderDO.getOrderState());
+
+        if (!OrderStateEnum.WAIT_PAY.equals(orderState)) {
+            log.error("订单【orderId : {}】状态为: {}，不能进行取消订单", orderId, orderState.getMessage());
+            return;
+        }
+
+        // 修改订单状态
+        OrderDO modify = OrderDO.builder()
+                .orderId(orderDO.getOrderId())
+                .orderState(OrderStateEnum.TIME_OUT_CANCEL.getCode())
+                .orderStateDesc(OrderStateEnum.TIME_OUT_CANCEL.getMessage()).build();
+        orderMapper.updateById(modify);
+
+        // 添加订单流水
+        orderWaterService.saveOrderTimeoutCancelWater(orderId);
+
+        // 商品恢复库存&销量
+        List<OrderItemDO> orderItems = orderItemService.getOrderItems(orderId);
+        if (CollectionUtils.isEmpty(orderItems)) {
+            return;
+        }
+
+        for (OrderItemDO orderItem : orderItems) {
+            ChangeStockAndSaleParam param = new ChangeStockAndSaleParam();
+            param.setGoodsId(orderItem.getGoodsId());
+            param.setSkuId(orderItem.getSkuId());
+            param.setNum(orderItem.getBuyNumber());
+            // 订单取消 恢复 库存与销量
+            goodsRemoteService.recoveryStockAndSale(orderId, param);
+        }
+    }
+
+    /**
+     * 构建 商品下单扣库存与增加销量
+     *
+     * @param orderItems 订单明细
+     * @return .
+     */
+    private List<ChangeStockAndSaleParam> buildChangeStockAndSaleParam(List<OrderItemDO> orderItems) {
+        List<ChangeStockAndSaleParam> params = new ArrayList<>(orderItems.size());
+        ChangeStockAndSaleParam param = null;
+        for (OrderItemDO orderItem : orderItems) {
+            param = new ChangeStockAndSaleParam();
+            param.setNum(orderItem.getBuyNumber());
+            param.setSkuId(orderItem.getSkuId());
+            param.setGoodsId(orderItem.getGoodsId());
+            params.add(param);
+        }
+        return params;
     }
 
     /**

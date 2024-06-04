@@ -62,8 +62,9 @@ public class GlobalConstant {
     /**
      * session中存储字段名
      */
-    public interface SessionConstant {
-        String X_ADMIN_ID = "x-admin-id";
+    public interface TokenConstant {
+        String TOKEN_TYPE = "x-token-type";
+        String X_USER_ID = "x-user-id";
         String X_REQUEST_IP = "x-request-ip";
     }
 
@@ -75,6 +76,41 @@ public class GlobalConstant {
          * 分布式锁前缀
          */
         String LOCK_NAME = "global:lock:";
+        /**
+         * 秒杀商品
+         * hash
+         * key=seckill:goods
+         * map=<seckillId,goods>
+         */
+        String SECKILL_GOODS = "seckill:goods";
+        /**
+         * 秒杀商品库存列表
+         * list
+         * key=seckill:goods:stock:seckillId
+         * value=商品的库存列表，该商品的每个库存存储一个元素
+         */
+        String SECKILL_GOODS_STOCK = "seckill:goods:stock:";
+        /**
+         * 秒杀用户标识
+         * hash
+         * key=seckill:user::seckillId
+         * map=<userid,参与秒杀次数>
+         */
+        String SECKILL_USER = "seckill:user:";
+        /**
+         * 秒杀状态
+         * hash
+         * key=seckill:state::seckillId
+         * map=<userid,秒杀状态信息>
+         */
+        String SECKILL_STATE = "seckill:state:";
+        /**
+         * 秒杀订单
+         * hash
+         * key=seckill:order::seckillId
+         * map=<userid,秒杀订单信息>
+         */
+        String SECKILL_ORDER = "seckill:order:";
     }
 
 }

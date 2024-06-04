@@ -10,18 +10,11 @@
     <artifactId>summary-front</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>summary-front-admin</module>
+        <module>summary-front-manager</module>
+        <module>summary-front-web</module>
     </modules>
 
     <dependencies>
-        <!-- client start -->
-        <dependency>
-            <groupId>com.summary</groupId>
-            <artifactId>summary-authority-client</artifactId>
-            <version>${summary.version}</version>
-        </dependency>
-        <!-- client end -->
-
         <!-- 自定义组件 start -->
         <dependency>
             <groupId>com.summary</groupId>
@@ -38,15 +31,50 @@
             <artifactId>component-exception</artifactId>
             <version>${summary.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.summary</groupId>
+            <artifactId>component-redis</artifactId>
+            <version>${summary.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.summary</groupId>
+            <artifactId>component-mq-rocket</artifactId>
+            <version>${summary.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.summary</groupId>
+            <artifactId>component-auth</artifactId>
+            <version>${summary.version}</version>
+        </dependency>
         <!-- 自定义组件 end -->
 
-        <!-- dubbo start -->
+        <!-- client start -->
         <dependency>
-            <groupId>org.apache.dubbo</groupId>
-            <artifactId>dubbo-spring-boot-starter</artifactId>
+            <groupId>com.summary</groupId>
+            <artifactId>summary-authority-client</artifactId>
+            <version>${summary.version}</version>
         </dependency>
-        <!-- dubbo end -->
-
+        <dependency>
+            <groupId>com.summary</groupId>
+            <artifactId>summary-customer-client</artifactId>
+            <version>${summary.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.summary</groupId>
+            <artifactId>summary-order-client</artifactId>
+            <version>${summary.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.summary</groupId>
+            <artifactId>summary-goods-client</artifactId>
+            <version>${summary.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.summary</groupId>
+            <artifactId>summary-seckill-client</artifactId>
+            <version>${summary.version}</version>
+        </dependency>
+        <!-- client end -->
 
         <!-- 声明式服务调用组件 openfeign start -->
         <dependency>
@@ -95,4 +123,5 @@
             <optional>true</optional>
         </dependency>
     </dependencies>
+
 </project>

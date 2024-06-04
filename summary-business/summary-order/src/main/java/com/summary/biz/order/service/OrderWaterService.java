@@ -19,4 +19,10 @@ public interface OrderWaterService extends IService<OrderWaterDO> {
      * @param orderId 订单号
      */
     void saveCreateOrderWater(Long orderId);
+
+    /**
+     * 订单超时未支付，取消订单
+     * @param orderId 订单号
+     */
+    void saveOrderTimeoutCancelWater(Long orderId);
 }

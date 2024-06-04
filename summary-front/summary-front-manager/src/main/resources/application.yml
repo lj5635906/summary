@@ -1,0 +1,38 @@
+server:
+  port: 8090
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  application:
+    name: summary-front-manager
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.100.207:18848
+        username: nacos
+        password: nacos
+  data:
+    redis:
+      host: 192.168.100.205
+      port: 6379
+      password: 123456
+      database: 12
+      timeout: 5000
+
+rocketmq:
+  name-server: 192.168.100.205:9876
+  producer:
+    group: summary
+
+logging:
+  config: classpath:logback.xml
+  level:
+    com.summary: debug
+    com.alibaba: debug
+
+# 不鉴权的链接
+summary:
+  auth:
+    anon:
+      path:
+        - /admin/login/username

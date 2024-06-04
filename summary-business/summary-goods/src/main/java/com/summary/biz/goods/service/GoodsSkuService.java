@@ -3,6 +3,7 @@ package com.summary.biz.goods.service;
 import com.summary.biz.goods.entity.GoodsSkuDO;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.summary.client.goods.dto.CreateOrderCheckGoodsSkuDTO;
+import com.summary.client.goods.param.ChangeStockAndSaleParam;
 import com.summary.client.goods.param.CreateGoodsSkuParam;
 import com.summary.client.goods.param.CreateOrderCheckParam;
 
@@ -41,4 +42,22 @@ public interface GoodsSkuService extends IService<GoodsSkuDO> {
      * @return 商品skus
      */
     List<CreateOrderCheckGoodsSkuDTO> getCreateOrderGoods(List<CreateOrderCheckParam> params);
+
+    /**
+     * 商品下单扣库存与增加销量
+     *
+     * @param orderId 订单id
+     * @param params  下单商品sku
+     * @return 是否成功
+     */
+    void changeStockAndSale(Long orderId, List<ChangeStockAndSaleParam> params);
+
+    /**
+     * 订单取消，恢复 库存与销量
+     *
+     * @param orderId orderId 订单id
+     * @param param   商品参数
+     * @return 是否成功
+     */
+    void recoveryStockAndSale(Long orderId, ChangeStockAndSaleParam param);
 }

@@ -23,9 +23,9 @@ public class GoodsSkuDTO {
     /*** SKU图片 */
     private List<String> images;
     /*** 库存数量 */
-    private Long stockNum;
+    private Integer stockNum;
     /*** 库存预警数量 */
-    private Long alertNum;
+    private Integer alertNum;
     /*** 销售数量 */
     private Integer saleNum;
     /*** 评论数量 */

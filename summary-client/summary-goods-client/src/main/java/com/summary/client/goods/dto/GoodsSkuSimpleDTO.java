@@ -18,7 +18,7 @@ public class GoodsSkuSimpleDTO {
     /*** 价格(单位/分) */
     private Long price;
     /*** 库存数量 */
-    private Long stockNum;
+    private Integer stockNum;
     /*** 销售状态: 0-销售中,-1-已售罄 */
     private Integer saleState;
 }

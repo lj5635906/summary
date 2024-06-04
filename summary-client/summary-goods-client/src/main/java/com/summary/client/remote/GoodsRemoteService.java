@@ -64,11 +64,21 @@ public interface GoodsRemoteService {
     /**
      * 商品下单扣库存与增加销量
      *
-     * @param params 下单check商品参数
+     * @param orderId orderId 订单id
+     * @param params  下单check商品参数
      * @return 是否成功
      */
     @PostMapping("/changeStockAndSale")
-    R<Boolean> changeStockAndSale(@Valid @RequestBody List<ChangeStockAndSaleParam> params);
+    R<Boolean> changeStockAndSale(@RequestParam("orderId") Long orderId, @Valid @RequestBody List<ChangeStockAndSaleParam> params);
 
+    /**
+     * 订单取消，恢复 库存与销量
+     *
+     * @param orderId orderId 订单id
+     * @param param   商品参数
+     * @return 是否成功
+     */
+    @PostMapping("/recoveryStockAndSale")
+    R<Boolean> recoveryStockAndSale(@RequestParam("orderId") Long orderId, @Valid @RequestBody ChangeStockAndSaleParam param);
 
 }

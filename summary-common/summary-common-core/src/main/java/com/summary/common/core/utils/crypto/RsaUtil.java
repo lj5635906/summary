@@ -152,38 +152,38 @@ public class RsaUtil {
         return new String(cipher.doFinal(byteArray));
     }
 
-    public static void main(String[] args) {
-
-//        String encrypt = RsaUtil.encrypt("123456");
-//        System.out.println("encrypt: " + encrypt);
-//        String decrypt = RsaUtil.decrypt(encrypt);
-//        System.out.println("decrypt: " + decrypt);
+//    public static void main(String[] args) {
+//
+////        String encrypt = RsaUtil.encrypt("123456");
+////        System.out.println("encrypt: " + encrypt);
+////        String decrypt = RsaUtil.decrypt(encrypt);
+////        System.out.println("decrypt: " + decrypt);
+////
+////
+////        String privateKey = RsaUtil.generatePrivateKey();
+////        String publicKey = RsaUtil.generatePublicKey();
+////        System.out.println("privateKey: " + privateKey);
+////        System.out.println("publicKey: " + publicKey);
+////        System.out.println();
+////
+////        String encrypt1 = RsaUtil.encrypt("123456789", publicKey);
+////        System.out.println("encrypt1: " + encrypt1);
+////        String decrypt1 = RsaUtil.decrypt(encrypt1, privateKey);
+////        System.out.println("decrypt1: " + decrypt1);
+////
+////        String e2 = "kUsjhFb3lpq4l2XegliufHFfr31ZwsE1jTRc3GktH+9T0GhCFTIHYiBPh9k5cOuZFncS0J1AVtDPdV0peLZYx9172nVomK+lr7pbUi50s1ZpEdWScdVj7IY3KhTQUeS+EfU9iw0RhXEjN/xPbSm8FaGCmu4FPTPaMfoqcugrT0g=";
+////        System.out.println(RsaUtil.decrypt(e2));
 //
 //
-//        String privateKey = RsaUtil.generatePrivateKey();
-//        String publicKey = RsaUtil.generatePublicKey();
-//        System.out.println("privateKey: " + privateKey);
-//        System.out.println("publicKey: " + publicKey);
-//        System.out.println();
+////        String data = "510902199309117833";
+////        String encrypt1 = RsaUtil.encrypt(data, "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCSCSz8bGAlifXmzSRbZmFlNaO0urwWNy48QPPJ6tNAWHQsQhZ2UVHIDXovfovTw7cUcuprdsuFxjtH58+Mw2rIvtFvdLuKHDcRZzhR+C8tS/ucsRh1KEKitQlMQZ/iFqxe4KSvpz5ZsTzellcehLwzTZ0+zO/apERts1pLtwMaUwIDAQAB");
+////        System.out.println("加密前：" + data);
+////        System.out.println("加密后：" + encrypt1);
+////        System.out.println("解密后：" + RsaUtil.decrypt(encrypt1,"MIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBAJIJLPxsYCWJ9ebNJFtmYWU1o7S6vBY3LjxA88nq00BYdCxCFnZRUcgNei9+i9PDtxRy6mt2y4XGO0fnz4zDasi+0W90u4ocNxFnOFH4Ly1L+5yxGHUoQqK1CUxBn+IWrF7gpK+nPlmxPN6WVx6EvDNNnT7M79qkRG2zWku3AxpTAgMBAAECgYBvGAvg+5Eo/YrTybuezIPLOsMO+f+b5t6Fd+P992Y9zQyTnrL3z2UnixkoiFxW/MyKAeHTXsv1OJhgWzjJHOBeKqZITgA1GI0ODWtuGn60RLqa+qe1K1vnRg+aTL2RXUF5VV+hsv/S/2LrdBHUFu7jXGutEKlrv6BZT5GfnWT4AQJBAOxmWb8n0rGUM0jf80fT/U7aESZXEqPw+kl/8vKQITOMaxG//W144Mj0l+NptJkHx6TkFtH+xW65Mzz/96m9H+MCQQCeJNNjDE51JCXzqD/EgD8WhfEkie4V0BVZgkgTIQQeLkvDQ2LuWAJG+oAXLCO2x9a7tNXXqcoSUZc3sYAszEbRAkEAtJVO824pTcvHDWE+B12R//0m4qHbNG7t0t2xqceeBTG7zJhbsJeJJxlpOahS9B90S6qNICc9jGJfGLbz6q71PwJAI/Yt1605viudMb5F2fJr5jxJLMzsxisOX89fgnIUlKRkeB+/xIFg6zEVpa9U48Cn1QF3S1aB7A5/u5tykT1WsQJAK7yLUHgNgjVART41WYOpmxVrZ9Clewn37fyCS/n5sTUn7yMVWhx3aDI4MAyWDDrPBBdbCFs25154VJynZR0Srg=="));
 //
-//        String encrypt1 = RsaUtil.encrypt("123456789", publicKey);
-//        System.out.println("encrypt1: " + encrypt1);
+//        String encrypt1 = "gDNPHkUuMctPaB6dZAiEHGIN7g7SwR1rvHUlFUevFx1w8y+OyXSgaM1fpBA1CBbw9Ho80o0scTcrgLYsZ2xqTvSlOP4AhsC9/xTBHzBKYPh6KqC99lT3xF1Dqrss/0VyyWMCUqEgsJX9c0Sbq4CZEyGe1upeQBZNOlt9EXBNCjA=";
+//        String privateKey = "MIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBAJIJLPxsYCWJ9ebNJFtmYWU1o7S6vBY3LjxA88nq00BYdCxCFnZRUcgNei9+i9PDtxRy6mt2y4XGO0fnz4zDasi+0W90u4ocNxFnOFH4Ly1L+5yxGHUoQqK1CUxBn+IWrF7gpK+nPlmxPN6WVx6EvDNNnT7M79qkRG2zWku3AxpTAgMBAAECgYBvGAvg+5Eo/YrTybuezIPLOsMO+f+b5t6Fd+P992Y9zQyTnrL3z2UnixkoiFxW/MyKAeHTXsv1OJhgWzjJHOBeKqZITgA1GI0ODWtuGn60RLqa+qe1K1vnRg+aTL2RXUF5VV+hsv/S/2LrdBHUFu7jXGutEKlrv6BZT5GfnWT4AQJBAOxmWb8n0rGUM0jf80fT/U7aESZXEqPw+kl/8vKQITOMaxG//W144Mj0l+NptJkHx6TkFtH+xW65Mzz/96m9H+MCQQCeJNNjDE51JCXzqD/EgD8WhfEkie4V0BVZgkgTIQQeLkvDQ2LuWAJG+oAXLCO2x9a7tNXXqcoSUZc3sYAszEbRAkEAtJVO824pTcvHDWE+B12R//0m4qHbNG7t0t2xqceeBTG7zJhbsJeJJxlpOahS9B90S6qNICc9jGJfGLbz6q71PwJAI/Yt1605viudMb5F2fJr5jxJLMzsxisOX89fgnIUlKRkeB+/xIFg6zEVpa9U48Cn1QF3S1aB7A5/u5tykT1WsQJAK7yLUHgNgjVART41WYOpmxVrZ9Clewn37fyCS/n5sTUn7yMVWhx3aDI4MAyWDDrPBBdbCFs25154VJynZR0Srg==";
 //        String decrypt1 = RsaUtil.decrypt(encrypt1, privateKey);
 //        System.out.println("decrypt1: " + decrypt1);
-//
-//        String e2 = "kUsjhFb3lpq4l2XegliufHFfr31ZwsE1jTRc3GktH+9T0GhCFTIHYiBPh9k5cOuZFncS0J1AVtDPdV0peLZYx9172nVomK+lr7pbUi50s1ZpEdWScdVj7IY3KhTQUeS+EfU9iw0RhXEjN/xPbSm8FaGCmu4FPTPaMfoqcugrT0g=";
-//        System.out.println(RsaUtil.decrypt(e2));
-
-
-//        String data = "510902199309117833";
-//        String encrypt1 = RsaUtil.encrypt(data, "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCSCSz8bGAlifXmzSRbZmFlNaO0urwWNy48QPPJ6tNAWHQsQhZ2UVHIDXovfovTw7cUcuprdsuFxjtH58+Mw2rIvtFvdLuKHDcRZzhR+C8tS/ucsRh1KEKitQlMQZ/iFqxe4KSvpz5ZsTzellcehLwzTZ0+zO/apERts1pLtwMaUwIDAQAB");
-//        System.out.println("加密前：" + data);
-//        System.out.println("加密后：" + encrypt1);
-//        System.out.println("解密后：" + RsaUtil.decrypt(encrypt1,"MIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBAJIJLPxsYCWJ9ebNJFtmYWU1o7S6vBY3LjxA88nq00BYdCxCFnZRUcgNei9+i9PDtxRy6mt2y4XGO0fnz4zDasi+0W90u4ocNxFnOFH4Ly1L+5yxGHUoQqK1CUxBn+IWrF7gpK+nPlmxPN6WVx6EvDNNnT7M79qkRG2zWku3AxpTAgMBAAECgYBvGAvg+5Eo/YrTybuezIPLOsMO+f+b5t6Fd+P992Y9zQyTnrL3z2UnixkoiFxW/MyKAeHTXsv1OJhgWzjJHOBeKqZITgA1GI0ODWtuGn60RLqa+qe1K1vnRg+aTL2RXUF5VV+hsv/S/2LrdBHUFu7jXGutEKlrv6BZT5GfnWT4AQJBAOxmWb8n0rGUM0jf80fT/U7aESZXEqPw+kl/8vKQITOMaxG//W144Mj0l+NptJkHx6TkFtH+xW65Mzz/96m9H+MCQQCeJNNjDE51JCXzqD/EgD8WhfEkie4V0BVZgkgTIQQeLkvDQ2LuWAJG+oAXLCO2x9a7tNXXqcoSUZc3sYAszEbRAkEAtJVO824pTcvHDWE+B12R//0m4qHbNG7t0t2xqceeBTG7zJhbsJeJJxlpOahS9B90S6qNICc9jGJfGLbz6q71PwJAI/Yt1605viudMb5F2fJr5jxJLMzsxisOX89fgnIUlKRkeB+/xIFg6zEVpa9U48Cn1QF3S1aB7A5/u5tykT1WsQJAK7yLUHgNgjVART41WYOpmxVrZ9Clewn37fyCS/n5sTUn7yMVWhx3aDI4MAyWDDrPBBdbCFs25154VJynZR0Srg=="));
-
-        String encrypt1 = "gDNPHkUuMctPaB6dZAiEHGIN7g7SwR1rvHUlFUevFx1w8y+OyXSgaM1fpBA1CBbw9Ho80o0scTcrgLYsZ2xqTvSlOP4AhsC9/xTBHzBKYPh6KqC99lT3xF1Dqrss/0VyyWMCUqEgsJX9c0Sbq4CZEyGe1upeQBZNOlt9EXBNCjA=";
-        String privateKey = "MIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBAJIJLPxsYCWJ9ebNJFtmYWU1o7S6vBY3LjxA88nq00BYdCxCFnZRUcgNei9+i9PDtxRy6mt2y4XGO0fnz4zDasi+0W90u4ocNxFnOFH4Ly1L+5yxGHUoQqK1CUxBn+IWrF7gpK+nPlmxPN6WVx6EvDNNnT7M79qkRG2zWku3AxpTAgMBAAECgYBvGAvg+5Eo/YrTybuezIPLOsMO+f+b5t6Fd+P992Y9zQyTnrL3z2UnixkoiFxW/MyKAeHTXsv1OJhgWzjJHOBeKqZITgA1GI0ODWtuGn60RLqa+qe1K1vnRg+aTL2RXUF5VV+hsv/S/2LrdBHUFu7jXGutEKlrv6BZT5GfnWT4AQJBAOxmWb8n0rGUM0jf80fT/U7aESZXEqPw+kl/8vKQITOMaxG//W144Mj0l+NptJkHx6TkFtH+xW65Mzz/96m9H+MCQQCeJNNjDE51JCXzqD/EgD8WhfEkie4V0BVZgkgTIQQeLkvDQ2LuWAJG+oAXLCO2x9a7tNXXqcoSUZc3sYAszEbRAkEAtJVO824pTcvHDWE+B12R//0m4qHbNG7t0t2xqceeBTG7zJhbsJeJJxlpOahS9B90S6qNICc9jGJfGLbz6q71PwJAI/Yt1605viudMb5F2fJr5jxJLMzsxisOX89fgnIUlKRkeB+/xIFg6zEVpa9U48Cn1QF3S1aB7A5/u5tykT1WsQJAK7yLUHgNgjVART41WYOpmxVrZ9Clewn37fyCS/n5sTUn7yMVWhx3aDI4MAyWDDrPBBdbCFs25154VJynZR0Srg==";
-        String decrypt1 = RsaUtil.decrypt(encrypt1, privateKey);
-        System.out.println("decrypt1: " + decrypt1);
-    }
+//    }
 }

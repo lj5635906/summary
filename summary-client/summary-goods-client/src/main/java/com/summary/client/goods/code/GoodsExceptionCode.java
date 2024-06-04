@@ -17,6 +17,7 @@ public enum GoodsExceptionCode implements CustomCodeService {
      * 业务模块-权限服务-异常码
      */
     goods_non_existent(30000, "商品信息为空"),
+    goods_stock_lack(30001, "商品库存不足"),
 
     UNKNOWN_EXCEPTION(-1, "未知错误");
 

@@ -23,7 +23,7 @@ import java.time.LocalDateTime;
 public class SeckillGoodsDO extends BaseDO<SeckillGoodsDO> {
 
     private static final long serialVersionUID = 1L;
-    /*** 主键id */
+    /*** 秒杀id */
     @TableId(value = "seckill_id", type = IdType.AUTO)
     private Long seckillId;
     /*** 商品id */
@@ -37,27 +37,14 @@ public class SeckillGoodsDO extends BaseDO<SeckillGoodsDO> {
     /*** 商品sku单价(单位/分) */
     private Long skuPrice;
     /*** 库存数量 */
-    private Long stockNum;
+    private Integer stockNum;
     /*** 标题 */
     private String title;
     /*** 秒杀价格(单位/分) */
     private Long seckillPrice;
 
     @Builder
-    public SeckillGoodsDO(
-            Integer version,
-            LocalDateTime createTime,
-            LocalDateTime updateTime,
-            Boolean deleteFlag,
-            Long seckillId,
-            Long goodsId,
-            String goodsName,
-            Long skuId,
-            String skuName,
-            Long skuPrice,
-            String title,
-            Long seckillPrice
-    ) {
+    public SeckillGoodsDO(Integer version, LocalDateTime createTime, LocalDateTime updateTime, Boolean deleteFlag, Long seckillId, Long goodsId, String goodsName, Long skuId, String skuName, Long skuPrice, Integer stockNum, String title, Long seckillPrice) {
         super(version, createTime, updateTime, deleteFlag);
         this.seckillId = seckillId;
         this.goodsId = goodsId;
@@ -65,6 +52,7 @@ public class SeckillGoodsDO extends BaseDO<SeckillGoodsDO> {
         this.skuId = skuId;
         this.skuName = skuName;
         this.skuPrice = skuPrice;
+        this.stockNum = stockNum;
         this.title = title;
         this.seckillPrice = seckillPrice;
     }

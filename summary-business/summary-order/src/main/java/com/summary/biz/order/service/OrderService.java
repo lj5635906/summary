@@ -21,4 +21,11 @@ public interface OrderService extends IService<OrderDO> {
      * @return orderId
      */
     Long createOrder(CreateOrderParam param);
+
+    /**
+     * 订单超时未支付，取消订单
+     *
+     * @param orderId 订单id
+     */
+    void orderTimeoutCancel(Long orderId);
 }

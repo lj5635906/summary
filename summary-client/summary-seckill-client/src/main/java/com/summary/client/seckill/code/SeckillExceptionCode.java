@@ -16,7 +16,8 @@ public enum SeckillExceptionCode implements CustomCodeService {
     /**
      * 业务模块-权限服务-异常码
      */
-    xxxx(50000, "xxxxxx"),
+    seckill_customer_only(50000, "已经参与当前秒杀"),
+    seckill_end(50000, "当前秒杀已经结束"),
 
     UNKNOWN_EXCEPTION(-1, "未知错误");
 

@@ -109,7 +109,7 @@ public class GeneratorWorkData {
         Set<String> keys = redisTemplate.keys(String.format(DATA_ID_CACHE_KEY, workId) + "*");
 
         if (CollectionUtils.isEmpty(keys)) {
-            log.debug("当前设备 {} 未启动服务， dataId : {}", workId, INIT_DATA_ID);
+            log.info("当前设备 {} 未启动服务， dataId : {}", workId, INIT_DATA_ID);
             valueOperations.set(String.format(DATA_ID_CACHE_KEY, workId) + INIT_DATA_ID, String.valueOf(INIT_DATA_ID), 60, TimeUnit.SECONDS);
             return INIT_DATA_ID;
         }

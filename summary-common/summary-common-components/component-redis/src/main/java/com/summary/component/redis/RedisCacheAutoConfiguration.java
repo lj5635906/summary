@@ -43,7 +43,7 @@ public class RedisCacheAutoConfiguration {
         // value序列化
         template.setValueSerializer(redisSerializer);
         // hash key序列化
-        template.setHashKeySerializer(StringRedisSerializer.UTF_8);
+//        template.setHashKeySerializer(StringRedisSerializer.UTF_8);
         // value
         template.setHashValueSerializer(redisSerializer);
         template.setConnectionFactory(redisConnectionFactory);

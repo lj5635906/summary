@@ -30,4 +30,18 @@ public class OrderWaterServiceImpl extends ServiceImpl<OrderWaterMapper, OrderWa
                 .build();
         this.save(waterDO);
     }
+
+    @Override
+    public void saveOrderTimeoutCancelWater(Long orderId) {
+        OrderWaterDO waterDO = OrderWaterDO.builder()
+                .waterId(IdWorker.nextId())
+                .orderId(orderId)
+                .fromOrderState(OrderStateEnum.WAIT_PAY.getCode())
+                .fromOrderStateDesc(OrderStateEnum.WAIT_PAY.getMessage())
+                .toOrderState(OrderStateEnum.TIME_OUT_CANCEL.getCode())
+                .toOrderStateDesc(OrderStateEnum.TIME_OUT_CANCEL.getMessage())
+                .remark("订单超时未支付，取消订单")
+                .build();
+        this.save(waterDO);
+    }
 }

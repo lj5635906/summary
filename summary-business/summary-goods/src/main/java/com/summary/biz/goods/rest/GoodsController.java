@@ -84,12 +84,27 @@ public class GoodsController implements GoodsRemoteService {
     /**
      * 商品下单扣库存与增加销量
      *
-     * @param params 下单check商品参数
+     * @param params 下单商品sku
      * @return 是否成功
      */
     @Override
     @PostMapping("/changeStockAndSale")
-    public R<Boolean> changeStockAndSale(List<ChangeStockAndSaleParam> params) {
-        return null;
+    public R<Boolean> changeStockAndSale(@RequestParam("orderId") Long orderId, @Valid @RequestBody List<ChangeStockAndSaleParam> params) {
+        goodsSkuService.changeStockAndSale(orderId, params);
+        return R.success(true);
+    }
+
+    /**
+     * 订单取消，恢复 库存与销量
+     *
+     * @param orderId orderId 订单id
+     * @param param   商品参数
+     * @return 是否成功
+     */
+    @Override
+    @PostMapping("/recoveryStockAndSale")
+    public R<Boolean> recoveryStockAndSale(Long orderId, ChangeStockAndSaleParam param) {
+        goodsSkuService.recoveryStockAndSale(orderId, param);
+        return R.success(true);
     }
 }

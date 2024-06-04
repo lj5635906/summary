@@ -156,20 +156,20 @@ public class DesUtil {
         return cipher.doFinal(data);
     }
 
-    public static void main(String[] args) {
-        String data = "123124151321";
-        String key = "qwerrewq";
-        System.out.println("加密前===>" + data);
-        try {
-            String jiamihou1 = encrypt(data);
-            String jiamihou2 = encrypt(data);
-            System.out.println("加密后1===>" + jiamihou1);
-            System.out.println("解密后1===>" + decrypt(jiamihou1));
-
-            System.out.println("加密后2===>" + jiamihou2);
-            System.out.println("解密后2===>" + decrypt(jiamihou2));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+//    public static void main(String[] args) {
+//        String data = "123124151321";
+//        String key = "qwerrewq";
+//        System.out.println("加密前===>" + data);
+//        try {
+//            String jiamihou1 = encrypt(data);
+//            String jiamihou2 = encrypt(data);
+//            System.out.println("加密后1===>" + jiamihou1);
+//            System.out.println("解密后1===>" + decrypt(jiamihou1));
+//
+//            System.out.println("加密后2===>" + jiamihou2);
+//            System.out.println("解密后2===>" + decrypt(jiamihou2));
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
 }

@@ -47,12 +47,27 @@
         </dependency>
         <dependency>
             <groupId>com.summary</groupId>
+            <artifactId>component-redis</artifactId>
+            <version>${summary.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.summary</groupId>
             <artifactId>component-lock</artifactId>
             <version>${summary.version}</version>
         </dependency>
         <dependency>
             <groupId>com.summary</groupId>
             <artifactId>component-generator-id</artifactId>
+            <version>${summary.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.summary</groupId>
+            <artifactId>component-mq-rocket</artifactId>
+            <version>${summary.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.summary</groupId>
+            <artifactId>component-auth</artifactId>
             <version>${summary.version}</version>
         </dependency>
 
@@ -77,6 +92,11 @@
         <dependency>
             <groupId>com.summary</groupId>
             <artifactId>summary-goods-client</artifactId>
+            <version>${summary.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.summary</groupId>
+            <artifactId>summary-seckill-client</artifactId>
             <version>${summary.version}</version>
         </dependency>
 
@@ -125,16 +145,4 @@
         </dependency>
     </dependencies>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-deploy-plugin</artifactId>
-                <version>3.1.2</version>
-                <configuration>
-                    <skip>true</skip>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
 </project>
