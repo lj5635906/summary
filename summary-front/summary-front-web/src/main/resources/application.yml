@@ -34,5 +34,5 @@ logging:
 summary:
   auth:
     anon:
-      path:
+      paths:
 #        - /admin/login/username

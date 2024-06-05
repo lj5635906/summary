@@ -1,5 +1,5 @@
 server:
-  port: 20200
+  port: 5000
 spring:
   main:
     allow-bean-definition-overriding: true
@@ -32,22 +32,34 @@ spring:
         - id: front-manager
           uri: lb://summary-front-manager
           predicates:
-            - Path=/api/manager/*
+            - Path=/api/manager/**
           filters:
             - StripPrefix=1
         - id: front-web
           uri: lb://summary-front-web
           predicates:
-            - Path=/api/web/*
+            - Path=/api/web/**
           filters:
             - StripPrefix=1
             # #请求数限流
-  #            - name: RequestRateLimiter
-  #              args:
-  #                # 用于限流的键的解析器的 Bean 对象的名字
-  #                # SpEL 表达式根据#{@beanName} 从Spring 容器中获取 Bean 对象
-  #                key-resolver: "#{@ipKeyResolver}"
-  #                # 令牌桶每秒填充平均速率
-  #                redis-rate-limiter.replenishRate: 1
-  #                # 令牌桶总容量
-  #                redis-rate-limiter.burstCapacity: 1
+            - name: RequestRateLimiter
+              args:
+                # 用于限流的键的解析器的 Bean 对象的名字
+                # SpEL 表达式根据#{@beanName} 从Spring 容器中获取 Bean 对象
+                key-resolver: "#{@ipKeyResolver}"
+                # 令牌桶每秒填充平均速率  允许每秒处理了多少个请求
+                redis-rate-limiter.replenishRate: 100
+                # 令牌桶总容量
+                redis-rate-limiter.burstCapacity: 300
+  data:
+    redis:
+      host: 192.168.100.205
+      port: 6379
+      password: 123456
+      database: 12
+      timeout: 5000
+
+logging:
+  config: classpath:logback.xml
+  level:
+    com.summary: debug

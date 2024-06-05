@@ -45,7 +45,7 @@ public class AccessTokenCheckFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
-        if (null == properties || CollectionUtils.isEmpty(properties.getPath())) {
+        if (null == properties || CollectionUtils.isEmpty(properties.getPaths())) {
             filterChain.doFilter(request, response);
             return;
         }
@@ -54,7 +54,7 @@ public class AccessTokenCheckFilter extends OncePerRequestFilter {
         String path = request.getServletPath();
 
         // 是否匹配
-        boolean match = matcher(properties.getPath(), path);
+        boolean match = matcher(properties.getPaths(), path);
         if (match) {
             // 当前请求不做任何拦截
             filterChain.doFilter(request, response);

@@ -1,5 +1,6 @@
 package com.summary.common.core.dto;
 
+import com.summary.common.core.exception.code.BaseExceptionCode;
 import lombok.Data;
 
 import static com.summary.common.core.exception.code.BaseExceptionCode.*;
@@ -90,6 +91,19 @@ public class R<T> {
         R<T> result = new R<T>();
         result.setCode(code);
         result.setMessage(message);
+        return result;
+    }
+
+    /**
+     * 自定义响应数据
+     *
+     * @param exceptionCode {@link BaseExceptionCode}
+     * @return ResultVo
+     */
+    public static <T> R<T> custom(BaseExceptionCode exceptionCode) {
+        R<T> result = new R<T>();
+        result.setCode(exceptionCode.getCode());
+        result.setMessage(exceptionCode.getMessage());
         return result;
     }
 

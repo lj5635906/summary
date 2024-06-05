@@ -1,17 +1,17 @@
-package com.summary.component.auth.config;
+package com.summary.gateway.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
+import org.springframework.context.annotation.Configuration;
 
 import java.util.HashSet;
 import java.util.Set;
 
 /**
- * 鉴权不需要验证 Token 的URL集合
- *
  * @author jie.luo
- * @since 2024/6/5
+ * @since 2024/6/6
  */
+@Configuration
 @RefreshScope
 @ConfigurationProperties(prefix = "summary.auth.anon")
 public class AuthenticationAnonProperties {

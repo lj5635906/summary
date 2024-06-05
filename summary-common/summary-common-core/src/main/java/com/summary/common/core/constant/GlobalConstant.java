@@ -57,6 +57,10 @@ public class GlobalConstant {
          * header 中 access_token 名
          */
         String HEADER_ACCESS_TOKEN_NAME = "Authorization";
+        /**
+         * 验证码前缀
+         */
+        String VALIDATE_CODE_PREFIX = "validate_code:";
     }
 
     /**

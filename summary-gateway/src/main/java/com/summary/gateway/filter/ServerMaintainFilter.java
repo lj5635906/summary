@@ -44,6 +44,6 @@ public class ServerMaintainFilter implements GlobalFilter, Ordered {
 
     @Override
     public int getOrder() {
-        return 10;
+        return 200;
     }
 }

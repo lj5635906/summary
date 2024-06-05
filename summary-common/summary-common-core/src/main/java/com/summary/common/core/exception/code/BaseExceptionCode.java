@@ -24,6 +24,9 @@ public enum BaseExceptionCode implements CustomCodeService{
 
     SERVER_ERROR(500, "服务器发生错误！"),
     TIME_OUT(504, "连接超时，请稍后重试！"),
+    SENTINEL(505, "服务器出小差啦，请稍后重试！"),
+    MANY_REQUEST(506, "Too Many Requests"),
+
     REQUEST_ERROR(550, "请求出现异常！"),
     BLACKLISTED(551, "被加入黑名单！"),
     SERVER_MAINTAIN(552, "后台系统正在升级中，请稍候再试!"),
@@ -37,6 +40,14 @@ public enum BaseExceptionCode implements CustomCodeService{
     RSA_INIT_FAIL(700, "数据加解组件初始化失败"),
     DECRYPT_FAIL(701, "数据解码失败"),
     ENCRYPT_FAIL(702, "数据编码失败"),
+
+    /**
+     * 验证码
+     */
+    CODE_EXPIRE(600, "验证码为空或验证码已过期！"),
+    CODE_NOT_MATCH(601, "验证码不匹配！"),
+    CODE_NOT_SUPPORT(602, "当前验证码生成器不支持！"),
+    CODE_IS_EMPTY(603, "未获取到请求中的验证码"),
 
     RATIO_ERROR(2002, "折扣计算比例范围[0-100]"),
 

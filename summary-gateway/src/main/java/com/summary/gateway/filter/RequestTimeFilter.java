@@ -56,6 +56,6 @@ public class RequestTimeFilter implements GlobalFilter, Ordered {
      */
     @Override
     public int getOrder() {
-        return 400;
+        return 500;
     }
 }

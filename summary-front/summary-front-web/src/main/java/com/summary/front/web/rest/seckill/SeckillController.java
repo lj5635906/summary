@@ -1,4 +1,4 @@
-package com.summary.front.web.seckill;
+package com.summary.front.web.rest.seckill;
 
 import com.summary.client.remote.SeckillRemoteService;
 import com.summary.client.seckill.dto.SeckillStateDTO;
