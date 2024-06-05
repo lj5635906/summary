@@ -26,7 +26,7 @@ public enum BaseExceptionCode implements CustomCodeService{
     TIME_OUT(504, "连接超时，请稍后重试！"),
     REQUEST_ERROR(550, "请求出现异常！"),
     BLACKLISTED(551, "被加入黑名单！"),
-    SERVER_MAINTENANCE(552, "后台系统正在升级中，请稍候再试!"),
+    SERVER_MAINTAIN(552, "后台系统正在升级中，请稍候再试!"),
 
     BAD_REQUEST(600, "请求参数错误！"),
     BAD_REQUEST_FIELD(601, "参数不合法[{0}] - [{1}]"),

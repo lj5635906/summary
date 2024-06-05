@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Configuration;
  */
 @RefreshScope
 @Configuration
-@ConfigurationProperties(prefix = "summary.server.maintain")
+@ConfigurationProperties(prefix = "summary.gateway.maintain")
 public class ServerMaintainConfig {
     /**
      * 系统维护开启标志

@@ -5,7 +5,6 @@ import org.springframework.beans.factory.DisposableBean;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
-import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.ConfigurableApplicationContext;
 
 /**
@@ -17,13 +16,12 @@ import org.springframework.context.ConfigurableApplicationContext;
 @Slf4j
 @SpringBootApplication
 @EnableDiscoveryClient
-@EnableFeignClients(basePackages = {"com.summary.client.remote"})
-public class AppGateway implements DisposableBean {
+public class AppSummaryGateway implements DisposableBean {
 
     private static ConfigurableApplicationContext ctx;
 
     public static void main(String[] args) {
-        ctx = SpringApplication.run(AppGateway.class, args);
+        ctx = SpringApplication.run(AppSummaryGateway.class, args);
         for (String str : ctx.getEnvironment().getActiveProfiles()) {
             log.info(str);
         }

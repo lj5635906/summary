@@ -1,0 +1,53 @@
+server:
+  port: 20200
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  application:
+    name: summary-gateway
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.100.207:18848
+        username: nacos
+        password: nacos
+    gateway:
+      enabled: true
+      discovery:
+        locator:
+          enabled: true
+      # 开启跨域访问功能
+      globalcors:
+        cors-configurations:
+          # 匹配所有请求
+          '[/**]':
+            # 跨域处理 允许所有的域
+            allowedOrigins: "*"
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+      routes:
+        - id: front-manager
+          uri: lb://summary-front-manager
+          predicates:
+            - Path=/api/manager/*
+          filters:
+            - StripPrefix=1
+        - id: front-web
+          uri: lb://summary-front-web
+          predicates:
+            - Path=/api/web/*
+          filters:
+            - StripPrefix=1
+            # #请求数限流
+  #            - name: RequestRateLimiter
+  #              args:
+  #                # 用于限流的键的解析器的 Bean 对象的名字
+  #                # SpEL 表达式根据#{@beanName} 从Spring 容器中获取 Bean 对象
+  #                key-resolver: "#{@ipKeyResolver}"
+  #                # 令牌桶每秒填充平均速率
+  #                redis-rate-limiter.replenishRate: 1
+  #                # 令牌桶总容量
+  #                redis-rate-limiter.burstCapacity: 1
