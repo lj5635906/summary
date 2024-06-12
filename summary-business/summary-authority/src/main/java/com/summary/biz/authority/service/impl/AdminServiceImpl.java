@@ -101,7 +101,11 @@ public class AdminServiceImpl extends ServiceImpl<AdminMapper, AdminDO> implemen
     public PageResult<AdminDTO> getAdmins(String username, String mobile, Integer userStatus, String realName, Integer pageNum, Integer pageSize) {
         Page<AdminDO> page = new Page<>(pageNum, pageSize);
         QueryWrapper<AdminDO> queryWrapper = new QueryWrapper<>();
-        queryWrapper.lambda().eq(StringUtils.isNotBlank(username), AdminDO::getUsername, username).eq(StringUtils.isNotBlank(mobile), AdminDO::getMobile, mobile).eq(null != userStatus, AdminDO::getUserStatus, userStatus).eq(StringUtils.isNotBlank(realName), AdminDO::getRealName, realName);
+        queryWrapper.lambda()
+                .eq(StringUtils.isNotBlank(username), AdminDO::getUsername, username)
+                .eq(StringUtils.isNotBlank(mobile), AdminDO::getMobile, mobile)
+                .eq(null != userStatus, AdminDO::getUserStatus, userStatus)
+                .eq(StringUtils.isNotBlank(realName), AdminDO::getRealName, realName);
         Page<AdminDO> doPage = adminMapper.selectPage(page, queryWrapper);
         return PageUtils.convertPageResult(doPage, AdminDTO.class);
     }

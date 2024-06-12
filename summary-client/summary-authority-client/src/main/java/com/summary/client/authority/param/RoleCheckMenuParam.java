@@ -3,6 +3,7 @@ package com.summary.client.authority.param;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -13,7 +14,7 @@ import java.util.Set;
  * @since 2024/5/30
  */
 @Data
-public class RoleCheckMenuParam {
+public class RoleCheckMenuParam implements Serializable {
 
     /**
      * 角色id

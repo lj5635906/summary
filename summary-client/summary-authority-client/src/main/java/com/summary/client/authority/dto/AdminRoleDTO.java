@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 /**
  * 管理员角色信息
  *
@@ -15,7 +17,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class AdminRoleDTO {
+public class AdminRoleDTO implements Serializable {
     /**
      * 角色id
      */

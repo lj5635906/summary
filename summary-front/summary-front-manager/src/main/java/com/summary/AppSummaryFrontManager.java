@@ -1,13 +1,13 @@
 package com.summary;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.dubbo.config.spring.context.annotation.EnableDubbo;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
-import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.ConfigurableApplicationContext;
 
 /**
@@ -19,7 +19,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 @Slf4j
 @SpringBootApplication
 @EnableDiscoveryClient
-@EnableFeignClients(basePackages = {"com.summary.client.remote"})
+@EnableDubbo
 public class AppSummaryFrontManager implements ApplicationRunner, DisposableBean {
     private static ConfigurableApplicationContext ctx;
 

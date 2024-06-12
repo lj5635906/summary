@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import org.hibernate.validator.constraints.Range;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -14,7 +15,7 @@ import java.util.List;
  * @since 2024/5/31
  */
 @Data
-public class CreateOrderParam {
+public class CreateOrderParam implements Serializable {
     /**
      * 客户id
      */

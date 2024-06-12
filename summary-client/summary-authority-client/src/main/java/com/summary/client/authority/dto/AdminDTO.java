@@ -2,12 +2,14 @@ package com.summary.client.authority.dto;
 
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
  * @author jie.luo
  * @since 2024/5/30
  */
 @Data
-public class AdminDTO {
+public class AdminDTO implements Serializable {
     /**
      * 管理员id
      */

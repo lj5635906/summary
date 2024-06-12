@@ -1,7 +1,7 @@
 package com.summary.biz.seckill.service.impl;
 
+import cn.hutool.core.collection.CollUtil;
 import com.alibaba.fastjson.JSONObject;
-import com.alibaba.nacos.common.utils.CollectionUtils;
 import com.summary.biz.seckill.service.SeckillGoodsService;
 import com.summary.biz.seckill.service.SeckillOrderService;
 import com.summary.client.seckill.dto.SeckillGoodsDTO;
@@ -49,7 +49,7 @@ public class SeckillOrderServiceImpl implements SeckillOrderService {
 
         // 获取num(秒杀数量)个库存
         List list = redisTemplate.boundListOps(SECKILL_GOODS_STOCK + seckillId).rightPop(msg.getNum());
-        if (CollectionUtils.isEmpty(list)) {
+        if (CollUtil.isEmpty(list)) {
             // 秒杀商品已经售罄
             return;
         }
@@ -120,8 +120,7 @@ public class SeckillOrderServiceImpl implements SeckillOrderService {
         redisTemplate.boundHashOps(SECKILL_ORDER + seckillId).put(customerId, JSONObject.toJSONString(order));
 
         // 恢复库存
-        redisTemplate.boundListOps(SECKILL_GOODS_STOCK + seckillId)
-                .leftPushAll(seckillId);
+        redisTemplate.boundListOps(SECKILL_GOODS_STOCK + seckillId).leftPushAll(seckillId);
     }
 
 }

@@ -2,6 +2,7 @@ package com.summary.client.goods.param;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -11,7 +12,7 @@ import java.util.List;
  * @since 2024/6/1
  */
 @Data
-public class CreateGoodsSpecParam {
+public class CreateGoodsSpecParam implements Serializable {
     /**
      * 商品spu规格名称
      */

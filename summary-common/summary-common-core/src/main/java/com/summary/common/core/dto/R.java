@@ -3,6 +3,8 @@ package com.summary.common.core.dto;
 import com.summary.common.core.exception.code.BaseExceptionCode;
 import lombok.Data;
 
+import java.io.Serializable;
+
 import static com.summary.common.core.exception.code.BaseExceptionCode.*;
 
 /**
@@ -12,7 +14,7 @@ import static com.summary.common.core.exception.code.BaseExceptionCode.*;
  * @since 2024/5/29
  */
 @Data
-public class R<T> {
+public class R<T> implements Serializable {
 
     private R() {
     }

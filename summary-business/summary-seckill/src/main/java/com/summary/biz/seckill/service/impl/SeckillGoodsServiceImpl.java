@@ -43,8 +43,7 @@ public class SeckillGoodsServiceImpl extends ServiceImpl<SeckillGoodsMapper, Sec
         this.save(seckillGoods);
 
         // 秒杀商品
-        redisTemplate.boundHashOps(SECKILL_GOODS)
-                .put(seckillId, JSONObject.toJSONString(seckillGoods));
+        redisTemplate.boundHashOps(SECKILL_GOODS).put(seckillId, JSONObject.toJSONString(seckillGoods));
 
         // 库存不精确解决方案
         Long[] stockArr = new Long[seckillGoods.getStockNum()];

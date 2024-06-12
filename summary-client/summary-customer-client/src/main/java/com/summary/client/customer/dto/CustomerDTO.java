@@ -2,6 +2,8 @@ package com.summary.client.customer.dto;
 
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
  * 用户信息
  *
@@ -9,7 +11,7 @@ import lombok.Data;
  * @since 2024/5/31
  */
 @Data
-public class CustomerDTO {
+public class CustomerDTO implements Serializable {
 
     /**
      * 用户id

@@ -3,6 +3,7 @@ package com.summary.client.authority.param;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -12,7 +13,7 @@ import java.util.List;
  * @since 2024/5/30
  */
 @Data
-public class ModifyAdminRoleParam {
+public class ModifyAdminRoleParam implements Serializable {
 
     /**
      * 用户id

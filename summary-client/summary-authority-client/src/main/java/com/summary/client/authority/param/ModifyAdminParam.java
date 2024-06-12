@@ -6,6 +6,8 @@ import jakarta.validation.constraints.Size;
 import lombok.Data;
 import org.hibernate.validator.constraints.Range;
 
+import java.io.Serializable;
+
 /**
  * 修改管理员参数
  *
@@ -13,7 +15,7 @@ import org.hibernate.validator.constraints.Range;
  * @since 2024/5/30
  */
 @Data
-public class ModifyAdminParam {
+public class ModifyAdminParam implements Serializable {
 
     /**
      * 用户id

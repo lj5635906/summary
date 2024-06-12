@@ -2,6 +2,7 @@ package com.summary.client.authority.dto;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -12,7 +13,7 @@ import java.util.Set;
  * @since 2024/5/30
  */
 @Data
-public class RoleCheckedMenuDTO {
+public class RoleCheckedMenuDTO implements Serializable {
 
     /**
      * 菜单id集合(全选)

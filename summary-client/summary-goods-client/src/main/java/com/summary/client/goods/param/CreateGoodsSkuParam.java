@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import org.hibernate.validator.constraints.Range;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -14,7 +15,7 @@ import java.util.List;
  * @since 2024/6/1
  */
 @Data
-public class CreateGoodsSkuParam {
+public class CreateGoodsSkuParam implements Serializable {
     /*** SKU名称 */
     @NotBlank(message = "SKU名称不能为空")
     private String skuName;

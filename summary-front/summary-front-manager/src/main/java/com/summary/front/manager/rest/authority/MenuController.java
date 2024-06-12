@@ -8,7 +8,7 @@ import com.summary.client.authority.param.ModifyMenuParam;
 import com.summary.client.remote.MenuRemoteService;
 import com.summary.common.core.dto.R;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,10 +21,10 @@ import java.util.List;
  * @since 2024/5/30
  */
 @RestController
-@RequestMapping("/admin/authority/menu")
+@RequestMapping("/manager/authority/menu")
 public class MenuController {
 
-    @Autowired
+    @DubboReference
     private MenuRemoteService menuRemoteService;
 
     /**
@@ -35,7 +35,7 @@ public class MenuController {
      */
     @PostMapping("/addMenu")
     public R<Long> addMenu(@Valid @RequestBody AddMenuParam param) {
-        return menuRemoteService.addMenu(param);
+        return R.success(menuRemoteService.addMenu(param));
     }
 
     /**
@@ -46,7 +46,7 @@ public class MenuController {
      */
     @PutMapping("/modifyMenu")
     public R<Boolean> modifyMenu(@Valid @RequestBody ModifyMenuParam param) {
-        return menuRemoteService.modifyMenu(param);
+        return R.success(menuRemoteService.modifyMenu(param));
     }
 
     /**
@@ -57,7 +57,7 @@ public class MenuController {
      */
     @DeleteMapping("/deleteMenuData")
     public R<Boolean> deleteMenuData(@Valid @RequestBody DeleteMenuParam param) {
-        return menuRemoteService.deleteMenuData(param);
+        return R.success(menuRemoteService.deleteMenuData(param));
     }
 
     /**
@@ -67,7 +67,7 @@ public class MenuController {
      */
     @GetMapping("getMenuTree")
     public R<List<MenuTreeDTO>> getMenuTree() {
-        return menuRemoteService.getMenuTree();
+        return R.success(menuRemoteService.getMenuTree());
     }
 
 }

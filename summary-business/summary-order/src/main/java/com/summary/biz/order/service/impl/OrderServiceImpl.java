@@ -12,16 +12,15 @@ import com.summary.client.customer.dto.CustomerDTO;
 import com.summary.client.goods.dto.CreateOrderCheckGoodsSkuDTO;
 import com.summary.client.goods.param.ChangeStockAndSaleParam;
 import com.summary.client.goods.param.CreateOrderCheckParam;
-import com.summary.client.order.msg.OrderTimeoutCancelMsg;
 import com.summary.client.order.code.OrderExceptionCode;
 import com.summary.client.order.enums.OrderStateEnum;
 import com.summary.client.order.enums.OrderTypeEnum;
+import com.summary.client.order.msg.OrderTimeoutCancelMsg;
 import com.summary.client.order.param.CreateOrderGoodsParam;
 import com.summary.client.order.param.CreateOrderParam;
 import com.summary.client.remote.CustomerRemoteService;
 import com.summary.client.remote.GoodsRemoteService;
 import com.summary.common.core.constant.topic.OrderTopic;
-import com.summary.common.core.dto.R;
 import com.summary.common.core.exception.CustomException;
 import com.summary.common.core.mq.MqService;
 import com.summary.common.core.mq.rocket.MessageDelayLevel;
@@ -72,13 +71,13 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, OrderDO> implemen
     public Long createOrder(CreateOrderParam param) {
 
         // 检查并获取用户信息
-        CustomerDTO customer = VerificationUtil.checkGetResponse(customerService.getCustomerByCustomerId(param.getCustomerId()), CustomerExceptionCode.customer_non_existent);
+        CustomerDTO customer = customerService.getCustomerByCustomerId(param.getCustomerId());
+        Assert.isNull(customer, CustomerExceptionCode.customer_non_existent);
         // 购买的商品
         List<CreateOrderGoodsParam> buyGoods = param.getGoods();
 
         // 验证购买的商品信息
-        R<List<CreateOrderCheckGoodsSkuDTO>> createOrderGoods = goodsRemoteService.getCreateOrderGoods(ConvertUtils.convertList(buyGoods, CreateOrderCheckParam.class));
-        List<CreateOrderCheckGoodsSkuDTO> goodsSkus = VerificationUtil.checkGetResponse(createOrderGoods);
+        List<CreateOrderCheckGoodsSkuDTO> goodsSkus = goodsRemoteService.getCreateOrderGoods(ConvertUtils.convertList(buyGoods, CreateOrderCheckParam.class));
         // 验证传入的商品集合与查询的商品集合是否一致
         Assert.isTrue((CollectionUtils.isEmpty(goodsSkus) || param.getGoods().size() != goodsSkus.size()), OrderExceptionCode.by_goods_check_error);
 
@@ -89,9 +88,9 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, OrderDO> implemen
         List<OrderItemDO> orderItems = buildOrderItemDO(order, buyGoods, goodsSkus);
 
         // 商品下单扣库存与增加销量
-        R<Boolean> stockAndSaleResponse = goodsRemoteService.changeStockAndSale(order.getOrderId(), buildChangeStockAndSaleParam(orderItems));
+        Boolean stockAndSaleResponse = goodsRemoteService.changeStockAndSale(order.getOrderId(), buildChangeStockAndSaleParam(orderItems));
         // false 代表扣库存失败
-        boolean success = null != stockAndSaleResponse && null != stockAndSaleResponse.getData() && stockAndSaleResponse.getData();
+        boolean success = null != stockAndSaleResponse && stockAndSaleResponse;
         Assert.isFalse(success, new CustomException(goods_stock_lack));
 
         // 保存订单相关数据

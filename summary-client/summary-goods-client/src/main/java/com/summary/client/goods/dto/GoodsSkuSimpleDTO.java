@@ -2,6 +2,7 @@ package com.summary.client.goods.dto;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -10,7 +11,7 @@ import java.util.List;
  * @since 2024/6/1
  */
 @Data
-public class GoodsSkuSimpleDTO {
+public class GoodsSkuSimpleDTO implements Serializable {
     /*** 商品skuId */
     private Long skuId;
     /*** SKU名称 */

@@ -4,6 +4,7 @@ import cn.hutool.core.date.DatePattern;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
@@ -11,7 +12,7 @@ import java.time.LocalDateTime;
  * @since 2024/5/30
  */
 @Data
-public class RoleDTO {
+public class RoleDTO implements Serializable {
 
     /**
      * 角色id

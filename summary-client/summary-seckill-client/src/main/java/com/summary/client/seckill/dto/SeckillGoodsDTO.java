@@ -2,6 +2,8 @@ package com.summary.client.seckill.dto;
 
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
  * 描述商品详情
  *
@@ -9,7 +11,7 @@ import lombok.Data;
  * @since 2024/6/4
  */
 @Data
-public class SeckillGoodsDTO {
+public class SeckillGoodsDTO implements Serializable {
 
     /*** 秒杀id */
     private Long seckillId;

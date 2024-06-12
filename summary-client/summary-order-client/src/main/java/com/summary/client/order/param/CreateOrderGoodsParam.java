@@ -4,6 +4,8 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import org.hibernate.validator.constraints.Range;
 
+import java.io.Serializable;
+
 /**
  * 创建订单商品参数
  *
@@ -11,7 +13,7 @@ import org.hibernate.validator.constraints.Range;
  * @since 2024/5/31
  */
 @Data
-public class CreateOrderGoodsParam {
+public class CreateOrderGoodsParam implements Serializable {
 
     /**
      * 购买商品id

@@ -4,6 +4,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
@@ -14,7 +15,7 @@ import java.time.LocalDateTime;
  */
 @Data
 @NoArgsConstructor
-public class SeckillStateDTO {
+public class SeckillStateDTO implements Serializable {
     /**
      * 秒杀状态 : -3-支付超时，-2-秒杀已结束，-1-秒杀失败，0-正在排队，1-等待支付，2-支付完成
      */

@@ -8,13 +8,13 @@ import com.summary.common.core.dto.TokenDTO;
 import com.summary.common.core.enums.AppEnum;
 import com.summary.common.core.exception.CustomException;
 import com.summary.common.core.jwt.JwtUtils;
-import com.summary.common.core.utils.VerificationUtil;
 import com.summary.common.core.utils.crypto.DesUtil;
 import com.summary.common.core.utils.ip.IpUtils;
 import com.summary.front.manager.rest.login.from.UsernamePasswordLoginForm;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -34,7 +34,7 @@ import static com.summary.client.authority.code.AuthorityExceptionCode.ADMIN_NON
 @RequestMapping("/admin")
 public class LoginController {
 
-    @Autowired
+    @DubboReference
     private AdminRemoteService adminRemoteService;
 
     /**
@@ -45,8 +45,7 @@ public class LoginController {
     @PostMapping("/login/username")
     public R<TokenDTO> usernamePasswordLogin(@Valid @RequestBody UsernamePasswordLoginForm param, HttpServletRequest request) {
 
-        R<AdminDTO> resultDTO = adminRemoteService.getAdminByUsername(param.getUsername());
-        AdminDTO adminDTO = VerificationUtil.checkGetResponse(resultDTO);
+        AdminDTO adminDTO = adminRemoteService.getAdminByUsername(param.getUsername());
         // 账户不存在或账户已注销
         if (null == adminDTO || UserStatusEnum.logout.getCode().equals(adminDTO.getUserStatus())) {
             throw new CustomException(ADMIN_NON_EXIT_OR_PASSWORD_ERROR);

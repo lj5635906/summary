@@ -46,6 +46,7 @@
             <artifactId>component-auth</artifactId>
             <version>${summary.version}</version>
         </dependency>
+
         <!-- 自定义组件 end -->
 
         <!-- client start -->
@@ -76,16 +77,9 @@
         </dependency>
         <!-- client end -->
 
-        <!-- 声明式服务调用组件 openfeign start -->
         <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-openfeign</artifactId>
-        </dependency>
-        <!-- 声明式服务调用组件 openfeign end-->
-
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-loadbalancer</artifactId>
+            <groupId>org.apache.dubbo</groupId>
+            <artifactId>dubbo-spring-boot-starter</artifactId>
         </dependency>
 
         <!-- nacos 服务发现 start -->

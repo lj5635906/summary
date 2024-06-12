@@ -5,6 +5,8 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import org.hibernate.validator.constraints.Range;
 
+import java.io.Serializable;
+
 /**
  * 添加菜单
  *
@@ -12,7 +14,7 @@ import org.hibernate.validator.constraints.Range;
  * @since 2024/5/30
  */
 @Data
-public class AddMenuParam {
+public class AddMenuParam implements Serializable {
 
     /**
      * 所属资源id(父节点id)、根节点为0

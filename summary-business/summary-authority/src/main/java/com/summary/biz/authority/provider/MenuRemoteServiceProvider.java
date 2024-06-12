@@ -1,4 +1,4 @@
-package com.summary.biz.authority.rest;
+package com.summary.biz.authority.provider;
 
 import com.summary.biz.authority.service.MenuService;
 import com.summary.client.authority.dto.MenuTreeDTO;
@@ -6,10 +6,9 @@ import com.summary.client.authority.param.AddMenuParam;
 import com.summary.client.authority.param.DeleteMenuParam;
 import com.summary.client.authority.param.ModifyMenuParam;
 import com.summary.client.remote.MenuRemoteService;
-import com.summary.common.core.dto.R;
 import jakarta.validation.Valid;
+import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,9 +18,8 @@ import java.util.List;
  * @author jie.luo
  * @since 2024/5/30
  */
-@RestController
-@RequestMapping("/authority/menu")
-public class MenuController implements MenuRemoteService {
+@DubboService
+public class MenuRemoteServiceProvider implements MenuRemoteService {
 
     @Autowired
     private MenuService menuService;
@@ -33,9 +31,8 @@ public class MenuController implements MenuRemoteService {
      * @return yes or no
      */
     @Override
-    @PostMapping("/addMenu")
-    public R<Long> addMenu(@Valid @RequestBody AddMenuParam param) {
-        return R.success(menuService.addMenuData(param));
+    public Long addMenu(@Valid AddMenuParam param) {
+        return menuService.addMenuData(param);
     }
 
     /**
@@ -45,10 +42,9 @@ public class MenuController implements MenuRemoteService {
      * @return yes or no
      */
     @Override
-    @PutMapping("/modifyMenu")
-    public R<Boolean> modifyMenu(@Valid @RequestBody ModifyMenuParam param) {
+    public Boolean modifyMenu(@Valid ModifyMenuParam param) {
         menuService.modifyMenuData(param);
-        return R.success(true);
+        return true;
     }
 
     /**
@@ -58,10 +54,9 @@ public class MenuController implements MenuRemoteService {
      * @return yes or no
      */
     @Override
-    @DeleteMapping("/deleteMenuData")
-    public R<Boolean> deleteMenuData(@Valid @RequestBody DeleteMenuParam param) {
+    public Boolean deleteMenuData(@Valid DeleteMenuParam param) {
         menuService.deleteMenuData(param);
-        return R.success(true);
+        return true;
     }
 
     /**
@@ -70,9 +65,8 @@ public class MenuController implements MenuRemoteService {
      * @return List<MenuTreeVo>
      */
     @Override
-    @GetMapping("getMenuTree")
-    public R<List<MenuTreeDTO>> getMenuTree() {
-        return R.success(menuService.getMenuTree());
+    public List<MenuTreeDTO> getMenuTree() {
+        return menuService.getMenuTree();
     }
 
 }

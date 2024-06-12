@@ -3,6 +3,8 @@ package com.summary.client.seckill.param;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
  * 秒杀参数
  *
@@ -10,7 +12,7 @@ import lombok.Data;
  * @since 2024/6/4
  */
 @Data
-public class SeckillActionParam {
+public class SeckillActionParam implements Serializable {
 
     /*** 秒杀id */
     private Long seckillId;

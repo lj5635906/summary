@@ -3,6 +3,8 @@ package com.summary.client.authority.param;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
  * 添加角色参数
  *
@@ -10,7 +12,7 @@ import lombok.Data;
  * @since 2024/5/30
  */
 @Data
-public class AddRoleParam {
+public class AddRoleParam implements Serializable {
 
     /**
      * 角色名称

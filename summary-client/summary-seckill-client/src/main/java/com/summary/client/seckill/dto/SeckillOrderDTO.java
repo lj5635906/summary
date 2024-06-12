@@ -2,6 +2,8 @@ package com.summary.client.seckill.dto;
 
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
  * 秒杀订单
  *
@@ -9,7 +11,7 @@ import lombok.Data;
  * @since 2024/6/4
  */
 @Data
-public class SeckillOrderDTO {
+public class SeckillOrderDTO implements Serializable {
     /**
      * 秒杀订单id
      */

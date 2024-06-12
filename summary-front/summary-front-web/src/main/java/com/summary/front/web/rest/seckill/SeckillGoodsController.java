@@ -5,7 +5,7 @@ import com.summary.client.seckill.dto.SeckillGoodsDTO;
 import com.summary.client.seckill.param.CreateSeckillGoodsParam;
 import com.summary.common.core.dto.R;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,7 +20,7 @@ import java.util.List;
 @RequestMapping("/web/seckillGoods")
 public class SeckillGoodsController {
 
-    @Autowired
+    @DubboReference
     private SeckillGoodsRemoteService seckillGoodsRemoteService;
 
     /**
@@ -31,7 +31,7 @@ public class SeckillGoodsController {
      */
     @PostMapping("/createSeckillGoods")
     public R<Long> createSeckillGoods(@Valid @RequestBody CreateSeckillGoodsParam param) {
-        return seckillGoodsRemoteService.createSeckillGoods(param);
+        return R.success(seckillGoodsRemoteService.createSeckillGoods(param));
     }
 
     /**
@@ -42,7 +42,7 @@ public class SeckillGoodsController {
      */
     @GetMapping("/getSeckillGoods")
     public R<SeckillGoodsDTO> getSeckillGoods(@RequestParam("seckillId") Long seckillId) {
-        return seckillGoodsRemoteService.getSeckillGoods(seckillId);
+        return R.success(seckillGoodsRemoteService.getSeckillGoods(seckillId));
     }
 
     /**
@@ -52,6 +52,6 @@ public class SeckillGoodsController {
      */
     @GetMapping("/getSeckillGoodsList")
     public R<List<SeckillGoodsDTO>> getSeckillGoodsList() {
-        return seckillGoodsRemoteService.getSeckillGoodsList();
+        return R.success(seckillGoodsRemoteService.getSeckillGoodsList());
     }
 }

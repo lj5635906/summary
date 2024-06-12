@@ -4,6 +4,8 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
  * 创建秒杀商品
  *
@@ -11,7 +13,7 @@ import lombok.Data;
  * @since 2024/6/4
  */
 @Data
-public class CreateSeckillGoodsParam {
+public class CreateSeckillGoodsParam implements Serializable {
 
     /*** 秒杀id */
     private Long seckillId;

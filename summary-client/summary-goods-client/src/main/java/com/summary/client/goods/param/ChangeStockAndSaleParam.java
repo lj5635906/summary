@@ -4,6 +4,8 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import org.hibernate.validator.constraints.Range;
 
+import java.io.Serializable;
+
 /**
  * 商品下单扣库存与增加销量
  *
@@ -11,7 +13,7 @@ import org.hibernate.validator.constraints.Range;
  * @since 2024/6/3
  */
 @Data
-public class ChangeStockAndSaleParam {
+public class ChangeStockAndSaleParam implements Serializable {
 
     /**
      * 购买商品id

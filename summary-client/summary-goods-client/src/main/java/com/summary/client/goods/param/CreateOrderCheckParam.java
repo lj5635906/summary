@@ -3,6 +3,8 @@ package com.summary.client.goods.param;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
  * 下单check商品参数
  *
@@ -10,7 +12,7 @@ import lombok.Data;
  * @since 2024/6/1
  */
 @Data
-public class CreateOrderCheckParam {
+public class CreateOrderCheckParam implements Serializable {
     /**
      * 商品id
      */

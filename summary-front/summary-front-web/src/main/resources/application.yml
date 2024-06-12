@@ -19,6 +19,13 @@ spring:
       database: 12
       timeout: 5000
 
+dubbo:
+  protocol:
+    name: dubbo
+    port: -1
+  registry:
+    address: nacos://192.168.100.207:18848?username=nacos&password=nacos
+
 rocketmq:
   name-server: 192.168.100.205:9876
   producer:
@@ -28,7 +35,6 @@ logging:
   config: classpath:logback.xml
   level:
     com.summary: debug
-    com.alibaba: debug
 
 # 不鉴权的链接
 summary:

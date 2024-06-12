@@ -1,6 +1,7 @@
 package com.summary.gateway.filter;
 
 import cn.hutool.json.JSONUtil;
+import com.summary.common.core.dto.R;
 import com.summary.common.core.exception.CustomException;
 import com.summary.gateway.config.ValidateCodeProperties;
 import lombok.extern.slf4j.Slf4j;
@@ -86,7 +87,7 @@ public class ValidateCodeFilter implements GlobalFilter, Ordered {
             doValidate(mobile, type, code);
             return chain.filter(exchange);
         } catch (CustomException e) {
-            responseStr = JSONUtil.toJsonStr(e);
+            responseStr = JSONUtil.toJsonStr(R.custom(e.getCode(), e.getMessage()));
         }
 
         ServerHttpResponse originalResponse = exchange.getResponse();
@@ -98,6 +99,7 @@ public class ValidateCodeFilter implements GlobalFilter, Ordered {
         DataBuffer buffer = originalResponse.bufferFactory().wrap(response);
         return originalResponse.writeWith(Flux.just(buffer));
     }
+
     /**
      * 验证码校验逻辑
      *
@@ -129,6 +131,7 @@ public class ValidateCodeFilter implements GlobalFilter, Ordered {
         // 验证通过后删除验证码
         redisTemplate.delete(VALIDATE_CODE_PREFIX + mobile + "_" + type);
     }
+
     @Override
     public int getOrder() {
         return 400;

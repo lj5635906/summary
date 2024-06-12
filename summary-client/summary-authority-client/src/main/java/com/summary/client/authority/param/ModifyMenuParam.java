@@ -5,6 +5,8 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import org.hibernate.validator.constraints.Range;
 
+import java.io.Serializable;
+
 
 /**
  * 编辑菜单
@@ -13,7 +15,7 @@ import org.hibernate.validator.constraints.Range;
  * @since 2024/5/30
  */
 @Data
-public class ModifyMenuParam {
+public class ModifyMenuParam implements Serializable {
 
     /**
      * 菜单表id

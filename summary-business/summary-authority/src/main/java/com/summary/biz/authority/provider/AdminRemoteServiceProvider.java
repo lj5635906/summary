@@ -1,4 +1,4 @@
-package com.summary.biz.authority.rest;
+package com.summary.biz.authority.provider;
 
 import com.summary.biz.authority.entity.AdminDO;
 import com.summary.biz.authority.service.AdminRoleService;
@@ -10,12 +10,11 @@ import com.summary.client.authority.param.AddAdminParam;
 import com.summary.client.authority.param.ModifyAdminParam;
 import com.summary.client.authority.param.ModifyAdminRoleParam;
 import com.summary.client.remote.AdminRemoteService;
-import com.summary.common.core.dto.R;
 import com.summary.common.core.page.PageResult;
 import com.summary.common.core.utils.ConvertUtils;
 import jakarta.validation.Valid;
+import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -25,9 +24,8 @@ import java.util.List;
  * @author jie.luo
  * @since 2024/5/30
  */
-@RestController
-@RequestMapping("/authority/admin")
-public class AdminController implements AdminRemoteService {
+@DubboService
+public class AdminRemoteServiceProvider implements AdminRemoteService {
 
     @Autowired
     private AdminService adminService;
@@ -41,10 +39,8 @@ public class AdminController implements AdminRemoteService {
      * @return yes or no
      */
     @Override
-    @PostMapping("/addAdmin")
-    public R<Long> addAdmin(@Valid @RequestBody AddAdminParam param) {
-        Long adminId = adminService.addAdmin(param);
-        return R.success(adminId);
+    public Long addAdmin(@Valid AddAdminParam param) {
+        return adminService.addAdmin(param);
     }
 
     /**
@@ -54,10 +50,9 @@ public class AdminController implements AdminRemoteService {
      * @return yes or no
      */
     @Override
-    @PutMapping("/updateAdmin")
-    public R<Boolean> updateAdmin(@Valid @RequestBody ModifyAdminParam param) {
+    public Boolean updateAdmin(@Valid ModifyAdminParam param) {
         adminService.updateAdmin(param);
-        return R.success(true);
+        return true;
     }
 
     /**
@@ -72,9 +67,8 @@ public class AdminController implements AdminRemoteService {
      * @return PageInfo<AdminListDTO>
      */
     @Override
-    @GetMapping("/page")
-    public R<PageResult<AdminDTO>> page(String username, String mobile, Integer userStatus, String realName, Integer pageNum, Integer pageSize) {
-        return R.success(adminService.getAdmins(username, mobile, userStatus, realName, pageNum, pageSize));
+    public PageResult<AdminDTO> page(String username, String mobile, Integer userStatus, String realName, Integer pageNum, Integer pageSize) {
+        return adminService.getAdmins(username, mobile, userStatus, realName, pageNum, pageSize);
     }
 
     /**
@@ -84,10 +78,9 @@ public class AdminController implements AdminRemoteService {
      * @return AdminVo
      */
     @Override
-    @GetMapping("/adminByUsername")
-    public R<AdminDTO> getAdminByUsername(@RequestParam(name = "username") String username) {
+    public AdminDTO getAdminByUsername(String username) {
         AdminDO admin = adminService.getAdminByUsername(username);
-        return R.success(ConvertUtils.convert(admin, AdminDTO.class));
+        return ConvertUtils.convert(admin, AdminDTO.class);
     }
 
     /**
@@ -97,10 +90,9 @@ public class AdminController implements AdminRemoteService {
      * @return AdminVo
      */
     @Override
-    @GetMapping("/adminByAdminId")
-    public R<AdminDTO> getAdminByAdminId(@RequestParam(name = "adminId") Long adminId) {
+    public AdminDTO getAdminByAdminId(Long adminId) {
         AdminDO admin = adminService.getAdminByAdminId(adminId);
-        return R.success(ConvertUtils.convert(admin, AdminDTO.class));
+        return ConvertUtils.convert(admin, AdminDTO.class);
     }
 
     /**
@@ -110,10 +102,9 @@ public class AdminController implements AdminRemoteService {
      * @return AdminVo
      */
     @Override
-    @GetMapping("/adminByMobile")
-    public R<AdminDTO> getAdminByMobile(@RequestParam(name = "mobile") String mobile) {
+    public AdminDTO getAdminByMobile(String mobile) {
         AdminDO admin = adminService.getAdminByMobile(mobile);
-        return R.success(ConvertUtils.convert(admin, AdminDTO.class));
+        return ConvertUtils.convert(admin, AdminDTO.class);
     }
 
     /**
@@ -123,10 +114,8 @@ public class AdminController implements AdminRemoteService {
      * @return List<AdminRoleDTO>
      */
     @Override
-    @GetMapping("getAdminRoles")
-    public R<List<AdminRoleDTO>> getAdminRoles(@RequestParam(name = "adminId") Long adminId) {
-        List<AdminRoleDTO> adminRole = adminRoleService.getAdminRole(adminId);
-        return R.success(adminRole);
+    public List<AdminRoleDTO> getAdminRoles(Long adminId) {
+        return adminRoleService.getAdminRole(adminId);
     }
 
     /**
@@ -136,10 +125,9 @@ public class AdminController implements AdminRemoteService {
      * @return yes or no
      */
     @Override
-    @PutMapping("updateAdminRole")
-    public R<Boolean> updateAdminRole(@Valid @RequestBody ModifyAdminRoleParam param) {
+    public Boolean updateAdminRole(@Valid ModifyAdminRoleParam param) {
         adminRoleService.updateAdminRole(param.getAdminId(), param.getRoleIds());
-        return R.success(true);
+        return true;
     }
 
     /**
@@ -149,8 +137,7 @@ public class AdminController implements AdminRemoteService {
      * @return MenuTreeVo
      */
     @Override
-    @GetMapping("/admin/hasMenuTree")
-    public R<List<MenuTreeDTO>> getAdminHasMenu(@RequestParam(name = "adminId") Long adminId) {
-        return R.success(adminService.getAdminHasMenu(adminId));
+    public List<MenuTreeDTO> getAdminHasMenu(Long adminId) {
+        return adminService.getAdminHasMenu(adminId);
     }
 }

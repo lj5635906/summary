@@ -24,20 +24,38 @@
             <scope>provided</scope>
         </dependency>
 
+        <!-- client start -->
+        <dependency>
+            <groupId>com.summary</groupId>
+            <artifactId>summary-authority-client</artifactId>
+            <version>${summary.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.summary</groupId>
+            <artifactId>summary-customer-client</artifactId>
+            <version>${summary.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.summary</groupId>
+            <artifactId>summary-order-client</artifactId>
+            <version>${summary.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.summary</groupId>
+            <artifactId>summary-goods-client</artifactId>
+            <version>${summary.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.summary</groupId>
+            <artifactId>summary-seckill-client</artifactId>
+            <version>${summary.version}</version>
+        </dependency>
+        <!-- client end -->
+
         <!-- 自定义组件 start -->
         <dependency>
             <groupId>com.summary</groupId>
             <artifactId>summary-common-core</artifactId>
-            <version>${summary.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.summary</groupId>
-            <artifactId>component-logs</artifactId>
-            <version>${summary.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.summary</groupId>
-            <artifactId>component-exception</artifactId>
             <version>${summary.version}</version>
         </dependency>
         <dependency>
@@ -65,65 +83,19 @@
             <artifactId>component-mq-rocket</artifactId>
             <version>${summary.version}</version>
         </dependency>
-        <dependency>
-            <groupId>com.summary</groupId>
-            <artifactId>component-auth</artifactId>
-            <version>${summary.version}</version>
-        </dependency>
-
         <!-- 自定义组件 end -->
 
-        <!-- client start -->
         <dependency>
-            <groupId>com.summary</groupId>
-            <artifactId>summary-authority-client</artifactId>
-            <version>${summary.version}</version>
+            <groupId>org.apache.dubbo</groupId>
+            <artifactId>dubbo-spring-boot-starter</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.summary</groupId>
-            <artifactId>summary-customer-client</artifactId>
-            <version>${summary.version}</version>
+            <groupId>org.apache.dubbo</groupId>
+            <artifactId>dubbo-registry-nacos</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.summary</groupId>
-            <artifactId>summary-order-client</artifactId>
-            <version>${summary.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.summary</groupId>
-            <artifactId>summary-goods-client</artifactId>
-            <version>${summary.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.summary</groupId>
-            <artifactId>summary-seckill-client</artifactId>
-            <version>${summary.version}</version>
-        </dependency>
-
-
-        <!-- client end -->
-
-        <!-- 声明式服务调用组件 openfeign start -->
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-openfeign</artifactId>
-        </dependency>
-        <!-- 声明式服务调用组件 openfeign end-->
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-loadbalancer</artifactId>
-        </dependency>
-        <!-- nacos 服务发现 start -->
-        <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
-        </dependency>
-        <!-- nacos 服务发现 end -->
-
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
+            <artifactId>spring-boot-starter</artifactId>
             <exclusions>
                 <!-- 排除1.4.14,使用1.4.5,解决版本冲突 -->
                 <!-- Load Logback Configuration of Nacos fail, message: 'void ch.qos.logback.classic.util.ContextInitializer.configureByResource(java.net.URL)' -->

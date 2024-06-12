@@ -9,6 +9,7 @@
 
     <artifactId>summary-seckill</artifactId>
     <packaging>jar</packaging>
+
     <build>
         <plugins>
             <plugin>

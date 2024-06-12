@@ -1,4 +1,4 @@
-package com.summary.biz.goods.rest;
+package com.summary.biz.goods.provider;
 
 import com.summary.biz.goods.service.GoodsService;
 import com.summary.biz.goods.service.GoodsSkuService;
@@ -9,25 +9,20 @@ import com.summary.client.goods.param.ChangeStockAndSaleParam;
 import com.summary.client.goods.param.CreateGoodsParam;
 import com.summary.client.goods.param.CreateOrderCheckParam;
 import com.summary.client.remote.GoodsRemoteService;
-import com.summary.common.core.dto.R;
 import jakarta.validation.Valid;
+import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.stereotype.Controller;
 
 import java.util.List;
 
 /**
- * <p>
- * 商品-SPU 前端控制器
- * </p>
+ * 商品-相关接口
  *
  * @author myabtis-plus
  * @since 2024-06-01
  */
-@RestController
-@RequestMapping("/goods")
-public class GoodsController implements GoodsRemoteService {
+@DubboService
+public class GoodsRemoteServiceProvider implements GoodsRemoteService {
 
     @Autowired
     private GoodsService goodsService;
@@ -41,9 +36,8 @@ public class GoodsController implements GoodsRemoteService {
      * @return 商品id
      */
     @Override
-    @PostMapping("/createGoods")
-    public R<Long> createGoods(@Valid @RequestBody CreateGoodsParam param) {
-        return R.success(goodsService.createGoods(param));
+    public Long createGoods(@Valid CreateGoodsParam param) {
+        return goodsService.createGoods(param);
     }
 
     /**
@@ -53,9 +47,8 @@ public class GoodsController implements GoodsRemoteService {
      * @return 详情
      */
     @Override
-    @GetMapping("/getGoodsByGoodsId")
-    public R<GoodsDTO> getGoodsByGoodsId(@RequestParam("goodsId") Long goodsId) {
-        return R.success(goodsService.getGoodsByGoodsId(goodsId));
+    public GoodsDTO getGoodsByGoodsId(Long goodsId) {
+        return goodsService.getGoodsByGoodsId(goodsId);
     }
 
     /**
@@ -65,9 +58,8 @@ public class GoodsController implements GoodsRemoteService {
      * @return 详情
      */
     @Override
-    @GetMapping("/getGoodsSimple")
-    public R<GoodsSimpleDTO> getGoodsSimple(@RequestParam("goodsId") Long goodsId) {
-        return R.success(goodsService.getGoodsSimple(goodsId));
+    public GoodsSimpleDTO getGoodsSimple(Long goodsId) {
+        return goodsService.getGoodsSimple(goodsId);
     }
 
     /**
@@ -76,9 +68,8 @@ public class GoodsController implements GoodsRemoteService {
      * @param params 下单check商品参数
      * @return 创建订单时的商品信息
      */
-    @PostMapping("/getCreateOrderGoods")
-    public R<List<CreateOrderCheckGoodsSkuDTO>> getCreateOrderGoods(@Valid @RequestBody List<CreateOrderCheckParam> params) {
-        return R.success(goodsSkuService.getCreateOrderGoods(params));
+    public List<CreateOrderCheckGoodsSkuDTO> getCreateOrderGoods(@Valid List<CreateOrderCheckParam> params) {
+        return goodsSkuService.getCreateOrderGoods(params);
     }
 
     /**
@@ -88,10 +79,9 @@ public class GoodsController implements GoodsRemoteService {
      * @return 是否成功
      */
     @Override
-    @PostMapping("/changeStockAndSale")
-    public R<Boolean> changeStockAndSale(@RequestParam("orderId") Long orderId, @Valid @RequestBody List<ChangeStockAndSaleParam> params) {
+    public Boolean changeStockAndSale(Long orderId, @Valid List<ChangeStockAndSaleParam> params) {
         goodsSkuService.changeStockAndSale(orderId, params);
-        return R.success(true);
+        return true;
     }
 
     /**
@@ -102,9 +92,8 @@ public class GoodsController implements GoodsRemoteService {
      * @return 是否成功
      */
     @Override
-    @PostMapping("/recoveryStockAndSale")
-    public R<Boolean> recoveryStockAndSale(Long orderId, ChangeStockAndSaleParam param) {
+    public Boolean recoveryStockAndSale(Long orderId, ChangeStockAndSaleParam param) {
         goodsSkuService.recoveryStockAndSale(orderId, param);
-        return R.success(true);
+        return true;
     }
 }

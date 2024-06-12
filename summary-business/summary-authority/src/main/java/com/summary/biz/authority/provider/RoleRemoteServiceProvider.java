@@ -1,4 +1,4 @@
-package com.summary.biz.authority.rest;
+package com.summary.biz.authority.provider;
 
 import com.summary.biz.authority.service.MenuService;
 import com.summary.biz.authority.service.RoleMenuService;
@@ -10,11 +10,10 @@ import com.summary.client.authority.param.AddRoleParam;
 import com.summary.client.authority.param.RoleCheckMenuParam;
 import com.summary.client.authority.param.UpdateRoleParam;
 import com.summary.client.remote.RoleRemoteService;
-import com.summary.common.core.dto.R;
 import com.summary.common.core.page.PageResult;
 import jakarta.validation.Valid;
+import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -25,9 +24,8 @@ import java.util.List;
  * @author jie.luo
  * @since 2024/5/30
  */
-@RestController
-@RequestMapping("/authority/role")
-public class RoleController implements RoleRemoteService {
+@DubboService
+public class RoleRemoteServiceProvider implements RoleRemoteService {
 
     @Autowired
     private RoleService roleService;
@@ -43,9 +41,8 @@ public class RoleController implements RoleRemoteService {
      * @return yes or no
      */
     @Override
-    @PostMapping("/addRole")
-    public R<Long> addRole(@Valid @RequestBody AddRoleParam param) {
-        return R.success(roleService.addRole(param));
+    public Long addRole(@Valid AddRoleParam param) {
+        return roleService.addRole(param);
     }
 
     /**
@@ -55,10 +52,9 @@ public class RoleController implements RoleRemoteService {
      * @return yes or no
      */
     @Override
-    @PutMapping("/updateRole")
-    public R<Boolean> updateRole(@Valid @RequestBody UpdateRoleParam param) {
+    public Boolean updateRole(@Valid UpdateRoleParam param) {
         roleService.updateRole(param);
-        return R.success(true);
+        return true;
     }
 
     /**
@@ -70,9 +66,10 @@ public class RoleController implements RoleRemoteService {
      * @return PageResult<RoleVo>
      */
     @Override
-    @GetMapping("/page")
-    public R<PageResult<RoleDTO>> page(@RequestParam(required = false, name = "roleName") String roleName, @RequestParam(name = "pageNum") Integer pageNum, @RequestParam(name = "pageSize") Integer pageSize) {
-        return R.success(roleService.getRoles(roleName, pageNum, pageSize));
+    public PageResult<RoleDTO> page(String roleName,
+                                    Integer pageNum,
+                                    Integer pageSize) {
+        return roleService.getRoles(roleName, pageNum, pageSize);
     }
 
     /**
@@ -82,9 +79,8 @@ public class RoleController implements RoleRemoteService {
      * @return List<MenuTreeDTO>
      */
     @Override
-    @GetMapping("getRoleHasMenuTree")
-    public R<List<MenuTreeDTO>> getRoleHasMenuTree(@RequestParam(name = "roleId") Long roleId) {
-        return R.success(menuService.roleHasMenuTree(roleId));
+    public List<MenuTreeDTO> getRoleHasMenuTree(Long roleId) {
+        return menuService.roleHasMenuTree(roleId);
     }
 
     /**
@@ -94,9 +90,8 @@ public class RoleController implements RoleRemoteService {
      * @return List<Long>
      */
     @Override
-    @GetMapping("getRoleHasMenus")
-    public R<RoleCheckedMenuDTO> getRoleHasMenus(@RequestParam(name = "roleId") Long roleId) {
-        return R.success(roleMenuService.getRoleHasMenus(roleId));
+    public RoleCheckedMenuDTO getRoleHasMenus(Long roleId) {
+        return roleMenuService.getRoleHasMenus(roleId);
     }
 
     /**
@@ -106,9 +101,8 @@ public class RoleController implements RoleRemoteService {
      * @return yes or no
      */
     @Override
-    @PutMapping("roleSetMenu")
-    public R<Boolean> roleSetMenu(@Valid @RequestBody RoleCheckMenuParam param) {
+    public Boolean roleSetMenu(@Valid RoleCheckMenuParam param) {
         roleMenuService.roleSetMenu(param);
-        return R.success(true);
+        return true;
     }
 }

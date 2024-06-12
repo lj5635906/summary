@@ -1,13 +1,12 @@
-package com.summary.biz.seckill.rest;
+package com.summary.biz.seckill.provider;
 
 import com.summary.biz.seckill.service.SeckillGoodsService;
 import com.summary.client.seckill.dto.SeckillGoodsDTO;
 import com.summary.client.remote.SeckillGoodsRemoteService;
 import com.summary.client.seckill.param.CreateSeckillGoodsParam;
-import com.summary.common.core.dto.R;
 import jakarta.validation.Valid;
+import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -17,9 +16,8 @@ import java.util.List;
  * @author myabtis-plus
  * @since 2024-06-01
  */
-@RestController
-@RequestMapping("/seckillGoods")
-public class SeckillGoodsController implements SeckillGoodsRemoteService {
+@DubboService
+public class SeckillGoodsRemoteServiceProvider implements SeckillGoodsRemoteService {
 
     @Autowired
     private SeckillGoodsService seckillGoodsService;
@@ -31,9 +29,8 @@ public class SeckillGoodsController implements SeckillGoodsRemoteService {
      * @return 秒杀id
      */
     @Override
-    @PostMapping("/createSeckillGoods")
-    public R<Long> createSeckillGoods(@Valid @RequestBody CreateSeckillGoodsParam param) {
-        return R.success(seckillGoodsService.createSeckillGoods(param));
+    public Long createSeckillGoods(@Valid CreateSeckillGoodsParam param) {
+        return seckillGoodsService.createSeckillGoods(param);
     }
 
     /**
@@ -43,9 +40,8 @@ public class SeckillGoodsController implements SeckillGoodsRemoteService {
      * @return 商品详情
      */
     @Override
-    @GetMapping("/getSeckillGoods")
-    public R<SeckillGoodsDTO> getSeckillGoods(@RequestParam("seckillId") Long seckillId) {
-        return R.success(seckillGoodsService.getSeckillGoods(seckillId));
+    public SeckillGoodsDTO getSeckillGoods(Long seckillId) {
+        return seckillGoodsService.getSeckillGoods(seckillId);
     }
 
     /**
@@ -54,8 +50,7 @@ public class SeckillGoodsController implements SeckillGoodsRemoteService {
      * @return 商品列表
      */
     @Override
-    @GetMapping("/getSeckillGoodsList")
-    public R<List<SeckillGoodsDTO>> getSeckillGoodsList() {
-        return R.success(seckillGoodsService.pageSeckillGoods());
+    public List<SeckillGoodsDTO> getSeckillGoodsList() {
+        return seckillGoodsService.pageSeckillGoods();
     }
 }

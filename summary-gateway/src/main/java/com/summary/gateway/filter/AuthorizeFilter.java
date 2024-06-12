@@ -1,6 +1,8 @@
 package com.summary.gateway.filter;
 
+import cn.hutool.core.collection.CollUtil;
 import cn.hutool.json.JSONUtil;
+import com.summary.common.core.dto.R;
 import com.summary.common.core.exception.code.BaseExceptionCode;
 import com.summary.common.core.jwt.JwtUtils;
 import com.summary.gateway.config.AuthenticationAnonProperties;
@@ -56,6 +58,10 @@ public class AuthorizeFilter implements GlobalFilter, Ordered {
         // 所有不验证token的接口集合
         Set<String> urls = authenticationAnonProperties.getPaths();
 
+        if (CollUtil.isEmpty(urls)) {
+            return chain.filter(buildIpExchange(clientIp, exchange));
+        }
+
         for (String anon : urls) {
             boolean match = ANT_PATH_MATCHER.match(anon, uri);
             // 当前接口不需要验证权限
@@ -108,7 +114,7 @@ public class AuthorizeFilter implements GlobalFilter, Ordered {
         ServerHttpResponse originalResponse = exchange.getResponse();
         originalResponse.setStatusCode(HttpStatus.OK);
         originalResponse.getHeaders().add("Content-Type", "application/json;charset=UTF-8");
-        String data = JSONUtil.parse(exceptionCode).toString();
+        String data = JSONUtil.parse(R.custom(exceptionCode)).toString();
         byte[] response = data.getBytes(StandardCharsets.UTF_8);
         DataBuffer buffer = originalResponse.bufferFactory().wrap(response);
         return originalResponse.writeWith(Flux.just(buffer));

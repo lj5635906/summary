@@ -11,7 +11,7 @@ import com.summary.common.core.dto.R;
 import com.summary.common.core.page.PageResult;
 import com.summary.component.auth.TokenManager;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,12 +23,11 @@ import java.util.List;
  * @since 2024/5/30
  */
 @RestController
-@RequestMapping("/admin/authority")
+@RequestMapping("/manager/authority")
 public class AdminController {
 
-    @Autowired
+    @DubboReference
     private AdminRemoteService adminRemoteService;
-
 
     /**
      * 获取当前登录用户信息
@@ -37,7 +36,7 @@ public class AdminController {
      */
     @GetMapping("/getCurrentAdmin")
     public R<AdminDTO> getCurrentAdmin() {
-        return adminRemoteService.getAdminByAdminId(TokenManager.getUserId());
+        return R.success(adminRemoteService.getAdminByAdminId(TokenManager.getUserId()));
     }
 
     /**
@@ -47,7 +46,7 @@ public class AdminController {
      */
     @GetMapping("/getCurrentAdmin/hasMenuTree")
     public R<List<MenuTreeDTO>> getAdminHasMenu() {
-        return adminRemoteService.getAdminHasMenu(TokenManager.getUserId());
+        return R.success(adminRemoteService.getAdminHasMenu(TokenManager.getUserId()));
     }
 
     /**
@@ -58,7 +57,7 @@ public class AdminController {
      */
     @PostMapping("/addAdmin")
     public R<Long> addAdmin(@Valid @RequestBody AddAdminParam param) {
-        return adminRemoteService.addAdmin(param);
+        return R.success(adminRemoteService.addAdmin(param));
     }
 
     /**
@@ -69,7 +68,7 @@ public class AdminController {
      */
     @PutMapping("/updateAdmin")
     public R<Boolean> updateAdmin(@Valid @RequestBody ModifyAdminParam param) {
-        return adminRemoteService.updateAdmin(param);
+        return R.success(adminRemoteService.updateAdmin(param));
     }
 
     /**
@@ -84,8 +83,13 @@ public class AdminController {
      * @return PageInfo<AdminListDTO>
      */
     @GetMapping("/page")
-    public R<PageResult<AdminDTO>> page(String username, String mobile, Integer userStatus, String realName, Integer pageNum, Integer pageSize) {
-        return adminRemoteService.page(username, mobile, userStatus, realName, pageNum, pageSize);
+    public R<PageResult<AdminDTO>> page(@RequestParam(name = "username", required = false) String username,
+                                        @RequestParam(name = "mobile", required = false) String mobile,
+                                        @RequestParam(name = "userStatus", required = false) Integer userStatus,
+                                        @RequestParam(name = "realName", required = false) String realName,
+                                        @RequestParam(name = "pageNum") Integer pageNum,
+                                        @RequestParam(name = "pageSize") Integer pageSize) {
+        return R.success(adminRemoteService.page(username, mobile, userStatus, realName, pageNum, pageSize));
     }
 
     /**
@@ -96,7 +100,7 @@ public class AdminController {
      */
     @GetMapping("/adminByUsername")
     public R<AdminDTO> getAdminByUsername(@RequestParam(name = "username") String username) {
-        return adminRemoteService.getAdminByUsername(username);
+        return R.success(adminRemoteService.getAdminByUsername(username));
     }
 
     /**
@@ -107,7 +111,7 @@ public class AdminController {
      */
     @GetMapping("/adminByAdminId")
     public R<AdminDTO> getAdminByAdminId(@RequestParam(name = "adminId") Long adminId) {
-        return adminRemoteService.getAdminByAdminId(adminId);
+        return R.success(adminRemoteService.getAdminByAdminId(adminId));
     }
 
     /**
@@ -118,7 +122,7 @@ public class AdminController {
      */
     @GetMapping("/adminByMobile")
     public R<AdminDTO> getAdminByMobile(@RequestParam(name = "mobile") String mobile) {
-        return adminRemoteService.getAdminByMobile(mobile);
+        return R.success(adminRemoteService.getAdminByMobile(mobile));
     }
 
     /**
@@ -129,7 +133,7 @@ public class AdminController {
      */
     @GetMapping("getAdminRoles")
     public R<List<AdminRoleDTO>> getAdminRoles(@RequestParam(name = "adminId") Long adminId) {
-        return adminRemoteService.getAdminRoles(adminId);
+        return R.success(adminRemoteService.getAdminRoles(adminId));
     }
 
     /**
@@ -140,6 +144,6 @@ public class AdminController {
      */
     @PutMapping("updateAdminRole")
     public R<Boolean> updateAdminRole(@Valid @RequestBody ModifyAdminRoleParam param) {
-        return adminRemoteService.updateAdminRole(param);
+        return R.success(adminRemoteService.updateAdminRole(param));
     }
 }

@@ -2,6 +2,8 @@ package com.summary.client.goods.dto;
 
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
  * 创建订单check商品 返回的数据
  *
@@ -9,7 +11,7 @@ import lombok.Data;
  * @since 2024/6/1
  */
 @Data
-public class CreateOrderCheckGoodsSkuDTO {
+public class CreateOrderCheckGoodsSkuDTO implements Serializable {
     /*** 商品id */
     private Long goodsId;
     /*** 商品名称 */
