@@ -24,6 +24,11 @@ EXPOSE 10300
 # 执行命令
 ENTRYPOINT ["java","-jar","/app.jar"]
 
+# build
+# docker build --rm -t summary/summary-goods:v1 --build-arg JAR_FILE=summary-goods-1.0-SNAPSHOT.jar .
+
+# docker run -itd --name summary-goods -p 10300:10300 summary/summary-goods:v1
+
 
 
 
