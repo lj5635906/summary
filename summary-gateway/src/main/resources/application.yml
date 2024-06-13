@@ -16,7 +16,14 @@ spring:
       transport:
         dashboard: 192.168.31.7:8844
         port: 8719
-
+    openfeign:
+      client:
+        config:
+          default:
+            # 指定Feign客户端连接提供者的超时时限，取决于网络
+            connectTimeout: 60000
+            # 指定Feign客户端从请求到获取到提供者给出的响应的超时时限  取决于业务逻辑执行时间
+            readTimeout: 60000
     gateway:
       enabled: true
       discovery:
