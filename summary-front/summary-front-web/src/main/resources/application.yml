@@ -11,6 +11,12 @@ spring:
         server-addr: 192.168.100.207:18848
         username: nacos
         password: nacos
+    sentinel:
+      enabled: true
+      transport:
+        dashboard: 192.168.31.7:8844
+        port: 8719
+
   data:
     redis:
       host: 192.168.100.205
@@ -25,6 +31,11 @@ dubbo:
     port: -1
   registry:
     address: nacos://192.168.100.207:18848?username=nacos&password=nacos
+  consumer:
+    timeout: 60000
+    check: false
+  provider:
+    timeout: 60000
 
 rocketmq:
   name-server: 192.168.100.205:9876
@@ -42,3 +53,5 @@ summary:
     anon:
       paths:
 #        - /admin/login/username
+  log:
+    web-flag: true

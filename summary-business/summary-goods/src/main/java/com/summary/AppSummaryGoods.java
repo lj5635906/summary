@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.spring.context.annotation.EnableDubbo;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.DisposableBean;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
@@ -24,6 +25,8 @@ public class AppSummaryGoods implements ApplicationRunner, DisposableBean {
     private static ConfigurableApplicationContext ctx;
 
     public static void main(String[] args) {
+        // No Root logger was configured, creating default ERROR-level Root logger with Console appen
+        System.setProperty("nacos.logging.default.config.enabled", "false");
         ctx = SpringApplication.run(AppSummaryGoods.class, args);
         for (String str : ctx.getEnvironment().getActiveProfiles()) {
             log.info(str);

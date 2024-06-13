@@ -1,0 +1,2 @@
+com.summary.component.logs.config.CustomProviderLogAutoConfiguration
+com.summary.component.logs.config.CustomWebLogAutoConfiguration

@@ -1,5 +1,6 @@
 package com.summary.component.exception;
 
+import com.alibaba.csp.sentinel.slots.block.flow.FlowException;
 import com.summary.common.core.dto.R;
 import com.summary.common.core.exception.CustomException;
 import org.slf4j.Logger;
@@ -205,6 +206,20 @@ public class CustomExceptionHandler {
     public R<String> handleException(Exception ex) {
         LOG.error(ex.getMessage(), ex);
         return R.serverError();
+    }
+
+    /**
+     * SentinelBlockException: FlowException
+     *
+     * @param ex Exception
+     * @return ResultVo
+     */
+    @ExceptionHandler(FlowException.class)
+    @ResponseBody
+    @ResponseStatus(HttpStatus.OK)
+    public R<String> handleFlowException(FlowException ex) {
+        LOG.error(ex.getMessage(), ex);
+        return R.custom(FLOW_EXCEPTION);
     }
 
     /**

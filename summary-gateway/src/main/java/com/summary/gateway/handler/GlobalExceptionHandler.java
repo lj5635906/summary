@@ -1,6 +1,12 @@
 package com.summary.gateway.handler;
 
 import cn.hutool.json.JSONUtil;
+import com.alibaba.csp.sentinel.slots.block.BlockException;
+import com.alibaba.csp.sentinel.slots.block.authority.AuthorityException;
+import com.alibaba.csp.sentinel.slots.block.degrade.DegradeException;
+import com.alibaba.csp.sentinel.slots.block.flow.FlowException;
+import com.alibaba.csp.sentinel.slots.block.flow.param.ParamFlowException;
+import com.alibaba.csp.sentinel.slots.system.SystemBlockException;
 import com.summary.common.core.dto.R;
 import feign.RetryableException;
 import lombok.extern.slf4j.Slf4j;
@@ -124,6 +130,26 @@ public class GlobalExceptionHandler implements ErrorWebExceptionHandler {
                 body = R.custom(SERVER_ERROR);
             }
 
+        } else if (ex instanceof BlockException) {
+            httpStatus = HttpStatus.OK;
+            if (ex instanceof FlowException) {
+                // 限流异常
+                body = R.custom(FLOW_EXCEPTION);
+            } else if (ex instanceof DegradeException) {
+                // 熔断异常
+                body = R.custom(DEGRADE_EXCEPTION);
+            } else if (ex instanceof ParamFlowException) {
+                // 热点参数限流
+                body = R.custom(PARAM_FLOW_EXCEPTION);
+            } else if (ex instanceof SystemBlockException) {
+                // 系统规则异常
+                body = R.custom(SYSTEM_BLOCK_EXCEPTION);
+            } else if (ex instanceof AuthorityException) {
+                // 授权规则异常
+                body = R.custom(AUTHORITY_EXCEPTION);
+            } else {
+                body = R.custom(SENTINEL);
+            }
         } else {
             httpStatus = HttpStatus.OK;
             body = R.custom(SERVER_ERROR);

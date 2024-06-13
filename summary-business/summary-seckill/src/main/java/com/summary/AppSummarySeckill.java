@@ -24,6 +24,8 @@ public class AppSummarySeckill implements ApplicationRunner, DisposableBean {
     private static ConfigurableApplicationContext ctx;
 
     public static void main(String[] args) {
+        // No Root logger was configured, creating default ERROR-level Root logger with Console appen
+        System.setProperty("nacos.logging.default.config.enabled", "false");
         ctx = SpringApplication.run(AppSummarySeckill.class, args);
         for (String str : ctx.getEnvironment().getActiveProfiles()) {
             log.info(str);

@@ -17,6 +17,11 @@
             <artifactId>spring-boot-starter-web</artifactId>
             <optional>true</optional>
         </dependency>
+        <dependency>
+            <groupId>org.apache.dubbo</groupId>
+            <artifactId>dubbo-spring-boot-starter</artifactId>
+            <optional>true</optional>
+        </dependency>
         <!-- 配置处理器依赖 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

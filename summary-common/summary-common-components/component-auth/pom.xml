@@ -10,13 +10,6 @@
     <artifactId>component-auth</artifactId>
     <packaging>jar</packaging>
 
-    <name>component-auth</name>
-    <url>http://maven.apache.org</url>
-
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -29,13 +22,6 @@
             <artifactId>spring-boot-configuration-processor</artifactId>
             <optional>true</optional>
         </dependency>
-        <!-- 声明式服务调用组件 openfeign start -->
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-openfeign</artifactId>
-            <optional>true</optional>
-        </dependency>
-        <!-- 声明式服务调用组件 openfeign end-->
         <!-- nacos 服务发现 start -->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>

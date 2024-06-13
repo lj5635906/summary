@@ -8,7 +8,7 @@
     <!--定义日志文件的存储地址 勿在 LogBack 的配置中使用相对路径-->
     <property name="LOG_HOME" value="@log.dir@"/>
     <!-- 定义日志文件名称 -->
-    <property name="APP_NAME" value="@artifactId@"/>
+    <property name="APP_NAME" value="summary-front-manager"/>
     <!-- 控制台输出 -->
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
@@ -23,7 +23,7 @@
             <!--日志文件输出的文件名-->
             <FileNamePattern>${LOG_HOME}/${APP_NAME}/${APP_NAME}.%d{yyyy-MM-dd}.%i.log.gz</FileNamePattern>
             <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
-                <maxFileSize>50MB</maxFileSize>
+                <maxFileSize>100MB</maxFileSize>
             </timeBasedFileNamingAndTriggeringPolicy>
             <!--日志文件保留天数-->
             <MaxHistory>90</MaxHistory>

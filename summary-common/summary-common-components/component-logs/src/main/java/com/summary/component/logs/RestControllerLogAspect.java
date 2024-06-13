@@ -1,18 +1,17 @@
 package com.summary.component.logs;
 
 import cn.hutool.core.util.StrUtil;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import cn.hutool.json.JSONUtil;
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
-import org.apache.tomcat.util.buf.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.annotation.Order;
 import org.springframework.web.bind.annotation.*;
@@ -28,22 +27,19 @@ import java.util.UUID;
  * @author jie.luo
  * @since 2024/5/29
  */
+@Slf4j
 @Aspect
 @Order(10)
 public class RestControllerLogAspect {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(RestControllerLogAspect.class);
 
     private final LogType logType;
 
     @Value("${server.servlet.context-path:#{null}}")
     public String contextPath;
-    private final ObjectMapper objectMapper;
 
-    public RestControllerLogAspect(LogType logType, ObjectMapper objectMapper) {
+    public RestControllerLogAspect(LogType logType) {
         this.logType = logType;
-        this.objectMapper = objectMapper;
-        LOGGER.info("*************************** 加载日志启动 LogType:{} *******************************", this.logType);
+        log.info("*************************** 加载日志启动 web LogType:{} *******************************", this.logType);
     }
 
     /**
@@ -69,23 +65,23 @@ public class RestControllerLogAspect {
         // 拦截方法的前缀
         StringBuilder prefix = getLogPrefix(joinPoint, logType);
 
-        if (LOGGER.isDebugEnabled()) {
+        if (log.isDebugEnabled()) {
             String requestParam = getRequestParam(joinPoint);
             if (StrUtil.isNotBlank(requestParam)) {
-                LOGGER.debug("{}，{}", prefix.toString(), getRequestParam(joinPoint));
+                log.debug("{}，{}", prefix.toString(), requestParam);
             } else {
-                LOGGER.debug("{}，无请求参数", prefix.toString());
+                log.debug("{}，无请求参数", prefix.toString());
             }
         }
 
         Object result = joinPoint.proceed(args);
         if (result != null) {
-            if (LOGGER.isDebugEnabled()) {
-                LOGGER.debug("{}，响应出参：{}", prefix.toString(), objectMapper.writeValueAsString(result));
+            if (log.isDebugEnabled()) {
+                log.debug("{}，响应出参：{}", prefix.toString(), JSONUtil.toJsonStr(result));
             }
         } else {
-            if (LOGGER.isDebugEnabled()) {
-                LOGGER.debug("{}，响应出参：返回为 void", prefix.toString());
+            if (log.isDebugEnabled()) {
+                log.debug("{}，响应出参：返回为 void", prefix.toString());
             }
         }
 
@@ -244,7 +240,7 @@ public class RestControllerLogAspect {
                 return null;
             }
         } catch (Exception e) {
-            LOGGER.error(e.getMessage());
+            log.error(e.getMessage());
             return null;
         }
     }

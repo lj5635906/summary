@@ -24,7 +24,6 @@ public enum BaseExceptionCode implements CustomCodeService{
 
     SERVER_ERROR(500, "服务器发生错误！"),
     TIME_OUT(504, "连接超时，请稍后重试！"),
-    SENTINEL(505, "服务器出小差啦，请稍后重试！"),
     MANY_REQUEST(506, "Too Many Requests"),
 
     REQUEST_ERROR(550, "请求出现异常！"),
@@ -55,6 +54,16 @@ public enum BaseExceptionCode implements CustomCodeService{
     GET_HOST_IP_ERROR(2003, "获取本机IP出现异常"),
     GREATER_THAN_MAX_WORK_ID(2004, "每个机房服务器最大work_id: 31"),
     GREATER_THAN_MAX_DATA_ID(2004, "每台设备最大data_id: 31"),
+
+    /**
+     * 服务降级相关
+     */
+    SENTINEL(505, "服务器出小差啦，请稍后重试！"),
+    FLOW_EXCEPTION(506, "接口已被限流"),
+    DEGRADE_EXCEPTION(507, "接口已被熔断,请稍后再试"),
+    PARAM_FLOW_EXCEPTION(508, "热点参数限流"),
+    SYSTEM_BLOCK_EXCEPTION(509, "系统规则异常"),
+    AUTHORITY_EXCEPTION(510, "授权规则不通过"),
 
     /**
      * 未知错误

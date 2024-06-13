@@ -14,4 +14,5 @@ import org.springframework.context.annotation.Configuration;
 @ConditionalOnClass
 @ComponentScan(basePackages = "com.summary.component.exception")
 public class CustomExceptionAutoConfiguration {
+
 }

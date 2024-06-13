@@ -22,5 +22,12 @@
             <artifactId>spring-boot-configuration-processor</artifactId>
             <optional>true</optional>
         </dependency>
+        <!-- Sentinel 监控 start -->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <!-- Sentinel 监控 end-->
     </dependencies>
 </project>

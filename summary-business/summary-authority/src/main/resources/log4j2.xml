@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--status，log4j2自身的日志级别，OFF>FATAL>ERROR>WARN>INFO>DEBUG>TRACE>ALL-->
+<!--monitorInterval，重新读取配置文件的间隔时间，单位为秒-->
+<Configuration status="INFO" monitorInterval="30">
+    <!--Properties，属性（可选），用来定义常量，之后在其他配置项中通过${变量名}引用-->
+    <Properties>
+        <!-- 日志存储目录 -->
+        <Property name="LOG_HOME">logs</Property>
+        <!-- 日志应用名 ，完整的日志路径：-->
+        <property name="APP_NAME" value="summary-authority"/>
+        <!-- 日志编码 -->
+        <property name="CHARSET">UTF-8</property>
+        <!-- 单个文件大小 -->
+        <property name="MAX_FILE_SIZE">100MB</property>
+        <!--_TRACE_ID，业务自定义变量-->
+        <property name="ALL_PATTERN">[%d][%level][%thread][%X{_TRACE_ID}][%c{1.}]- %msg %n</property>
+        <!-- 每天日志文件保存的最多个数 -->
+        <property name="FILE_INDEX_MAX">100</property>
+        <!-- 日志文件保留天数，超过该保留天数的文件会被滚动删除 -->
+        <property name="MAX_HISTORY">90d</property>
+    </Properties>
+
+    <!--Appenders，输出源，用于定义日志输出的地方-->
+    <Appenders>
+        <!--控制台-->
+        <Console name="CONSOLE" target="SYSTEM_OUT">
+            <PatternLayout>
+                <Pattern>${ALL_PATTERN}</Pattern>
+            </PatternLayout>
+        </Console>
+
+        <!--RollingRandomAccessFile，按照一定的规则滚动文件-->
+        <!--name，指定Appender的名字-->
+        <!--fileName，当前日志文件的路径和名字-->
+        <!--filePattern，当发生滚动时，文件的转移和重命名规则-->
+        <RollingRandomAccessFile name="FILE-APPENDER"
+                                 fileName="${LOG_HOME}/${APP_NAME}.log"
+                                 filePattern="${LOG_HOME}/${APP_NAME}/${APP_NAME}-%d{yyyyMMdd}-%i.log.gz">
+            <!--PatternLayout，日志输出的格式-->
+            <PatternLayout charset="${CHARSET}">
+                <Pattern>${ALL_PATTERN}</Pattern>
+            </PatternLayout>
+            <!--Policies，日志文件滚动的策略-->
+            <!--TimeBasedTriggeringPolicy，和filePattern结合使用，日期格式决定时间单位，interval决定单位时间间隔；modulate，产生文件是否以0点偏移时间-->
+            <!--SizeBasedTriggeringPolicy，日志文件大小滚动策略-->
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+                <!-- 单个文件大小 -->
+                <SizeBasedTriggeringPolicy size="${MAX_FILE_SIZE}"/>
+            </Policies>
+            <!--DefaultRolloverStrategy，默认滚动策略，max-每天日志文件保存的最多个数-->
+            <DefaultRolloverStrategy max="${FILE_INDEX_MAX}">
+                <!-- basePath:指定扫描要删除文件的基准目录 -->
+                <!-- maxDepth:指定扫描的目录的最大层级 -->
+                <!-- 删除的基准目录 logs/ -->
+                <Delete basePath="${LOG_HOME}" maxDepth="2">
+                    <!-- 匹配基准目录下 logs/appName/年月日/appName-*.log.gz 文件删除 -->
+                    <IfFileName glob="${APP_NAME}/${APP_NAME}-*.log.gz"/>
+                    <!-- 日志保留天数 -->
+                    <IfLastModified age="${MAX_HISTORY}"/>
+                </Delete>
+            </DefaultRolloverStrategy>
+        </RollingRandomAccessFile>
+    </Appenders>
+
+    <Loggers>
+        <!--每个配置都必须有一个Root logger，没有name属性、不支持additivity属性-->
+        <!--level：日志输出级别，从低到高分别为：All<TRACE<DEBUG<INFO<WARN<ERROR<FATAL<OFF-->
+        <!--includeLocation：输出位置信息需要栈快照，对性能影响很大，所以异步logger默认关闭该功能，可通过设置为true打开-->
+        <!--AppenderRef：指定该日志输出到哪个Appender-->
+        <root level="INFO">
+            <AppenderRef ref="CONSOLE"/>
+            <AppenderRef ref="FILE-APPENDER"/>
+        </root>
+    </Loggers>
+</Configuration>

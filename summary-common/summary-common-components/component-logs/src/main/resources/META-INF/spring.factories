@@ -1,2 +1,0 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-com.summary.component.logs.config.CustomLogAutoConfiguration

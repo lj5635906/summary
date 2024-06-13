@@ -11,6 +11,12 @@ spring:
         server-addr: 192.168.100.207:18848
         username: nacos
         password: nacos
+    sentinel:
+      enabled: true
+      transport:
+        dashboard: 192.168.31.7:8844
+        port: 8719
+
     gateway:
       enabled: true
       discovery:
