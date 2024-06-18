@@ -8,7 +8,7 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: 192.168.100.207:18848
+        server-addr: 192.168.31.100:8848
         username: nacos
         password: nacos
     sentinel:
@@ -66,7 +66,7 @@ spring:
                 redis-rate-limiter.burstCapacity: 300
   data:
     redis:
-      host: 192.168.100.205
+      host: 192.168.31.100
       port: 6379
       password: 123456
       database: 12

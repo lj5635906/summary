@@ -1,0 +1,62 @@
+version: '3'
+services:
+  elasticsearch:
+    image: elasticsearch:7.9.0
+    container_name: elasticsearch
+    ports:
+      - 9200:9200
+      - 9300:9300
+    environment:
+      - "discovery.type=single-node"
+      - "ES_JAVA_OPTS=-Xms2048m -Xmx2048m"
+      - "TZ=Asia/Shanghai"
+    restart: always
+    volumes:
+      - "/mnt/support/data/elasticsearch/data:/usr/share/elasticsearch/data"
+      - "/mnt/support/data/elasticsearch/plugins:/usr/share/elasticsearch/plugins"
+  kibana:
+    image: kibana:7.9.0
+    container_name: kibana7
+    ports:
+      - 5601:5601
+    restart: always
+    depends_on:
+      - elasticsearch
+  elasticsearch-head:
+    image: bolingcavalry/elasticsearch-head:6
+    container_name: elasticsearch-head
+    environment:
+      - "TZ=Asia/Shanghai"
+    ports:
+      - 9100:9100
+    restart: always
+    depends_on:
+      - elasticsearch
+  oap:
+    image: apache/skywalking-oap-server:8.1.0-es7
+    container_name: oap
+    depends_on:
+      - elasticsearch
+    links:
+      - elasticsearch
+    restart: always
+    ports:
+      - 11800:11800
+      - 12800:12800
+    environment:
+      SW_STORAGE: elasticsearch7 # 指定ES版本
+      SW_STORAGE_ES_CLUSTER_NODES: elasticsearch:9200
+      TZ: Asia/Shanghai
+  ui:
+    image: apache/skywalking-ui:8.1.0
+    container_name: ui
+    depends_on:
+      - oap
+    links:
+      - oap
+    restart: always
+    ports:
+      - 8080:8080
+    environment:
+      SW_OAP_ADDRESS: oap:12800
+      TZ: Asia/Shanghai

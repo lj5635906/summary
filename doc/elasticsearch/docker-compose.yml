@@ -1,0 +1,33 @@
+version: '3'
+services:
+  elasticsearch:
+    image: summary/elasticsearch:7.7.0
+    container_name: es7
+    ports:
+      - 9200:9200
+      - 9300:9300
+    environment:
+      - "discovery.type=single-node"
+      - "ES_JAVA_OPTS=-Xms2048m -Xmx2048m"
+    restart: always
+    volumes:
+      - "/mnt/data/elasticsearch/data:/usr/share/elasticsearch/data"
+      - "/mnt/data/elasticsearch/plugins:/usr/share/elasticsearch/plugins"
+  kibana:
+    image: kibana:7.7.0
+    container_name: kibana7
+    ports:
+      - 5601:5601
+    restart: always
+    depends_on:
+      - elasticsearch
+  elasticsearchhead:
+    image: bolingcavalry/elasticsearch-head:6
+    container_name: es7-head
+    environment:
+      - "TZ=Asia/Shanghai"
+    ports:
+      - 9100:9100
+    restart: always
+    depends_on:
+      - elasticsearch

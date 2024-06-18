@@ -1,0 +1,30 @@
+docker pull apache/skywalking-oap-server:8.7.0-es7
+
+docker run --name oap --restart always -d \
+-e TZ=Asia/Shanghai \
+-p 12800:12800 \
+-p 11800:11800 \
+--link es7:es7 \
+-e SW_STORAGE=elasticsearch \
+-e SW_STORAGE_ES_CLUSTER_NODES=es7:9200 \
+apache/skywalking-oap-server:8.7.0-es7
+
+
+docker run --name oap --restart always -d \
+-e TZ=Asia/Shanghai \
+-p 12800:12800 \
+-p 11800:11800 \
+-e SW_STORAGE=elasticsearch \
+-e SW_STORAGE_ES_CLUSTER_NODES=es7:9200 \
+apache/skywalking-oap-server:8.7.0-es7
+
+
+docker pull apache/skywalking-ui:8.7.0
+
+docker run -d --name skywalking-ui \
+--restart=always \
+-e TZ=Asia/Shanghai \
+-p 8088:8080 \
+--link oap:oap \
+-e SW_OAP_ADDRESS=oap:12800 \
+apache/skywalking-ui:8.7.0

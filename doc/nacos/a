@@ -1,0 +1,29 @@
+
+docker pull nacos/nacos-server:v2.3.2
+
+docker run --name nacos -d -p 8848:8848 -e MODE=standalone  nacos/nacos-server:v2.3.2
+
+docker cp nacos:/home/nacos/data/ /mnt/support/data/nacos/
+docker cp nacos:/home/nacos/conf/ /mnt/support/data/nacos/
+docker cp nacos:/home/nacos/logs/ /mnt/support/data/nacos/
+
+docker stop nacos
+docker rm nacos
+
+
+nacos 数据库执行 mysql-schema.sql
+修改配置文件
+
+docker run -d --name nacos \
+ -p 8848:8848 \
+ -p 9848:9848 \
+ -p 9849:9849 \
+ --restart=always \
+ -e jvm_ms=2048m -m 2048m \
+ --env MODE=standalone --env NACOS_AUTH_ENABLE=true \
+ -v /mnt/support/data/nacos/conf/:/home/nacos/conf \
+ -v /mnt/support/data/nacos/nacos/logs:/home/nacos/logs \
+ -v /mnt/support/data/nacos/nacos/data:/home/nacos/data \
+ nacos/nacos-server:v2.3.2
+
+

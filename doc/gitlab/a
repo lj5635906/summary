@@ -1,0 +1,26 @@
+
+docker pull twang2218/gitlab-ce-zh:11.1.4
+
+
+
+docker run -itd --name gitlab \
+--hostname=git.summary.com \
+-p 443:443 \
+-p 80:80 \
+-p 1222:22 \
+--restart always \
+-v /mnt/support/data/gitlab/config:/etc/gitlab \
+-v /mnt/support/data/gitlab/logs:/var/log/gitlab \
+-v /mnt/support/data/gitlab/data:/var/opt/gitlab \
+-e TZ=Asia/Shanghai \
+twang2218/gitlab-ce-zh:11.1.4
+
+
+vim /mnt/support/data/gitlab/config/gitlab.rb
+
+# 配置项目访问地址：
+external_url 'http://192.168.31.101'
+# 配置ssh协议所使用的访问地址和端口
+gitlab_rails['gitlab_ssh_host'] = '192.168.31.101'
+gitlab_rails['time_zone'] = 'Asia/Shanghai'
+gitlab_rails['gitlab_shell_ssh_port'] = 222

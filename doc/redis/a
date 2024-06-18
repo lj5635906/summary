@@ -1,0 +1,7 @@
+
+
+docker run --name redis \
+ --restart=always \
+-p 6379:6379 \
+-v /mnt/support/data/redis/redis.conf:/usr/local/etc/redis/redis.conf \
+-d redis:6.2.5

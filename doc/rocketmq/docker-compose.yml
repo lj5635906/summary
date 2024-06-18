@@ -1,0 +1,43 @@
+version: '3'
+services:
+  namesrv:
+    image: apache/rocketmq:4.9.7
+    container_name: namesrv
+    ports:
+      - 9876:9876
+    environment:
+      MAX_POSSIBLE_HEAP: 100000000
+    restart: always
+    volumes:
+      - "/mnt/support/data/rocketmq/namesrv/logs:/root/logs"
+      - "/mnt/support/data/rocketmq/namesrv/store:/root/store"
+  broker01:
+    image: apache/rocketmq:4.9.7
+    container_name: broker01
+    ports:
+      - 10909:10909
+      - 10911:10911
+    restart: always
+    volumes:
+      - "/mnt/support/data/rocketmq/broker01/logs:/root/logs"
+      - "/mnt/support/data/rocketmq/broker01/store:/root/store"
+      - "/mnt/support/data/rocketmq/broker01/broker.conf:/etc/rocketmq/broker.conf"
+    depends_on:
+      - namesrv
+    links:
+      - namesrv
+    environment:
+      NAMESRV_ADDR: namesrv:9876
+      JAVA_OPTS: " -Duser.home=/opt"
+      MAX_POSSIBLE_HEAP: 200000000
+    command: mqbroker -c /etc/rocketmq/broker.conf
+  console:
+    image: pangliang/rocketmq-console-ng
+    container_name: console
+    ports:
+      - 9999:8080
+    restart: always
+    environment:
+      JAVA_OPTS: "-Drocketmq.namesrv.addr=namesrv:9876 -Dcom.rocketmq.sendMessageWithVIPChannel=false"
+    depends_on:
+      - namesrv

@@ -12,7 +12,7 @@ spring:
     password: zfxmz
   data:
     redis:
-      host: 192.168.100.205
+      host: 192.168.31.100
       port: 6379
       password: 123456
       database: 12
@@ -23,7 +23,7 @@ dubbo:
     name: dubbo
     port: -1
   registry:
-    address: nacos://192.168.100.207:18848?username=nacos&password=nacos
+    address: nacos://192.168.31.100:8848?username=nacos&password=nacos
   consumer:
     timeout: 60000
     check: false
@@ -31,7 +31,7 @@ dubbo:
     timeout: 60000
 
 rocketmq:
-  name-server: 192.168.100.205:9876
+  name-server: 192.168.31.100:9876
 
   producer:
     group: summary
