@@ -26,7 +26,7 @@ public class MybatisPlusAutoGenerator {
         System.out.println(projectPath);
 
         /**  **/
-        FastAutoGenerator.create("jdbc:mysql://192.168.100.203:33306/summary-" + module + "?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8", "root", "zfxmz")
+        FastAutoGenerator.create("jdbc:mysql://192.168.31.100:13306/summary-" + module + "?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8", "root", "123456")
                 .globalConfig(builder -> {
                     builder.author("myabtis-plus") // 设置作者
 //                            .fileOverride()

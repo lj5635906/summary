@@ -27,7 +27,7 @@ ENTRYPOINT ["java","-jar","/usr/local/sentinel/app.jar"]
 # build
 # docker build --rm -t summary/sentinel-dashboard:1.8.8 .
 
-# docker run -itd --name sentinel-dashboard -p 8858:8080 summary/sentinel-dashboard:1.8.8
+# docker run -itd --restart=always --name sentinel-dashboard -p 8858:8080 summary/sentinel-dashboard:1.8.8
 
 
 

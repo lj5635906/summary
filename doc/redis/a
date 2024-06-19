@@ -1,4 +1,4 @@
-
+docker pull redis:6.2.5
 
 docker run --name redis \
  --restart=always \

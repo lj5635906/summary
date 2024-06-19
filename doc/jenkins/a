@@ -1,3 +1,5 @@
+docker pull jenkins/jenkins:2.463-alpine-jdk17
+
 docker run -itd --name jenkins \
     --restart=always \
     -p 18088:8080 \
@@ -6,6 +8,7 @@ docker run -itd --name jenkins \
     -e JAVA_OPTS=-Duser.timezone=Asia/Shanghai \
     -v /mnt/support/data/jenkins/:/var/jenkins_home/ \
     -v /usr/local/jdk-17.0.11:/usr/local/jdk-17.0.11 \
-    -v /mnt/support/maven/apache-maven-3.9.7:/usr/local/apache-maven-3.9.7 \
-    jenkins/jenkins:2.235-alpine
-    summary/jenkins:2.235-alpine
+    -v /usr/local/maven/apache-maven-3.9.7:/usr/local/maven/apache-maven-3.9.7 \
+    -v /usr/local/maven/maven_repository:/usr/local/maven/maven_repository \
+    -e JAVA_OPTS="-Duser.timezone='Asia/Shanghai" \
+    jenkins/jenkins:2.463-alpine-jdk17

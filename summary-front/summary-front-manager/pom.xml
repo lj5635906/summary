@@ -10,21 +10,8 @@
     <artifactId>summary-front-manager</artifactId>
     <packaging>jar</packaging>
 
-    <dependencies>
-
-        <!-- 声明式服务调用组件 openfeign start -->
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-openfeign</artifactId>
-        </dependency>
-        <!-- 声明式服务调用组件 openfeign end-->
-
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-loadbalancer</artifactId>
-        </dependency>
-    </dependencies>
     <build>
+        <finalName>app</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

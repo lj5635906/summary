@@ -13,7 +13,7 @@ spring:
         password: nacos
   data:
     redis:
-      host: 192.168.31.100
+      host: 192.168.31.101
       port: 6379
       password: 123456
       database: 12

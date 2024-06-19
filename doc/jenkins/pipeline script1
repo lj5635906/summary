@@ -1,0 +1,75 @@
+pipeline {
+    agent any
+    tools{
+        maven 'maven3.8.1'
+        jdk 'jdk11'
+    }
+    stages {
+        stage('拉取代码 summary...') {
+            steps {
+                git branch: 'beta', credentialsId: 'e89ece39-b7c4-44f9-b98c-57f53b1765d9', url: 'http://git.ajzxjk.com/ajzx-thyroid/i-thyroid-server.git'
+                echo '----------拉取成功----------'
+            }
+        }
+
+	//-----------------------构建business-----------------------
+	//-----------------------构建business-----------------------
+	//-----------------------构建business-----------------------
+        stage('执行构建business_article') {
+            steps {
+                sh "mvn -f thyroid-business/article-server/pom.xml clean package  -Dmaven.test.skip=true"
+                echo '----------构建完成----------'
+            }
+        }
+        stage('上传jar包到分发服务器business_article') {
+            steps {
+                sh "ssh 124.71.180.123 /file/script/check_folder.sh /file/programs/servers/business_article/"
+                sh "scp thyroid-business/article-server/target/app.jar root@124.71.180.123:/file/programs/servers/business_article/"
+                echo '----------上传完成----------'
+            }
+        }
+
+
+	//-----------------------构建front-----------------------
+	//-----------------------构建front-----------------------
+	//-----------------------构建front-----------------------
+
+	//front_app_doctor
+        stage('执行构建front_app_doctor') {
+            steps {
+                sh "mvn -f thyroid-front/front-app-doctor/pom.xml clean -Dfile.encoding=UTF-8 smart-doc:html package -Dmaven.test.skip=true"
+                echo '----------构建完成----------'
+            }
+        }
+        stage('上传jar包到分发服务器front_app_doctor') {
+            steps {
+                sh "ssh 124.71.180.123 /file/script/check_folder.sh /file/programs/servers/front_app_doctor/"
+                sh "scp thyroid-front/front-app-doctor/target/app.jar root@124.71.180.123:/file/programs/servers/front_app_doctor/"
+                echo '----------上传完成----------'
+            }
+        }
+
+	//-----------------------构建gateway-----------------------
+	//-----------------------构建gateway-----------------------
+	//-----------------------构建gateway-----------------------
+
+	//front_gateway
+        stage('执行构建front_gateway') {
+            steps {
+                sh "mvn -f thyroid-gateway/pom.xml clean package -Dmaven.test.skip=true"
+                echo '----------构建完成----------'
+            }
+        }
+        stage('上传jar包到分发服务器front_gateway') {
+            steps {
+                sh "ssh 124.71.180.123 /file/script/check_folder.sh /file/programs/servers/front_gateway/"
+                sh "scp thyroid-gateway/target/app.jar root@124.71.180.123:/file/programs/servers/front_gateway/"
+                echo '----------上传完成----------'
+            }
+        }
+
+
+
+    }
+}
+
