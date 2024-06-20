@@ -9,8 +9,11 @@ COPY ${JAR_FILE} /summary/app.jar
 
 # 暴露端口号
 EXPOSE 8080
+
+CMD ["--server.port=8400"]
+
 # 执行命令
-ENTRYPOINT ["java","-jar","--server.port=8080","/summary/app.jar",">","/dev/null","&"]
+ENTRYPOINT ["nohup","java","-jar","/summary/app.jar","&"]
 
 # build
 # docker build --rm -t summary/summary-goods:v1 --build-arg JAR_FILE=summary-goods-1.0-SNAPSHOT.jar .
