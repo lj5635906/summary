@@ -33,9 +33,12 @@ pipeline {
 
         stage('执行 docker image 构建 summary-goods ') {
             steps {
-                echo '----------开始构建 summary ----------'
+                echo '----------开始构建 summary ---- 删除旧的镜像----------'
+                sh "/mnt/support/data/jenkins_workspace/script/remove-image.sh summary-goods"
 
-                echo '----------构建完成 summary ----------'
+                echo '----------构建完成 summary ---  构建新镜像 ----------'
+
+
             }
         }
 

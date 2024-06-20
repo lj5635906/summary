@@ -6,7 +6,7 @@
     -->
 
     <!--定义日志文件的存储地址 勿在 LogBack 的配置中使用相对路径-->
-    <property name="LOG_HOME" value="@log.dir@"/>
+    <property name="LOG_HOME" value="/summary/logs"/>
     <!-- 定义日志文件名称 -->
     <property name="APP_NAME" value="summary-front-manager"/>
     <!-- 控制台输出 -->

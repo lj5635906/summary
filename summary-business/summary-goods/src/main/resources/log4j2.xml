@@ -5,7 +5,7 @@
     <!--Properties，属性（可选），用来定义常量，之后在其他配置项中通过${变量名}引用-->
     <Properties>
         <!-- 日志存储目录 -->
-        <Property name="LOG_HOME">logs</Property>
+        <Property name="LOG_HOME">/summary/logs</Property>
         <!-- 日志应用名 ，完整的日志路径：-->
         <property name="APP_NAME" value="summary-goods"/>
         <!-- 日志编码 -->
