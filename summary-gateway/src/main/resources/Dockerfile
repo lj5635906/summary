@@ -10,8 +10,6 @@ COPY ${JAR_FILE} /summary/app.jar
 # 暴露端口号
 EXPOSE 8080
 
-CMD ["--server.port=8400"]
-
 # 执行命令
 ENTRYPOINT ["nohup","java","-jar","/summary/app.jar","&"]
 
