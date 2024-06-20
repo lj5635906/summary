@@ -39,7 +39,7 @@ pipeline {
         stage('执行 docker image 构建 summary-business ') {
             steps {
                 script {
-
+				
                     def business = ['summary-authority','summary-customer','summary-goods','summary-order','summary-seckill']
 
                     for (int i=0;i < business.size();++i) {
@@ -79,41 +79,37 @@ pipeline {
         }
 
 
-
-        stage('执行 docker image 构建 summary-front ') {
+        stage('执行 summary-business 容器重启') {
             steps {
                 script {
 
-                    def fronts = ['summary-front-manager','summary-front-web']
+                    def business = ['summary-authority','summary-customer','summary-goods','summary-order','summary-seckill']
+                    def businessPort = [10100,10200,10300,10400,10500]
+                    for (int i=0;i < business.size();++i) {
 
-                    for (int i=0;i < fronts.size();++i) {
+                        def serverName = business[i]
 
-                        def serverName = fronts[i]
-
-                        echo "---------- summary-front --${serverName}-- 删除旧的镜像----------"
                         sh """
-                            /mnt/support/data/jenkins_workspace/script/remove-image.sh ${serverName}
-                           """
 
-                        echo "---------- summary-front --${serverName}--  构建新镜像 ----------"
-                        sh """
-                                docker build --rm -t \
-                                summary/${serverName}:${version} \
-                                --build-arg JAR_FILE=summary-front/${serverName}/target/app.jar \
-                                -f summary-front/${serverName}/src/main/resources/Dockerfile .
-                            """
+                            echo "---------- summary-business --${serverName}-- 删除旧的容器、镜像----------"
 
-                        echo "---------- summary-front --${serverName}--  将新镜像上传到Harbor私服 ----------"
-                        sh """
-                                docker tag \
-                                summary/${serverName}:${version} \
-                                harbor.summary.com/summary/${serverName}:${version}
+                            ssh 192.168.31.102 "sh /mnt/script/remove-image-container.sh ${serverName}"
 
-                                docker login -u admin -p Harbor12345 harbor.summary.com
+                            ssh 192.168.31.102 "sh docker login -u admin -p Harbor12345 harbor.summary.com"
 
-                                docker push harbor.summary.com/summary/${serverName}:${version}
+                            ssh 192.168.31.102 "sh docker pull harbor.summary.com/summary/${serverName}:${version}"
 
-                                docker logout harbor.summary.com
+                            ssh 192.168.31.102 sh docker run -itd \
+                            --restart=always \
+                            --network=host \
+                            --name ${serverName} \
+                            -p 10300:8080 \
+                            -v /mnt/logs/${serverName}:/summary/logs \
+                            harbor.summary.com/summary/${serverName}:${version}
+
+
+
+                            ssh 192.168.31.102 sh docker logout harbor.summary.com
 
                             """
                     }
@@ -123,42 +119,9 @@ pipeline {
         }
 
 
-        stage('执行 docker image 构建 summary-gateway ') {
-            steps {
-                script {
 
-                    def serverName = 'summary-gateway'
 
-                    echo "---------- summary --${serverName}-- 删除旧的镜像----------"
-                    sh """
-                        /mnt/support/data/jenkins_workspace/script/remove-image.sh ${serverName}
-                       """
 
-                    echo "---------- summary --${serverName}--  构建新镜像 ----------"
-                    sh """
-                            docker build --rm -t \
-                            summary/${serverName}:${version} \
-                            --build-arg JAR_FILE=${serverName}/target/app.jar \
-                            -f ${serverName}/src/main/resources/Dockerfile .
-                        """
-
-                    echo "---------- summary --${serverName}--  将新镜像上传到Harbor私服 ----------"
-                    sh """
-                            docker tag \
-                            summary/${serverName}:${version} \
-                            harbor.summary.com/summary/${serverName}:${version}
-
-                            docker login -u admin -p Harbor12345 harbor.summary.com
-
-                            docker push harbor.summary.com/summary/${serverName}:${version}
-
-                            docker logout harbor.summary.com
-
-                        """
-
-                }
-            }
-        }
 
     }
 }

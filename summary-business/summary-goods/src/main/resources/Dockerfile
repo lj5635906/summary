@@ -8,19 +8,6 @@ ARG JAR_FILE
 COPY ${JAR_FILE} /summary/app.jar
 
 # 暴露端口号
-EXPOSE 8080
+EXPOSE 10300
 # 执行命令
-ENTRYPOINT ["java","-jar","--server.port=8080","/summary/app.jar",">","/dev/null","&"]
-
-# build
-# docker build --rm -t summary/summary-goods:v1 --build-arg JAR_FILE=summary-goods-1.0-SNAPSHOT.jar .
-
-# docker run -itd --name summary-goods -p 10300:10300 summary/summary-goods:v1
-
-
-
-
-
-
-
-
+ENTRYPOINT ["java","-jar","/summary/app.jar",">","/dev/null","&"]
