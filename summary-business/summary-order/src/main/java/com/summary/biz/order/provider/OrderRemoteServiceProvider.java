@@ -4,6 +4,7 @@ import com.summary.biz.order.service.OrderService;
 import com.summary.client.order.param.CreateOrderParam;
 import com.summary.client.remote.OrderRemoteService;
 import jakarta.validation.Valid;
+import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -14,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @author myabtis-plus
  * @since 2024-06-01
  */
+@DubboService
 public class OrderRemoteServiceProvider implements OrderRemoteService {
 
     @Autowired

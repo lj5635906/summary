@@ -27,7 +27,6 @@ import com.summary.common.core.mq.rocket.MessageDelayLevel;
 import com.summary.common.core.utils.Assert;
 import com.summary.common.core.utils.ConvertUtils;
 import com.summary.common.core.utils.UUIDUtils;
-import com.summary.common.core.utils.VerificationUtil;
 import com.summary.component.generator.id.snowflake.IdWorker;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.dubbo.config.annotation.DubboReference;
