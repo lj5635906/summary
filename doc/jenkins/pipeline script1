@@ -160,5 +160,127 @@ pipeline {
             }
         }
 
+
+        stage('执行 summary-business 容器启动...') {
+            steps {
+
+                script {
+
+                    def business = ['summary-authority','summary-customer','summary-goods','summary-order','summary-seckill']
+                    def businessPort = [10100,10200,10300,10400,10500]
+                    for (int i=0;i < business.size();++i) {
+
+                        def serverName = business[i]
+                        def serverPort = businessPort[i]
+
+                        sh """
+
+                            echo "---------- summary-business --${serverName}-- 删除旧的容器、镜像----------"
+
+                            ssh 192.168.31.102 "sh /mnt/script/remove-image-container.sh ${serverName}"
+
+                            ssh 192.168.31.102 "docker login -u admin -p Harbor12345 harbor.summary.com"
+
+                            ssh 192.168.31.102 "docker pull harbor.summary.com/summary/${serverName}:${version}"
+
+                            ssh 192.168.31.102 docker run -itd \
+                            --restart=always \
+                            --network=host \
+                            --name ${serverName} \
+                            -p ${serverPort}:${serverPort} \
+                            -v /mnt/logs/${serverName}:/summary/logs \
+                            harbor.summary.com/summary/${serverName}:${version}
+
+                            ssh 192.168.31.102 docker logout harbor.summary.com
+
+                            """
+                    }
+
+                }
+            }
+        }
+
+
+        stage('执行 summary-front 容器重启') {
+            steps {
+
+                script {
+
+                    def business = ['summary-front-manager','summary-front-web']
+                    def businessPort = [20100,20200]
+                    for (int i=0;i < business.size();++i) {
+
+                        def serverName = business[i]
+                        def serverPort = businessPort[i]
+
+                        sh """
+
+                            echo "---------- summary-front --${serverName}-- 删除旧的容器、镜像----------"
+
+                            ssh 192.168.31.103 "sh /mnt/script/remove-image-container.sh ${serverName}"
+
+                            ssh 192.168.31.103 "docker login -u admin -p Harbor12345 harbor.summary.com"
+
+                            ssh 192.168.31.103 "docker pull harbor.summary.com/summary/${serverName}:${version}"
+
+                            ssh 192.168.31.103 docker run -itd \
+                            --restart=always \
+                            --network=host \
+                            --name ${serverName} \
+                            -p ${serverPort}:${serverPort} \
+                            -v /mnt/logs/${serverName}:/summary/logs \
+                            harbor.summary.com/summary/${serverName}:${version}
+
+                            ssh 192.168.31.103 docker logout harbor.summary.com
+
+                            """
+                    }
+
+                }
+            }
+        }
+
+
+        stage('执行 summary-gateway 容器重启') {
+            steps {
+
+                script {
+
+                    def business = ['summary-gateway']
+                    def businessPort = [5000]
+                    for (int i=0;i < business.size();++i) {
+
+                        def serverName = business[i]
+                        def serverPort = businessPort[i]
+
+                        sh """
+
+                            echo "---------- summary-gateway --${serverName}-- 删除旧的容器、镜像----------"
+
+                            ssh 192.168.31.103 "sh /mnt/script/remove-image-container.sh ${serverName}"
+
+                            ssh 192.168.31.103 "docker login -u admin -p Harbor12345 harbor.summary.com"
+
+                            ssh 192.168.31.103 "docker pull harbor.summary.com/summary/${serverName}:${version}"
+
+                            ssh 192.168.31.103 docker run -itd \
+                            --restart=always \
+                            --network=host \
+                            --name ${serverName} \
+                            -p ${serverPort}:${serverPort} \
+                            -v /mnt/logs/${serverName}:/summary/logs \
+                            harbor.summary.com/summary/${serverName}:${version}
+
+                            ssh 192.168.31.103 docker logout harbor.summary.com
+
+                            """
+                    }
+
+                }
+            }
+        }
+
+
+
     }
 }

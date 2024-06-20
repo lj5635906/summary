@@ -18,7 +18,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
                     <mainClass>
-                        com.summary.AppSummaryGoods
+                        com.summary.AppSummaryOrder
                     </mainClass>
                     <!-- 添加 add-opens jvm参数 -->
                     <jvmArguments>

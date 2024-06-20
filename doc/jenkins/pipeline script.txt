@@ -20,67 +20,11 @@ pipeline {
             }
         }
 
-        stage('summary.. 拉取代码') {
+
+
+        stage('执行 summary-business 容器启动...') {
             steps {
-                echo '----------开始拉取代码----------'
-                git branch: 'summary-dubbo', credentialsId: 'git-credential-id', url: 'http://192.168.31.101/summary/summary.git'
-                echo '----------拉取代码完毕----------'
-            }
-        }
 
-        stage('执行 mvn 构建 summary ') {
-            steps {
-                echo '----------开始构建 summary ----------'
-                sh "mvn -f pom.xml clean package -Dmaven.test.skip=true"
-                echo '----------构建完成 summary ----------'
-            }
-        }
-
-        stage('执行 docker image 构建 summary-business ') {
-            steps {
-                script {
-				
-                    def business = ['summary-authority','summary-customer','summary-goods','summary-order','summary-seckill']
-
-                    for (int i=0;i < business.size();++i) {
-
-                        def serverName = business[i]
-
-                        echo "---------- summary-business --${serverName}-- 删除旧的镜像----------"
-                        sh """
-                            /mnt/support/data/jenkins_workspace/script/remove-image.sh ${serverName}
-                           """
-
-                        echo "---------- summary-business --${serverName}--  构建新镜像 ----------"
-                        sh """
-                                docker build --rm -t \
-                                summary/${serverName}:${version} \
-                                --build-arg JAR_FILE=summary-business/${serverName}/target/app.jar \
-                                -f summary-business/${serverName}/src/main/resources/Dockerfile .
-                            """
-
-                        echo "---------- summary-business --${serverName}--  将新镜像上传到Harbor私服 ----------"
-                        sh """
-                                docker tag \
-                                summary/${serverName}:${version} \
-                                harbor.summary.com/summary/${serverName}:${version}
-
-                                docker login -u admin -p Harbor12345 harbor.summary.com
-
-                                docker push harbor.summary.com/summary/${serverName}:${version}
-
-                                docker logout harbor.summary.com
-
-                            """
-                    }
-
-                }
-            }
-        }
-
-
-        stage('执行 summary-business 容器重启') {
-            steps {
                 script {
 
                     def business = ['summary-authority','summary-customer','summary-goods','summary-order','summary-seckill']
@@ -88,6 +32,7 @@ pipeline {
                     for (int i=0;i < business.size();++i) {
 
                         def serverName = business[i]
+                        def serverPort = businessPort[i]
 
                         sh """
 
@@ -95,21 +40,19 @@ pipeline {
 
                             ssh 192.168.31.102 "sh /mnt/script/remove-image-container.sh ${serverName}"
 
-                            ssh 192.168.31.102 "sh docker login -u admin -p Harbor12345 harbor.summary.com"
+                            ssh 192.168.31.102 "docker login -u admin -p Harbor12345 harbor.summary.com"
 
-                            ssh 192.168.31.102 "sh docker pull harbor.summary.com/summary/${serverName}:${version}"
+                            ssh 192.168.31.102 "docker pull harbor.summary.com/summary/${serverName}:${version}"
 
-                            ssh 192.168.31.102 sh docker run -itd \
+                            ssh 192.168.31.102 docker run -itd \
                             --restart=always \
                             --network=host \
                             --name ${serverName} \
-                            -p 10300:8080 \
+                            -p ${serverPort}:${serverPort} \
                             -v /mnt/logs/${serverName}:/summary/logs \
                             harbor.summary.com/summary/${serverName}:${version}
 
-
-
-                            ssh 192.168.31.102 sh docker logout harbor.summary.com
+                            ssh 192.168.31.102 docker logout harbor.summary.com
 
                             """
                     }
@@ -119,6 +62,84 @@ pipeline {
         }
 
 
+        stage('执行 summary-front 容器重启') {
+            steps {
+
+                script {
+
+                    def business = ['summary-front-manager','summary-front-web']
+                    def businessPort = [20100,20200]
+                    for (int i=0;i < business.size();++i) {
+
+                        def serverName = business[i]
+                        def serverPort = businessPort[i]
+
+                        sh """
+
+                            echo "---------- summary-front --${serverName}-- 删除旧的容器、镜像----------"
+
+                            ssh 192.168.31.103 "sh /mnt/script/remove-image-container.sh ${serverName}"
+
+                            ssh 192.168.31.103 "docker login -u admin -p Harbor12345 harbor.summary.com"
+
+                            ssh 192.168.31.103 "docker pull harbor.summary.com/summary/${serverName}:${version}"
+
+                            ssh 192.168.31.103 docker run -itd \
+                            --restart=always \
+                            --network=host \
+                            --name ${serverName} \
+                            -p ${serverPort}:${serverPort} \
+                            -v /mnt/logs/${serverName}:/summary/logs \
+                            harbor.summary.com/summary/${serverName}:${version}
+
+                            ssh 192.168.31.103 docker logout harbor.summary.com
+
+                            """
+                    }
+
+                }
+            }
+        }
+
+
+        stage('执行 summary-gateway 容器重启') {
+            steps {
+
+                script {
+
+                    def business = ['summary-gateway']
+                    def businessPort = [5000]
+                    for (int i=0;i < business.size();++i) {
+
+                        def serverName = business[i]
+                        def serverPort = businessPort[i]
+
+                        sh """
+
+                            echo "---------- summary-gateway --${serverName}-- 删除旧的容器、镜像----------"
+
+                            ssh 192.168.31.103 "sh /mnt/script/remove-image-container.sh ${serverName}"
+
+                            ssh 192.168.31.103 "docker login -u admin -p Harbor12345 harbor.summary.com"
+
+                            ssh 192.168.31.103 "docker pull harbor.summary.com/summary/${serverName}:${version}"
+
+                            ssh 192.168.31.103 docker run -itd \
+                            --restart=always \
+                            --network=host \
+                            --name ${serverName} \
+                            -p ${serverPort}:${serverPort} \
+                            -v /mnt/logs/${serverName}:/summary/logs \
+                            harbor.summary.com/summary/${serverName}:${version}
+
+                            ssh 192.168.31.103 docker logout harbor.summary.com
+
+                            """
+                    }
+
+                }
+            }
+        }
 
 
 
