@@ -1,0 +1,107 @@
+pipeline {
+    agent {
+        // 选择构建节点
+        label 'jenkins-agent-100'
+    }
+
+    parameters {
+        string(name: 'version' , defaultValue: '1.0-SNAPSHOT' , description: '构建版本号')
+    }
+
+    stages {
+        stage('summary.. 环境检测') {
+            steps {
+                sh script: '''
+                    java -version
+                    mvn -v
+                    docker -v
+                    git version
+                '''
+            }
+        }
+
+        stage('summary.. 拉取代码') {
+            steps {
+                echo '----------开始拉取代码----------'
+                git branch: 'summary-dubbo', credentialsId: 'git-credential-id', url: 'http://192.168.31.101/summary/summary.git'
+                echo '----------拉取代码完毕----------'
+            }
+        }
+
+        stage('执行 mvn 构建 summary ') {
+            steps {
+                echo '----------开始构建 summary ----------'
+                sh "mvn -f pom.xml clean package -Dmaven.test.skip=true"
+                echo '----------构建完成 summary ----------'
+            }
+        }
+
+
+        stage('执行 summary-gateway 容器启动...') {
+            steps {
+
+                script {
+
+                    def business = ['summary-gateway']
+                    def businessPort = [5000]
+                    for (int i=0;i < business.size();++i) {
+
+                        def serverName = business[i]
+                        def serverPort = businessPort[i]
+
+                        echo "---------- summary --${serverName}-- 删除旧的镜像----------"
+                        sh """
+                            /mnt/support/data/jenkins_workspace/script/remove-image.sh ${serverName}
+
+                            echo "---------- summary --${serverName}--  构建新镜像 ----------"
+                            docker build --rm -t \
+                            summary/${serverName}:${version} \
+                            --build-arg JAR_FILE=${serverName}/target/app.jar \
+                            -f ${serverName}/src/main/resources/Dockerfile .
+
+                            echo "---------- summary --${serverName}--  将新镜像上传到Harbor私服 ----------"
+                            docker tag \
+                            summary/${serverName}:${version} \
+                            harbor.summary.com/summary/${serverName}:${version}
+
+                            docker login -u admin -p Harbor12345 harbor.summary.com
+
+                            docker push harbor.summary.com/summary/${serverName}:${version}
+
+                            docker logout harbor.summary.com
+
+
+
+                            echo "---------- summary-gateway --${serverName}-- 删除旧的容器、镜像----------"
+
+                            ssh 192.168.31.103 "sh /mnt/script/remove-image-container.sh ${serverName}"
+
+                            ssh 192.168.31.103 "docker login -u admin -p Harbor12345 harbor.summary.com"
+
+                            ssh 192.168.31.103 "docker pull harbor.summary.com/summary/${serverName}:${version}"
+
+                            ssh 192.168.31.103 docker run -itd \
+                            --restart=always \
+                            --network=host \
+                            --name ${serverName} \
+                            -p ${serverPort}:${serverPort} \
+                            -v /mnt/logs/${serverName}:/summary/logs \
+                            harbor.summary.com/summary/${serverName}:${version}
+
+                            ssh 192.168.31.103 docker logout harbor.summary.com
+
+                        """
+                    }
+
+                }
+            }
+        }
+
+
+
+
+
+
+
+    }
+}

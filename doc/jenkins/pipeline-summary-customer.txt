@@ -20,7 +20,21 @@ pipeline {
             }
         }
 
+        stage('summary.. 拉取代码') {
+            steps {
+                echo '----------开始拉取代码----------'
+                git branch: 'summary-dubbo', credentialsId: 'git-credential-id', url: 'http://192.168.31.101/summary/summary.git'
+                echo '----------拉取代码完毕----------'
+            }
+        }
 
+        stage('执行 mvn 构建 summary ') {
+            steps {
+                echo '----------开始构建 summary ----------'
+                sh "mvn -f pom.xml clean package -Dmaven.test.skip=true"
+                echo '----------构建完成 summary ----------'
+            }
+        }
 
 
         stage('执行 summary-business 容器启动...') {
@@ -28,8 +42,8 @@ pipeline {
 
                 script {
 
-                    def business = ['summary-order']
-                    def businessPort = [10400]
+                    def business = ['summary-customer']
+                    def businessPort = [10200]
                     for (int i=0;i < business.size();++i) {
 
                         def serverName = business[i]
