@@ -42,6 +42,7 @@ logging:
   config: classpath:log4j2.xml
   level:
     com.summary: debug
+    co.elastic: debug
 
 mybatis-plus:
   mapper-locations:

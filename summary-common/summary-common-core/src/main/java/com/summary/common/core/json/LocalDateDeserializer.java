@@ -1,4 +1,4 @@
-package com.summary.component.redis;
+package com.summary.common.core.json;
 
 import cn.hutool.core.date.DatePattern;
 import com.fasterxml.jackson.core.JsonParser;

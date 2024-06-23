@@ -75,6 +75,12 @@
             <artifactId>summary-seckill-client</artifactId>
             <version>${summary.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.summary</groupId>
+            <artifactId>summary-search-client</artifactId>
+            <version>${summary.version}</version>
+        </dependency>
+
         <!-- client end -->
 
         <dependency>

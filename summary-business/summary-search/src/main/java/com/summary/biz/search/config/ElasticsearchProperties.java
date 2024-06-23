@@ -1,4 +1,4 @@
-package com.summary.biz.search.config.es;
+package com.summary.biz.search.config;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -27,6 +27,5 @@ public class ElasticsearchProperties {
      * password
      */
     private String password;
-
 
 }

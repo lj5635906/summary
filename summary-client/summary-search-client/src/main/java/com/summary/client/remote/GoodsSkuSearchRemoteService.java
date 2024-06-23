@@ -1,4 +1,4 @@
-package com.summary.biz.search.service;
+package com.summary.client.remote;
 
 import com.summary.client.goods.dto.GoodsSkuDTO;
 import com.summary.client.search.param.GoodsSkuSearchParam;
@@ -7,13 +7,12 @@ import com.summary.common.core.page.PageResult;
 import java.io.IOException;
 
 /**
- * 搜索相关
+ * 商品搜索相关接口
  *
  * @author jie.luo
- * @since 2024/6/22
+ * @since 2024/6/24
  */
-public interface GoodsSkuSearchService {
-
+public interface GoodsSkuSearchRemoteService {
     /**
      * 导入商品sku数据到 Elasticsearch
      *

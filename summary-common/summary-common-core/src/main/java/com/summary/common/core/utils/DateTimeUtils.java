@@ -173,6 +173,33 @@ public class DateTimeUtils {
     }
 
     /**
+     * LocalDateTime -> 毫秒
+     *
+     * @return milliseconds
+     */
+    public static long convertLocalDateTimeToEpochMilli(LocalDateTime localDateTime) {
+        return localDateTime.toInstant(ZoneOffset.of("+8")).toEpochMilli();
+    }
+
+    /**
+     * LocalDate -> EpochDay
+     *
+     * @return epochDay
+     */
+    public static long convertLocalDateToEpochDay(LocalDate localDate) {
+        return localDate.toEpochDay();
+    }
+
+    /**
+     * EpochDay -> LocalDate
+     *
+     * @return LocalDate
+     */
+    public static LocalDate convertLocalDateOfEpochDay(long epochDay) {
+        return LocalDate.ofEpochDay(epochDay);
+    }
+
+    /**
      * 获得当前系统时间（{@link Date}）。
      *
      * @return 当前系统时间

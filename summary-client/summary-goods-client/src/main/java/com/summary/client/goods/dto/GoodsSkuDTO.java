@@ -3,6 +3,7 @@ package com.summary.client.goods.dto;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -49,4 +50,8 @@ public class GoodsSkuDTO implements Serializable {
     private Long brandId;
     /*** 品牌名称 */
     private String brandName;
+    /*** 创建时间*/
+    private LocalDateTime createTime;
+    /*** 更新时间*/
+    private LocalDateTime updateTime;
 }

@@ -1,4 +1,4 @@
-package com.summary.component.redis;
+package com.summary.common.core.json;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;

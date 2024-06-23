@@ -1,5 +1,6 @@
 package com.summary.common.core.page;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -15,6 +16,7 @@ import java.util.List;
  */
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class PageResult<T> implements Serializable {
     /**
      * 当前页码
@@ -40,4 +42,5 @@ public class PageResult<T> implements Serializable {
     public PageResult(List<T> content) {
         this.content = content;
     }
+
 }
