@@ -1,0 +1,17 @@
+
+
+http://192.168.31.101:9200/
+
+docker exec -it elasticsearch /usr/share/elasticsearch/bin/elasticsearch-reset-password -u elastic
+
+elastic
+mL85aiJfFTsATqo0a74Q
+
+docker exec -it elasticsearch /usr/share/elasticsearch/bin/elasticsearch-reset-password -u kibana_system
+kibana_system
+LMxvXTBcWmElZg5kI=0v
+
+docker exec -it elasticsearch /usr/share/elasticsearch/bin/elasticsearch-reset-password -u logstash_system
+logstash_system
+dLFSv*ontPwIlyoTjJGt
+

@@ -61,7 +61,7 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, GoodsDO> implemen
         // 保存商品自定义参数
         goodsParamService.saveGoodsParam(goods.getGoodsId(), param.getParameters());
         // 保存商品sku
-        goodsSkuService.saveGoodsSku(goods.getGoodsId(), param.getSkus());
+        goodsSkuService.saveGoodsSku(goods.getGoodsId(), goods.getGoodsName(), param.getSkus());
 
         return goods.getGoodsId();
     }
@@ -73,7 +73,12 @@ public class GoodsServiceImpl extends ServiceImpl<GoodsMapper, GoodsDO> implemen
                 .enableMarketable(false)
                 .saleNum(ZERO)
                 .image(param.getImage())
-                .enableSpec(param.getEnableSpec()).build();
+                .enableSpec(param.getEnableSpec())
+                .category1Id(param.getCategory1Id())
+                .category2Id(param.getCategory2Id())
+                .category3Id(param.getCategory3Id())
+                .brandId(param.getBrandId())
+                .build();
 
         if (!param.getEnableSpec()) {
             // 未启用规格

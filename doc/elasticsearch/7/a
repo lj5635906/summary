@@ -1,0 +1,42 @@
+docker pull elasticsearch:7.17.15
+
+docker pull logstash:7.17.15
+
+docker pull kibana:7.17.15
+
+docker cp elasticsearch:/usr/share/elasticsearch/config /mnt/support/data/elasticsearch7/
+docker cp elasticsearch:/usr/share/elasticsearch/data /mnt/support/data/elasticsearch7/
+docker cp elasticsearch:/usr/share/elasticsearch/plugins /mnt/support/data/elasticsearch7/
+
+
+docker cp logstash:/usr/share/logstash/config /mnt/support/data/logstash7
+docker cp logstash:/usr/share/logstash/pipeline /mnt/support/data/logstash7
+
+
+docker cp kibana:/usr/share/kibana/config /mnt/support/data/kibana7
+
+
+docker exec -it elasticsearch /bin/bash
+/usr/share/elasticsearch/bin/elasticsearch-setup-passwords auto
+
+    Changed password for user apm_system
+    PASSWORD apm_system = 5PrwJR8m1Vbg24Xf41b0
+
+    Changed password for user kibana_system
+    PASSWORD kibana_system = EcYSH8b4IIq7rTVq3mxs
+
+    Changed password for user kibana
+    PASSWORD kibana = EcYSH8b4IIq7rTVq3mxs
+
+    Changed password for user logstash_system
+    PASSWORD logstash_system = CpsdbXlriHEadbqZcXlj
+
+    Changed password for user beats_system
+    PASSWORD beats_system = NDP68eOR3gJeZz7tUqJ4
+
+    Changed password for user remote_monitoring_user
+    PASSWORD remote_monitoring_user = m3FKDHxQN1Stg2FwsUNI
+
+    Changed password for user elastic
+    PASSWORD elastic = m3I9YBQmmUGB2DTdsnOm
+

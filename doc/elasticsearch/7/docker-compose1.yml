@@ -1,0 +1,41 @@
+services:
+  elasticsearch:
+    image: elasticsearch:7.17.16
+    container_name: elasticsearch
+    restart: always
+    environment:
+      ES_JAVA_OPTS: -Xms1024m -Xmx1024m
+      discovery.type: single-node
+    ports:
+      - 9200:9200
+      - 9300:9300
+    networks:
+      elastic-network:
+  logstash:
+    image: logstash:7.17.16
+    container_name: logstash
+    restart: always
+    environment:
+      ES_JAVA_OPTS: -Xms512m -Xmx512m
+    ports:
+      - "5000:5000"
+      - "5002:5002"
+      - "5004:5004"
+      - "5006:5006"
+    depends_on:
+      - elasticsearch
+    networks:
+      elastic-network:
+  kibana:
+    image: kibana:7.17.16
+    container_name: kibana
+    restart: always
+    ports:
+      - 5601:5601
+    depends_on:
+      - elasticsearch
+    networks:
+      elastic-network:
+networks:
+  elastic-network:
+    driver: bridge

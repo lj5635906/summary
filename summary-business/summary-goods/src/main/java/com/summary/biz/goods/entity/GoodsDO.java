@@ -43,6 +43,14 @@ public class GoodsDO extends BaseDO<GoodsDO> {
     private Boolean enableSpec;
     /*** 规格列表 */
     private String specItem;
+    /*** 一级分类 */
+    private Long category1Id;
+    /*** 二级分类 */
+    private Long category2Id;
+    /*** 三级分类 */
+    private Long category3Id;
+    /*** 品牌id */
+    private Long brandId;
 
     @Builder
     public GoodsDO(
@@ -57,7 +65,11 @@ public class GoodsDO extends BaseDO<GoodsDO> {
             Integer commentNum,
             Boolean enableMarketable,
             Boolean enableSpec,
-            String specItem
+            String specItem,
+            Long category1Id,
+            Long category2Id,
+            Long category3Id,
+            Long brandId
     ) {
         super(version, createTime, updateTime, deleteFlag);
         this.goodsId = goodsId;
@@ -68,6 +80,10 @@ public class GoodsDO extends BaseDO<GoodsDO> {
         this.enableMarketable = enableMarketable;
         this.enableSpec = enableSpec;
         this.specItem = specItem;
+        this.category1Id = category1Id;
+        this.category2Id = category2Id;
+        this.category3Id = category3Id;
+        this.brandId = brandId;
     }
 
 

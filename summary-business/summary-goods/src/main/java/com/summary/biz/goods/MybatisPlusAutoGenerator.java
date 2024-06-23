@@ -18,7 +18,7 @@ public class MybatisPlusAutoGenerator {
     public static void main(String[] args) {
 
         // 需要生成的表
-        String[] tables = {"goods","goods_image","goods_introduction","goods_param","goods_sku"};
+        String[] tables = {"brand","category","goods","goods_image","goods_introduction","goods_param","goods_sku"};
         // 模块名称
         String module = "goods";
         // 表前缀

@@ -6,6 +6,7 @@ services:
     environment:
       ES_JAVA_OPTS: -Xms1024m -Xmx1024m
       discovery.type: single-node
+      ELASTIC_PASSWORD: 123456
     volumes:
       - /mnt/support/data/elasticsearch7/config:/usr/share/elasticsearch/config
       - /mnt/support/data/elasticsearch7/data:/usr/share/elasticsearch/data
@@ -43,38 +44,6 @@ services:
       - /mnt/support/data/kibana7/config:/usr/share/kibana/config
     depends_on:
       - elasticsearch
-    networks:
-      elastic-network:
-  oap:
-    image: apache/skywalking-oap-server:9.7.0-java17
-    container_name: skywalking-oap
-    depends_on:
-      - elasticsearch
-    links:
-      - elasticsearch
-    restart: always
-    ports:
-      - 11800:11800
-      - 12800:12800
-    environment:
-      SW_STORAGE: elasticsearch7 # 指定ES版本
-      SW_STORAGE_ES_CLUSTER_NODES: elasticsearch:9200
-      TZ: Asia/Shanghai
-    networks:
-      elastic-network:
-  ui:
-    image: apache/skywalking-ui:9.7.0-java17
-    container_name: skywalking-ui
-    depends_on:
-      - oap
-    links:
-      - oap
-    restart: always
-    ports:
-      - 8733:8080
-    environment:
-      SW_OAP_ADDRESS: skywalking-:12800
-      TZ: Asia/Shanghai
     networks:
       elastic-network:
 networks:

@@ -1,0 +1,8 @@
+
+
+elasticsearch-head  192.168.31.101:9100
+elasticsearch       192.168.31.101:9200
+kibana              192.168.31.101:5601
+SkyWalking-ui       192.168.31.101:8080
+
+docker cp skywalking-oap:skywalking/config /mnt/support/data/skywalking-oap/

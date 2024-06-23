@@ -1,6 +1,7 @@
 package com.summary.common.core.utils;
 
 import cn.hutool.core.date.DatePattern;
+import cn.hutool.core.util.StrUtil;
 
 import java.time.*;
 import java.time.format.DateTimeFormatter;
@@ -202,6 +203,20 @@ public class DateTimeUtils {
         if (localDateTime == null) {
             return null;
         }
+        return Date.from(localDateTime.toInstant(ZoneOffset.of("+8")));
+    }
+
+    /**
+     * 转换dateTimeStr为Date
+     *
+     * @param dateTimeStr 时间
+     * @return Date
+     */
+    public static Date convertStringToDate(String dateTimeStr) {
+        if (StrUtil.isBlank(dateTimeStr)) {
+            return null;
+        }
+        LocalDateTime localDateTime = convertStringToLocalDateTime(dateTimeStr);
         return Date.from(localDateTime.toInstant(ZoneOffset.of("+8")));
     }
 

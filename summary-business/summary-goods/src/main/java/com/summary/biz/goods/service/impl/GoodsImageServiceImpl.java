@@ -72,4 +72,12 @@ public class GoodsImageServiceImpl extends ServiceImpl<GoodsImageMapper, GoodsIm
                 .in(GoodsImageDO::getSkuId, skuIds);
         return goodsImageMapper.selectList(queryWrapper);
     }
+
+    @Override
+    public List<GoodsImageDO> getGoodsImagesBySkuId(Long skuId) {
+        QueryWrapper<GoodsImageDO> queryWrapper = new QueryWrapper<>();
+        queryWrapper.lambda()
+                .eq(GoodsImageDO::getSkuId, skuId);
+        return goodsImageMapper.selectList(queryWrapper);
+    }
 }

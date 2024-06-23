@@ -13,6 +13,10 @@ import java.util.List;
  */
 @Data
 public class GoodsSkuDTO implements Serializable {
+    /*** 商品id */
+    private Long goodsId;
+    /*** 商品名称 */
+    private String goodsName;
     /*** 商品skuId */
     private Long skuId;
     /*** SKU名称 */
@@ -37,4 +41,12 @@ public class GoodsSkuDTO implements Serializable {
     private List<GoodsSkuSpecDTO> specs;
     /*** 排序 */
     private Integer sort;
+    /*** 分类id */
+    private Long categoryId;
+    /*** 分类名称 */
+    private String categoryName;
+    /*** 品牌id */
+    private Long brandId;
+    /*** 品牌名称 */
+    private String brandName;
 }

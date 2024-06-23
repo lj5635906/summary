@@ -15,6 +15,7 @@
         <module>summary-customer</module>
         <module>summary-goods</module>
         <module>summary-seckill</module>
+        <module>summary-search</module>
     </modules>
 
     <dependencies>

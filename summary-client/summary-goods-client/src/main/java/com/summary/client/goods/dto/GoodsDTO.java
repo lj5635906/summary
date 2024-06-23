@@ -37,4 +37,12 @@ public class GoodsDTO implements Serializable {
     private List<GoodsSpecItemDTO> specItem;
     /*** 商品SKU */
     private List<GoodsSkuDTO> skus;
+    /*** 一级分类 */
+    private Long category1Id;
+    /*** 二级分类 */
+    private Long category2Id;
+    /*** 三级分类 */
+    private Long category3Id;
+    /*** 品牌id */
+    private Long brandId;
 }

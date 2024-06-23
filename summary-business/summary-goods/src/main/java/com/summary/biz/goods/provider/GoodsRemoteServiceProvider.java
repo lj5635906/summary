@@ -5,6 +5,7 @@ import com.summary.biz.goods.service.GoodsSkuService;
 import com.summary.client.goods.dto.CreateOrderCheckGoodsSkuDTO;
 import com.summary.client.goods.dto.GoodsDTO;
 import com.summary.client.goods.dto.GoodsSimpleDTO;
+import com.summary.client.goods.dto.GoodsSkuDTO;
 import com.summary.client.goods.param.ChangeStockAndSaleParam;
 import com.summary.client.goods.param.CreateGoodsParam;
 import com.summary.client.goods.param.CreateOrderCheckParam;
@@ -63,11 +64,23 @@ public class GoodsRemoteServiceProvider implements GoodsRemoteService {
     }
 
     /**
+     * 根据skuId获取商品sku
+     *
+     * @param skuId skuId
+     * @return {@link GoodsSkuDTO}
+     */
+    @Override
+    public GoodsSkuDTO getGoodsSkuBySkuId(Long skuId) {
+        return goodsSkuService.getGoodsSkuBySkuId(skuId);
+    }
+
+    /**
      * 获取创建订单时的商品信息
      *
      * @param params 下单check商品参数
      * @return 创建订单时的商品信息
      */
+    @Override
     public List<CreateOrderCheckGoodsSkuDTO> getCreateOrderGoods(@Valid List<CreateOrderCheckParam> params) {
         return goodsSkuService.getCreateOrderGoods(params);
     }

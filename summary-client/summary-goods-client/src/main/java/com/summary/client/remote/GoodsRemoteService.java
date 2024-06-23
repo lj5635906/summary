@@ -3,6 +3,7 @@ package com.summary.client.remote;
 import com.summary.client.goods.dto.CreateOrderCheckGoodsSkuDTO;
 import com.summary.client.goods.dto.GoodsDTO;
 import com.summary.client.goods.dto.GoodsSimpleDTO;
+import com.summary.client.goods.dto.GoodsSkuDTO;
 import com.summary.client.goods.param.ChangeStockAndSaleParam;
 import com.summary.client.goods.param.CreateGoodsParam;
 import com.summary.client.goods.param.CreateOrderCheckParam;
@@ -41,6 +42,14 @@ public interface GoodsRemoteService {
      * @return 详情
      */
     GoodsSimpleDTO getGoodsSimple(Long goodsId);
+
+    /**
+     * 根据skuId获取商品sku
+     *
+     * @param skuId skuId
+     * @return {@link GoodsSkuDTO}
+     */
+    GoodsSkuDTO getGoodsSkuBySkuId(Long skuId);
 
     /**
      * 获取创建订单时的商品信息

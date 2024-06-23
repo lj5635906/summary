@@ -21,3 +21,6 @@ vm.max_map_count=262144
 
 重启生效:让系统控制权限配置生效
 sysctl -p
+
+chmod 777 -R /mnt/support/data/elasticsearch
+

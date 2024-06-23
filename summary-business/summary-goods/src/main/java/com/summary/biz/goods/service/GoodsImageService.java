@@ -41,4 +41,12 @@ public interface GoodsImageService extends IService<GoodsImageDO> {
      * @return 图片
      */
     List<GoodsImageDO> getGoodsImagesBySkuIds(List<Long> skuIds);
+
+    /**
+     * 通过 skuId 查询图片
+     *
+     * @param skuId .
+     * @return 图片
+     */
+    List<GoodsImageDO> getGoodsImagesBySkuId(Long skuId);
 }

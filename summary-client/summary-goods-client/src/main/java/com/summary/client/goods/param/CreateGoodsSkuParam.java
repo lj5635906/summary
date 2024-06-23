@@ -39,4 +39,8 @@ public class CreateGoodsSkuParam implements Serializable {
     private List<CreateGoodsSkuSpecParam> specs;
     /*** 排序 */
     private Integer sort;
+    /*** 分类id */
+    private Long categoryId;
+    /*** 品牌id */
+    private Long brandId;
 }

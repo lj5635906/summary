@@ -37,4 +37,12 @@ public class CreateGoodsParam implements Serializable {
     /*** 商品SKU */
     @Valid
     private List<CreateGoodsSkuParam> skus;
+    /*** 一级分类 */
+    private Long category1Id;
+    /*** 二级分类 */
+    private Long category2Id;
+    /*** 三级分类 */
+    private Long category3Id;
+    /*** 品牌id */
+    private Long brandId;
 }

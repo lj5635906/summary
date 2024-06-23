@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.summary.component.repository.base.BaseDO;
+
+import java.io.Serial;
 import java.io.Serializable;
 import lombok.*;
 import java.time.LocalDateTime;
@@ -28,6 +30,8 @@ public class GoodsSkuDO extends BaseDO<GoodsSkuDO> {
     private Long skuId;
     /*** 商品id */
     private Long goodsId;
+    /*** 商品名称 */
+    private String goodsName;
     /*** SKU名称 */
     private String skuName;
     /*** 价格(单位/分) */
@@ -48,6 +52,14 @@ public class GoodsSkuDO extends BaseDO<GoodsSkuDO> {
     private String spec;
     /*** 排序 */
     private Integer sort;
+    /*** 分类id */
+    private Long categoryId;
+    /*** 分类名称 */
+    private String categoryName;
+    /*** 品牌id */
+    private Long brandId;
+    /*** 品牌名称 */
+    private String brandName;
 
     @Builder
     public GoodsSkuDO(
@@ -57,6 +69,7 @@ public class GoodsSkuDO extends BaseDO<GoodsSkuDO> {
             Boolean deleteFlag,
             Long skuId,
             Long goodsId,
+            String goodsName,
             String skuName,
             Long price,
             String image,
@@ -66,11 +79,16 @@ public class GoodsSkuDO extends BaseDO<GoodsSkuDO> {
             Integer commentNum,
             Integer saleState,
             String spec,
-            Integer sort
+            Integer sort,
+            Long categoryId,
+            String categoryName,
+            Long brandId,
+            String brandName
     ) {
         super(version, createTime, updateTime, deleteFlag);
         this.skuId = skuId;
         this.goodsId = goodsId;
+        this.goodsName = goodsName;
         this.skuName = skuName;
         this.price = price;
         this.image = image;
@@ -81,6 +99,10 @@ public class GoodsSkuDO extends BaseDO<GoodsSkuDO> {
         this.saleState = saleState;
         this.spec = spec;
         this.sort = sort;
+        this.categoryId = categoryId;
+        this.categoryName = categoryName;
+        this.brandId = brandId;
+        this.brandName = brandName;
     }
 
 
