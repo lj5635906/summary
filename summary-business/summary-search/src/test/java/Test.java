@@ -6,6 +6,7 @@ import co.elastic.clients.elasticsearch._types.query_dsl.MatchQuery;
 import co.elastic.clients.elasticsearch._types.query_dsl.MatchQuery.Builder;
 import co.elastic.clients.elasticsearch._types.query_dsl.Query;
 import co.elastic.clients.elasticsearch._types.query_dsl.RangeQuery;
+import co.elastic.clients.elasticsearch.core.IndexResponse;
 import co.elastic.clients.elasticsearch.core.SearchResponse;
 import co.elastic.clients.elasticsearch.core.search.Highlight;
 import co.elastic.clients.elasticsearch.core.search.HighlightBase;
@@ -87,7 +88,7 @@ public class Test {
         ElasticsearchClient client = new ElasticsearchClient(transport);
 
 //        List<GoodsSkuDTO> goodsSkus = List.of(buildGoodsSku1(), buildGoodsSku2(), buildGoodsSku3(), buildGoodsSku4(), buildGoodsSku5(), buildGoodsSku6());
-
+//
 //        for (GoodsSkuDTO goodsSku : goodsSkus) {
 //            IndexResponse response = client.index(i -> i
 //                    .index("goods_sku")
@@ -115,7 +116,7 @@ public class Test {
 //        );
 //        System.out.println(deleteResponse);
 
-        searchDemo(client);
+//        searchDemo(client);
 
         System.out.println();
 
