@@ -61,7 +61,7 @@ public class ElasticsearchConfig {
         timeModule.addDeserializer(LocalDate.class, new LocalDateOfEpochDayDeserializer());
         jacksonJsonpMapper.objectMapper().registerModule(timeModule);
 
-        ElasticsearchTransport transport = new RestClientTransport(restClient, new JacksonJsonpMapper());
+        ElasticsearchTransport transport = new RestClientTransport(restClient, jacksonJsonpMapper);
 
         return new ElasticsearchClient(transport);
     }

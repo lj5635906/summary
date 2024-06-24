@@ -100,23 +100,6 @@ CREATE TABLE goods_sku(
 )ENGINE=InnoDB CHARSET=utf8mb4 COMMENT='商品-SKU';
 
 
-/* 商品规格 */
-drop table if exists goods_spec;
-CREATE TABLE goods_spec(
-    spec_id 	            bigint(20)	 	NOT NULL PRIMARY KEY 	AUTO_INCREMENT	COMMENT '商品规格id',
-
-    spec_name               varchar(25)	 	NOT NULL                    COMMENT '商品规格名称',
-    spec_options            varchar(255) 	NOT NULL				    COMMENT '商品规格选项,选项有多个通过英文逗号分隔',
-
-    sort                    int(11)         NOT NULL    DEFAULT 0       COMMENT '排序',
-
-    version 				int(11) 		NOT NULL DEFAULT 0			COMMENT '版本号',
-    create_time 			datetime 		DEFAULT CURRENT_TIMESTAMP 	COMMENT '创建时间',
-    update_time 			datetime 		DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    delete_flag 			boolean 		NOT NULL DEFAULT 0			COMMENT '删除标志(0/false-未删除,1/true-已删除)'
-
-)ENGINE=InnoDB CHARSET=utf8mb4 COMMENT='商品规格';
-
 /* 商品图片 */
 drop table if exists goods_image;
 CREATE TABLE goods_image(
