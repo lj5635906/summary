@@ -17,7 +17,7 @@ spring:
 elasticsearch:
   username: elastic
   password: mL85aiJfFTsATqo0a74Q
-  uris:
+  hosts:
     - http://192.168.31.101:9200
 
 
