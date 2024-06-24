@@ -2,6 +2,7 @@ package com.summary.client.goods.dto;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -12,7 +13,7 @@ import java.util.List;
  * @since 2024/6/23
  */
 @Data
-public class CategoryTreeDTO {
+public class CategoryTreeDTO implements Serializable {
     /*** 分类id */
     private Long categoryId;
     /*** 上级分类id */
