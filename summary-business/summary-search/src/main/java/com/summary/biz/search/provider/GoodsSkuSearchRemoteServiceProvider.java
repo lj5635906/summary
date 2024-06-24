@@ -23,8 +23,8 @@ public class GoodsSkuSearchRemoteServiceProvider implements GoodsSkuSearchRemote
     private GoodsSkuSearchService goodsSkuSearchService;
 
     @Override
-    public void importGoodsSkuToElasticsearch(Long skuId) throws IOException {
-        goodsSkuSearchService.importGoodsSkuToElasticsearch(skuId);
+    public Long importGoodsSkuToElasticsearch(Long skuId) throws IOException {
+        return goodsSkuSearchService.importGoodsSkuToElasticsearch(skuId);
     }
 
     @Override

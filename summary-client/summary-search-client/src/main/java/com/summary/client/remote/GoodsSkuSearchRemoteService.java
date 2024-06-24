@@ -17,8 +17,10 @@ public interface GoodsSkuSearchRemoteService {
      * 导入商品sku数据到 Elasticsearch
      *
      * @param skuId .
+     * @return skuId
+     * @throws IOException .
      */
-    void importGoodsSkuToElasticsearch(Long skuId) throws IOException;
+    Long importGoodsSkuToElasticsearch(Long skuId) throws IOException;
 
     /**
      * 商品sku 搜索

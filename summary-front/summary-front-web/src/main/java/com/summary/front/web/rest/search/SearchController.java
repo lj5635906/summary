@@ -28,6 +28,15 @@ public class SearchController {
     private GoodsSkuSearchRemoteService goodsSkuSearchRemoteService;
 
     /**
+     * 导入商品sku数据到 Elasticsearch
+     *
+     * @param skuId .
+     */
+    public R<Long> importGoodsSkuToElasticsearch(Long skuId) throws IOException {
+        return R.success(goodsSkuSearchRemoteService.importGoodsSkuToElasticsearch(skuId));
+    }
+
+    /**
      * 商品sku搜索
      *
      * @param param 添加商品参数

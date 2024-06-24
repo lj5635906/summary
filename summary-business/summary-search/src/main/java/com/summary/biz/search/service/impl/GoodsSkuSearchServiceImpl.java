@@ -41,11 +41,11 @@ public class GoodsSkuSearchServiceImpl implements GoodsSkuSearchService {
     private GoodsRemoteService goodsRemoteService;
 
     @Override
-    public void importGoodsSkuToElasticsearch(Long skuId) throws IOException {
+    public Long importGoodsSkuToElasticsearch(Long skuId) throws IOException {
 
         GoodsSkuDTO goodsSku = goodsRemoteService.getGoodsSkuBySkuId(skuId);
         if (null == goodsSku) {
-            return;
+            return 0L;
         }
 
         elasticsearchClient.index(builder -> builder
@@ -53,6 +53,8 @@ public class GoodsSkuSearchServiceImpl implements GoodsSkuSearchService {
                 .id(String.valueOf(skuId))
                 .document(goodsSku)
         );
+
+        return skuId;
     }
 
     @Override
@@ -86,7 +88,7 @@ public class GoodsSkuSearchServiceImpl implements GoodsSkuSearchService {
                 // 没有高亮的数据,需要获得高亮域的数据，替换 source 中没有高亮的数据
                 hit.highlight().forEach((key, value) -> {
                     // 根据高亮字段，将非高亮数据替换高亮的数据
-                    if ("skuName".equals(key)){
+                    if ("skuName".equals(key)) {
                         String highlightSkuName = value.get(0);
                         if (StrUtil.isNotBlank(highlightSkuName)) {
                             hit.source().setSkuName(highlightSkuName);
