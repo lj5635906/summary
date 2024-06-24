@@ -40,7 +40,7 @@ pipeline {
             steps {
                 script {
 
-                    def business = ['summary-authority','summary-customer','summary-goods','summary-order','summary-seckill']
+                    def business = ['summary-authority','summary-customer','summary-goods','summary-order','summary-seckill','summary-search']
 
                     for (int i=0;i < business.size();++i) {
 
@@ -166,8 +166,8 @@ pipeline {
 
                 script {
 
-                    def business = ['summary-authority','summary-customer','summary-goods','summary-order','summary-seckill']
-                    def businessPort = [10100,10200,10300,10400,10500]
+                    def business = ['summary-authority','summary-customer','summary-goods','summary-order','summary-seckill','summary-search']
+                    def businessPort = [10100,10200,10300,10400,10500,10600]
                     for (int i=0;i < business.size();++i) {
 
                         def serverName = business[i]

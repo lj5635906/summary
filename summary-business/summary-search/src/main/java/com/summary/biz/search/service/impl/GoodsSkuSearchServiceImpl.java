@@ -95,7 +95,7 @@ public class GoodsSkuSearchServiceImpl implements GoodsSkuSearchService {
                 });
             }
             return hit.source();
-        }).toList(););
+        }).toList());
         return pageResult;
     }
 
