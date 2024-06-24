@@ -30,7 +30,7 @@ public class CategoryController {
      *
      * @return 分类树
      */
-    @PostMapping("/getCategoryTree")
+    @GetMapping("/getCategoryTree")
     public R<List<CategoryTreeDTO>> getCategoryTree() {
         return R.success(categoryRemoteService.getCategoryTree());
     }
