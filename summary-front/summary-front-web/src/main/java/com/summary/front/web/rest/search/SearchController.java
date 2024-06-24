@@ -7,10 +7,7 @@ import com.summary.common.core.dto.R;
 import com.summary.common.core.page.PageResult;
 import jakarta.validation.Valid;
 import org.apache.dubbo.config.annotation.DubboReference;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 
@@ -32,7 +29,8 @@ public class SearchController {
      *
      * @param skuId .
      */
-    public R<Long> importGoodsSkuToElasticsearch(Long skuId) throws IOException {
+    @GetMapping("/importGoodsSkuToElasticsearch")
+    public R<Long> importGoodsSkuToElasticsearch(@RequestParam(name = "skuId") Long skuId) throws IOException {
         return R.success(goodsSkuSearchRemoteService.importGoodsSkuToElasticsearch(skuId));
     }
 
