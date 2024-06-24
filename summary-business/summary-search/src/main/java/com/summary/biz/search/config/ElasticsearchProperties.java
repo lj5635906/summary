@@ -12,7 +12,7 @@ import java.util.Set;
  * @since 2024/6/22
  */
 @Data
-@ConfigurationProperties("elasticsearch")
+@ConfigurationProperties(prefix = "elasticsearch")
 public class ElasticsearchProperties {
     /**
      * host
