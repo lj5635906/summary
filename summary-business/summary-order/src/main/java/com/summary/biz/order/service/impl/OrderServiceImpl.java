@@ -114,7 +114,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, OrderDO> implemen
                 .messageId(UUIDUtils.generateUuid())
                 .orderId(orderId)
                 .build();
-        mqService.sendDelayed(OrderTopic.OrderTimeoutCancel.DESTINATION, orderTimeoutCancelMsg, MessageDelayLevel.LEVEL_5);
+        mqService.asyncSendDelayed(OrderTopic.OrderTimeoutCancel.DESTINATION, orderTimeoutCancelMsg, MessageDelayLevel.LEVEL_5);
     }
 
     @Override

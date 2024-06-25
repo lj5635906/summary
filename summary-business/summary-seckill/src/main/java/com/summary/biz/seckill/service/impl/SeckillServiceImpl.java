@@ -65,7 +65,7 @@ public class SeckillServiceImpl implements SeckillService {
         redisTemplate.boundHashOps(SECKILL_STATE + seckillId).put(customerId, string);
 
         // 发送到队列创建秒杀订单
-        mqService.send(SeckillOrderTopic.SeckillOrderCreate.DESTINATION, CreateSeckillOrderMsg.builder()
+        mqService.asyncSend(SeckillOrderTopic.SeckillOrderCreate.DESTINATION, CreateSeckillOrderMsg.builder()
                 .messageId(UUIDUtils.generateUuid())
                 .customerId(customerId)
                 .seckillId(seckillId)

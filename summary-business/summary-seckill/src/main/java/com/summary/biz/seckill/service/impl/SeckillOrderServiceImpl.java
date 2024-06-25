@@ -101,7 +101,7 @@ public class SeckillOrderServiceImpl implements SeckillOrderService {
         redisTemplate.boundHashOps(SECKILL_STATE + seckillId).put(customerId, JSONObject.toJSONString(seckillState));
 
         // 秒杀订单超时未支付消息
-        mqService.sendDelayed(SeckillOrderTopic.SeckillOrderTimeoutCancel.DESTINATION, SeckillOrderTimeoutCancelMsg.builder()
+        mqService.asyncSendDelayed(SeckillOrderTopic.SeckillOrderTimeoutCancel.DESTINATION, SeckillOrderTimeoutCancelMsg.builder()
                 .messageId(UUIDUtils.generateUuid())
                 .customerId(customerId)
                 .seckillId(seckillId)

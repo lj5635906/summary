@@ -20,5 +20,5 @@ public class BaseMqMessage implements Serializable {
     /**
      * 消息id
      */
-    private String messageId;
+    private String msgId;
 }
