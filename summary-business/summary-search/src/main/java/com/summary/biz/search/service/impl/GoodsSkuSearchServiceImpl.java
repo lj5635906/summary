@@ -1,5 +1,6 @@
 package com.summary.biz.search.service.impl;
 
+import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.StrUtil;
 import co.elastic.clients.elasticsearch.ElasticsearchClient;
 import co.elastic.clients.elasticsearch._types.SortOptions;
@@ -129,6 +130,26 @@ public class GoodsSkuSearchServiceImpl implements GoodsSkuSearchService {
                     .query(param.getSkuName())
                     .build()._toQuery()
             );
+        }
+
+        // 商品sku规格参数
+        if (CollUtil.isNotEmpty(param.getSpecs())) {
+            for (GoodsSkuSearchParam.SpecParam spec : param.getSpecs()) {
+                if (StrUtil.isNotBlank(spec.getName())) {
+                    conditions.add(new MatchQuery.Builder()
+                            .field("specs.name.keyword")
+                            .query(spec.getName())
+                            .build()._toQuery()
+                    );
+                }
+                if (StrUtil.isNotBlank(spec.getOption())) {
+                    conditions.add(new MatchQuery.Builder()
+                            .field("specs.option.keyword")
+                            .query(spec.getOption())
+                            .build()._toQuery()
+                    );
+                }
+            }
         }
 
         // 品牌名称
