@@ -6,10 +6,11 @@ import java.util.Map;
 /**
  * 基础异常码
  * 0-9999
+ *
  * @author jie.luo
  * @since 2024/5/29
  */
-public enum BaseExceptionCode implements CustomCodeService{
+public enum BaseExceptionCode implements CustomCodeService {
 
     /**
      * 请求成功。
@@ -65,6 +66,11 @@ public enum BaseExceptionCode implements CustomCodeService{
     SYSTEM_BLOCK_EXCEPTION(509, "系统规则异常"),
     AUTHORITY_EXCEPTION(510, "授权规则不通过"),
 
+    /**
+     * 支付模块
+     */
+    PAY_WAY_NOT_SUPPORT(1001, "暂不支持该交易方式"),
+    PAY_FAIL(1009, "发起支付失败:{0}"),
     /**
      * 未知错误
      */

@@ -63,7 +63,7 @@ public class SeckillOrderServiceImpl implements SeckillOrderService {
 
         // 获取用户的秒杀状态
         Object obj = redisTemplate.boundHashOps(SECKILL_STATE + seckillId).get(customerId);
-        ;
+
         if (obj == null) {
             return;
         }

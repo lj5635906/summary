@@ -8,9 +8,7 @@ import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
- * <p>
- * 订单表 前端控制器
- * </p>
+ * 订单相关接口
  *
  * @author myabtis-plus
  * @since 2024-06-01

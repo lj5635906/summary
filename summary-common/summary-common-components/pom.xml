@@ -18,6 +18,7 @@
         <module>component-generator-id</module>
         <module>component-mq-rocket</module>
         <module>component-auth</module>
+        <module>component-third-pay</module>
     </modules>
 
     <dependencies>
