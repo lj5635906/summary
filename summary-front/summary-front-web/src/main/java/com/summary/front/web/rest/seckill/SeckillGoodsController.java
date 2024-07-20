@@ -5,7 +5,7 @@ import com.summary.client.seckill.dto.SeckillGoodsDTO;
 import com.summary.client.seckill.param.CreateSeckillGoodsParam;
 import com.summary.common.core.dto.R;
 import jakarta.validation.Valid;
-import org.apache.dubbo.config.annotation.DubboReference;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,7 +20,7 @@ import java.util.List;
 @RequestMapping("/web/seckillGoods")
 public class SeckillGoodsController {
 
-    @DubboReference
+    @Autowired
     private SeckillGoodsRemoteService seckillGoodsRemoteService;
 
     /**

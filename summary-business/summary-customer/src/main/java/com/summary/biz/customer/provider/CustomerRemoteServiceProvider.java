@@ -5,8 +5,11 @@ import com.summary.biz.customer.service.CustomerService;
 import com.summary.client.customer.dto.CustomerDTO;
 import com.summary.client.remote.CustomerRemoteService;
 import com.summary.common.core.utils.ConvertUtils;
-import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * 用户相关接口
@@ -14,7 +17,8 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @author jie.luo
  * @since 2024-05-31
  */
-@DubboService
+@RestController
+@RequestMapping("/customer")
 public class CustomerRemoteServiceProvider implements CustomerRemoteService {
 
     @Autowired
@@ -27,7 +31,8 @@ public class CustomerRemoteServiceProvider implements CustomerRemoteService {
      * @return 详情
      */
     @Override
-    public CustomerDTO getCustomerByCustomerId(Long customerId) {
+    @GetMapping("/getCustomerByCustomerId")
+    public CustomerDTO getCustomerByCustomerId(@RequestParam(name = "customerId") Long customerId) {
         CustomerDO customerDO = customerService.getById(customerId);
         return ConvertUtils.convert(customerDO, CustomerDTO.class);
     }
@@ -39,7 +44,8 @@ public class CustomerRemoteServiceProvider implements CustomerRemoteService {
      * @return 详情
      */
     @Override
-    public CustomerDTO getCustomerByMobile(String mobile) {
+    @GetMapping("/getCustomerByMobile")
+    public CustomerDTO getCustomerByMobile(@RequestParam(name = "mobile") String mobile) {
         return customerService.getCustomerByMobile(mobile);
     }
 
@@ -50,7 +56,8 @@ public class CustomerRemoteServiceProvider implements CustomerRemoteService {
      * @return 详情
      */
     @Override
-    public CustomerDTO getCustomerByUnionId(String unionId) {
+    @GetMapping("/getCustomerByUnionId")
+    public CustomerDTO getCustomerByUnionId(@RequestParam(name = "unionId") String unionId) {
         return customerService.getCustomerByUnionId(unionId);
     }
 

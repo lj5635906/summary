@@ -11,7 +11,7 @@ import com.summary.common.core.dto.R;
 import com.summary.common.core.page.PageResult;
 import com.summary.component.auth.TokenManager;
 import jakarta.validation.Valid;
-import org.apache.dubbo.config.annotation.DubboReference;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,7 +26,7 @@ import java.util.List;
 @RequestMapping("/manager/authority")
 public class AdminController {
 
-    @DubboReference
+    @Autowired
     private AdminRemoteService adminRemoteService;
 
     /**

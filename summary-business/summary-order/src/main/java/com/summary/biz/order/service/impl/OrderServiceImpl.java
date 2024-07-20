@@ -29,7 +29,6 @@ import com.summary.common.core.utils.ConvertUtils;
 import com.summary.common.core.utils.UUIDUtils;
 import com.summary.component.generator.id.snowflake.IdWorker;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -54,9 +53,9 @@ import static com.summary.common.core.constant.GlobalConstant.DefaultConstant.ZE
 @Service
 public class OrderServiceImpl extends ServiceImpl<OrderMapper, OrderDO> implements OrderService {
 
-    @DubboReference
+    @Autowired
     private CustomerRemoteService customerService;
-    @DubboReference
+    @Autowired
     private GoodsRemoteService goodsRemoteService;
     @Autowired
     private OrderItemService orderItemService;

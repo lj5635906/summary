@@ -8,7 +8,7 @@ import com.summary.client.authority.param.ModifyMenuParam;
 import com.summary.client.remote.MenuRemoteService;
 import com.summary.common.core.dto.R;
 import jakarta.validation.Valid;
-import org.apache.dubbo.config.annotation.DubboReference;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,7 +24,7 @@ import java.util.List;
 @RequestMapping("/manager/authority/menu")
 public class MenuController {
 
-    @DubboReference
+    @Autowired
     private MenuRemoteService menuRemoteService;
 
     /**

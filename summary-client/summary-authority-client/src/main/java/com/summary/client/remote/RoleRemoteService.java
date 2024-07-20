@@ -7,6 +7,9 @@ import com.summary.client.authority.param.AddRoleParam;
 import com.summary.client.authority.param.RoleCheckMenuParam;
 import com.summary.client.authority.param.UpdateRoleParam;
 import com.summary.common.core.page.PageResult;
+import jakarta.validation.Valid;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -17,6 +20,7 @@ import java.util.List;
  * @author jie.luo
  * @since 2024/5/30
  */
+@FeignClient(name = "summary-authority", path = "/authority/role")
 public interface RoleRemoteService {
 
     /**
@@ -25,7 +29,8 @@ public interface RoleRemoteService {
      * @param param AddRoleParam
      * @return yes or no
      */
-    Long addRole(AddRoleParam param);
+    @PostMapping("/addRole")
+    Long addRole(@Valid @RequestBody AddRoleParam param);
 
     /**
      * 修改角色
@@ -33,7 +38,8 @@ public interface RoleRemoteService {
      * @param param UpdateRoleParam
      * @return yes or no
      */
-    Boolean updateRole(UpdateRoleParam param);
+    @PutMapping("/updateRole")
+    Boolean updateRole(@Valid @RequestBody UpdateRoleParam param);
 
     /**
      * 获取角色列表
@@ -43,7 +49,10 @@ public interface RoleRemoteService {
      * @param pageSize 页条数
      * @return PageInfo<RoleVo>
      */
-    PageResult<RoleDTO> page(String roleName, Integer pageNum, Integer pageSize);
+    @GetMapping("/page")
+    PageResult<RoleDTO> page(@RequestParam(required = false, name = "roleName") String roleName,
+                             @RequestParam(name = "pageNum") Integer pageNum,
+                             @RequestParam(name = "pageSize") Integer pageSize);
 
     /**
      * 获取菜单树并验证是否已经选中
@@ -51,7 +60,8 @@ public interface RoleRemoteService {
      * @param roleId 角色id
      * @return List<MenuTreeDTO>
      */
-    List<MenuTreeDTO> getRoleHasMenuTree(Long roleId);
+    @GetMapping("/getRoleHasMenuTree")
+    List<MenuTreeDTO> getRoleHasMenuTree(@RequestParam(name = "roleId") Long roleId);
 
     /**
      * 获取角色已分配的菜单
@@ -59,7 +69,8 @@ public interface RoleRemoteService {
      * @param roleId 角色id
      * @return RoleCheckedMenuDTO
      */
-    RoleCheckedMenuDTO getRoleHasMenus(Long roleId);
+    @GetMapping("getRoleHasMenus")
+    RoleCheckedMenuDTO getRoleHasMenus(@RequestParam(name = "roleId") Long roleId);
 
     /**
      * 角色分配菜单
@@ -67,6 +78,7 @@ public interface RoleRemoteService {
      * @param param RoleCheckMenuParam
      * @return yes or no
      */
-    Boolean roleSetMenu(RoleCheckMenuParam param);
+    @PutMapping("roleSetMenu")
+    Boolean roleSetMenu(@RequestBody RoleCheckMenuParam param);
 
 }

@@ -10,7 +10,6 @@ import com.summary.client.remote.RoleRemoteService;
 import com.summary.common.core.dto.R;
 import com.summary.common.core.page.PageResult;
 import jakarta.validation.Valid;
-import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,7 +26,7 @@ import java.util.List;
 @RequestMapping("/manager/authority/role")
 public class RoleController {
 
-    @DubboReference
+    @Autowired
     private RoleRemoteService roleRemoteService;
 
     /**

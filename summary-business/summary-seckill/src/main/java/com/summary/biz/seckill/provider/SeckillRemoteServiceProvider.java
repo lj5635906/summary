@@ -6,8 +6,8 @@ import com.summary.client.seckill.dto.SeckillStateDTO;
 import com.summary.client.seckill.param.SeckillActionParam;
 import com.summary.common.core.dto.R;
 import jakarta.validation.Valid;
-import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * 秒杀 相关接口
@@ -15,7 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @author myabtis-plus
  * @since 2024-06-01
  */
-@DubboService
+@RestController
+@RequestMapping("/seckill")
 public class SeckillRemoteServiceProvider implements SeckillRemoteService {
 
     @Autowired
@@ -28,7 +29,8 @@ public class SeckillRemoteServiceProvider implements SeckillRemoteService {
      * @return 返回秒杀状态信息
      */
     @Override
-    public R<SeckillStateDTO> seckillAction(@Valid SeckillActionParam param) {
+    @PostMapping("/seckillAction")
+    public R<SeckillStateDTO> seckillAction(@Valid @RequestBody SeckillActionParam param) {
         Long customerId = 1L;
         return seckillService.seckillAction(param.getCustomerId(), param.getSeckillId(), param.getNum());
     }
@@ -41,7 +43,8 @@ public class SeckillRemoteServiceProvider implements SeckillRemoteService {
      * @return 秒杀状态信息
      */
     @Override
-    public SeckillStateDTO querySeckillState(Long seckillId, Long customerId) {
+    @GetMapping("/querySeckillState")
+    public SeckillStateDTO querySeckillState(@RequestParam(name = "seckillId") Long seckillId, @RequestParam(name = "customerId") Long customerId) {
         return seckillService.querySeckillState(customerId, seckillId);
     }
 

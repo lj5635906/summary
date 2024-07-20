@@ -1,14 +1,12 @@
 package com.summary.front.web.rest.goods;
 
 import com.summary.client.goods.dto.CategoryTreeDTO;
-import com.summary.client.goods.dto.GoodsDTO;
-import com.summary.client.goods.param.CreateGoodsParam;
 import com.summary.client.remote.CategoryRemoteService;
-import com.summary.client.remote.GoodsRemoteService;
 import com.summary.common.core.dto.R;
-import jakarta.validation.Valid;
-import org.apache.dubbo.config.annotation.DubboReference;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -22,7 +20,7 @@ import java.util.List;
 @RequestMapping("/web/category")
 public class CategoryController {
 
-    @DubboReference
+    @Autowired
     private CategoryRemoteService categoryRemoteService;
 
     /**

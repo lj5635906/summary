@@ -16,7 +16,6 @@ import com.summary.client.goods.dto.GoodsSkuDTO;
 import com.summary.client.remote.GoodsRemoteService;
 import com.summary.client.search.param.GoodsSkuSearchParam;
 import com.summary.common.core.page.PageResult;
-import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,7 +37,7 @@ public class GoodsSkuSearchServiceImpl implements GoodsSkuSearchService {
     @Autowired
     private ElasticsearchClient elasticsearchClient;
 
-    @DubboReference
+    @Autowired
     private GoodsRemoteService goodsRemoteService;
 
     @Override

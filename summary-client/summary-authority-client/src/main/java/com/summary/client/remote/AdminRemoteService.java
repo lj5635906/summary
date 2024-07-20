@@ -8,6 +8,8 @@ import com.summary.client.authority.param.ModifyAdminParam;
 import com.summary.client.authority.param.ModifyAdminRoleParam;
 import com.summary.common.core.page.PageResult;
 import jakarta.validation.Valid;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -17,6 +19,7 @@ import java.util.List;
  * @author jie.luo
  * @since 2024/5/30
  */
+@FeignClient(name = "summary-authority", path = "/authority/admin")
 public interface AdminRemoteService {
 
     /**
@@ -25,7 +28,8 @@ public interface AdminRemoteService {
      * @param param AddAdminParam
      * @return yes or no
      */
-    Long addAdmin(@Valid AddAdminParam param);
+    @PostMapping("/addAdmin")
+    Long addAdmin(@Valid @RequestBody AddAdminParam param);
 
     /**
      * 修改管理员信息
@@ -33,7 +37,8 @@ public interface AdminRemoteService {
      * @param param ModifyAdminParam
      * @return yes or no
      */
-    Boolean updateAdmin(@Valid ModifyAdminParam param);
+    @PutMapping("/updateAdmin")
+    Boolean updateAdmin(@Valid @RequestBody ModifyAdminParam param);
 
     /**
      * 分页获取管理员列表
@@ -46,12 +51,14 @@ public interface AdminRemoteService {
      * @param pageSize   页条数
      * @return PageInfo<AdminListDTO>
      */
-    PageResult<AdminDTO> page(String username,
-                              String mobile,
-                              Integer userStatus,
-                              String realName,
-                              Integer pageNum,
-                              Integer pageSize);
+    @GetMapping("/page")
+    PageResult<AdminDTO> page(@RequestParam(required = false, name = "username") String username,
+                              @RequestParam(required = false, name = "mobile") String mobile,
+                              @RequestParam(required = false, name = "userStatus") Integer userStatus,
+                              @RequestParam(required = false, name = "realName") String realName,
+                              @RequestParam(name = "pageNum") Integer pageNum,
+                              @RequestParam(name = "pageSize") Integer pageSize);
+
 
     /**
      * 根据用户名获取管理员
@@ -59,7 +66,8 @@ public interface AdminRemoteService {
      * @param username 用户名
      * @return AdminVo
      */
-    AdminDTO getAdminByUsername(String username);
+    @GetMapping("/adminByUsername")
+    AdminDTO getAdminByUsername(@RequestParam(name = "username") String username);
 
     /**
      * 根据管理员id获取管理员
@@ -67,7 +75,8 @@ public interface AdminRemoteService {
      * @param adminId adminId
      * @return AdminVo
      */
-    AdminDTO getAdminByAdminId(Long adminId);
+    @GetMapping("/adminByAdminId")
+    AdminDTO getAdminByAdminId(@RequestParam(name = "adminId") Long adminId);
 
     /**
      * 根据手机号获取管理员
@@ -75,7 +84,8 @@ public interface AdminRemoteService {
      * @param mobile 手机号
      * @return AdminVo
      */
-    AdminDTO getAdminByMobile(String mobile);
+    @GetMapping("/adminByMobile")
+    AdminDTO getAdminByMobile(@RequestParam(name = "mobile") String mobile);
 
     /**
      * 获取管理员角色信息
@@ -83,7 +93,8 @@ public interface AdminRemoteService {
      * @param adminId adminId
      * @return List<AdminRoleDTO>
      */
-    List<AdminRoleDTO> getAdminRoles(Long adminId);
+    @GetMapping("getAdminRoles")
+    List<AdminRoleDTO> getAdminRoles(@RequestParam(name = "adminId") Long adminId);
 
     /**
      * 修改管理员角色信息
@@ -91,7 +102,8 @@ public interface AdminRemoteService {
      * @param param ModifyAdminParam
      * @return yes or no
      */
-    Boolean updateAdminRole(@Valid ModifyAdminRoleParam param);
+    @PutMapping("updateAdminRole")
+    Boolean updateAdminRole(@Valid @RequestBody ModifyAdminRoleParam param);
 
     /**
      * 获取管理员已有权限菜单
@@ -99,5 +111,6 @@ public interface AdminRemoteService {
      * @param adminId 管理员id
      * @return MenuTreeVo
      */
-    List<MenuTreeDTO> getAdminHasMenu(Long adminId);
+    @GetMapping("/admin/hasMenuTree")
+    List<MenuTreeDTO> getAdminHasMenu(@RequestParam(name = "adminId") Long adminId);
 }

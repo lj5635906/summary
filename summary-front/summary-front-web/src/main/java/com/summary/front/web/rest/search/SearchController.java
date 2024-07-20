@@ -6,7 +6,7 @@ import com.summary.client.search.param.GoodsSkuSearchParam;
 import com.summary.common.core.dto.R;
 import com.summary.common.core.page.PageResult;
 import jakarta.validation.Valid;
-import org.apache.dubbo.config.annotation.DubboReference;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -21,7 +21,7 @@ import java.io.IOException;
 @RequestMapping("/web/search")
 public class SearchController {
 
-    @DubboReference
+    @Autowired
     private GoodsSkuSearchRemoteService goodsSkuSearchRemoteService;
 
     /**

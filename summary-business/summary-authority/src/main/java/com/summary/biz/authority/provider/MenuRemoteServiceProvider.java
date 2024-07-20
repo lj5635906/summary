@@ -7,8 +7,8 @@ import com.summary.client.authority.param.DeleteMenuParam;
 import com.summary.client.authority.param.ModifyMenuParam;
 import com.summary.client.remote.MenuRemoteService;
 import jakarta.validation.Valid;
-import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -18,7 +18,8 @@ import java.util.List;
  * @author jie.luo
  * @since 2024/5/30
  */
-@DubboService
+@RestController
+@RequestMapping("/authority/menu")
 public class MenuRemoteServiceProvider implements MenuRemoteService {
 
     @Autowired
@@ -31,7 +32,8 @@ public class MenuRemoteServiceProvider implements MenuRemoteService {
      * @return yes or no
      */
     @Override
-    public Long addMenu(@Valid AddMenuParam param) {
+    @PostMapping("/addMenu")
+    public Long addMenu(@Valid @RequestBody AddMenuParam param) {
         return menuService.addMenuData(param);
     }
 
@@ -42,7 +44,8 @@ public class MenuRemoteServiceProvider implements MenuRemoteService {
      * @return yes or no
      */
     @Override
-    public Boolean modifyMenu(@Valid ModifyMenuParam param) {
+    @PutMapping("/modifyMenu")
+    public Boolean modifyMenu(@Valid @RequestBody ModifyMenuParam param) {
         menuService.modifyMenuData(param);
         return true;
     }
@@ -54,7 +57,8 @@ public class MenuRemoteServiceProvider implements MenuRemoteService {
      * @return yes or no
      */
     @Override
-    public Boolean deleteMenuData(@Valid DeleteMenuParam param) {
+    @DeleteMapping("/deleteMenuData")
+    public Boolean deleteMenuData(@Valid @RequestBody DeleteMenuParam param) {
         menuService.deleteMenuData(param);
         return true;
     }
@@ -65,6 +69,7 @@ public class MenuRemoteServiceProvider implements MenuRemoteService {
      * @return List<MenuTreeVo>
      */
     @Override
+    @GetMapping("getMenuTree")
     public List<MenuTreeDTO> getMenuTree() {
         return menuService.getMenuTree();
     }

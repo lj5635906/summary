@@ -1,6 +1,6 @@
 package com.summary.biz.order.provider;
 
-import org.apache.dubbo.config.annotation.DubboService;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * 支付相关接口
@@ -8,6 +8,6 @@ import org.apache.dubbo.config.annotation.DubboService;
  * @author jie.luo
  * @since 2024/7/20
  */
-@DubboService
+@RestController
 public class PayRemoteServiceProvider {
 }

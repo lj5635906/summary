@@ -1,7 +1,8 @@
 package com.summary.biz.goods.provider;
 
 import com.summary.client.remote.BrandRemoteService;
-import org.apache.dubbo.config.annotation.DubboService;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * 品牌相关接口
@@ -9,6 +10,7 @@ import org.apache.dubbo.config.annotation.DubboService;
  * @author jie.luo
  * @since 2024/6/23
  */
-@DubboService
+@RestController
+@RequestMapping("/goods/brand")
 public class BrandRemoteServiceProvider implements BrandRemoteService {
 }

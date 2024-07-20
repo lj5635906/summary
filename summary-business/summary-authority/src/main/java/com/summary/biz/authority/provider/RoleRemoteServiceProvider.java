@@ -12,8 +12,8 @@ import com.summary.client.authority.param.UpdateRoleParam;
 import com.summary.client.remote.RoleRemoteService;
 import com.summary.common.core.page.PageResult;
 import jakarta.validation.Valid;
-import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -24,7 +24,8 @@ import java.util.List;
  * @author jie.luo
  * @since 2024/5/30
  */
-@DubboService
+@RestController
+@RequestMapping("/authority/role")
 public class RoleRemoteServiceProvider implements RoleRemoteService {
 
     @Autowired
@@ -41,7 +42,8 @@ public class RoleRemoteServiceProvider implements RoleRemoteService {
      * @return yes or no
      */
     @Override
-    public Long addRole(@Valid AddRoleParam param) {
+    @PostMapping("/addRole")
+    public Long addRole(@Valid @RequestBody AddRoleParam param) {
         return roleService.addRole(param);
     }
 
@@ -52,7 +54,8 @@ public class RoleRemoteServiceProvider implements RoleRemoteService {
      * @return yes or no
      */
     @Override
-    public Boolean updateRole(@Valid UpdateRoleParam param) {
+    @PutMapping("/updateRole")
+    public Boolean updateRole(@Valid @RequestBody UpdateRoleParam param) {
         roleService.updateRole(param);
         return true;
     }
@@ -66,9 +69,10 @@ public class RoleRemoteServiceProvider implements RoleRemoteService {
      * @return PageResult<RoleVo>
      */
     @Override
-    public PageResult<RoleDTO> page(String roleName,
-                                    Integer pageNum,
-                                    Integer pageSize) {
+    @GetMapping("/page")
+    public PageResult<RoleDTO> page(@RequestParam(required = false, name = "roleName") String roleName,
+                                    @RequestParam(name = "pageNum") Integer pageNum,
+                                    @RequestParam(name = "pageSize") Integer pageSize) {
         return roleService.getRoles(roleName, pageNum, pageSize);
     }
 
@@ -79,7 +83,8 @@ public class RoleRemoteServiceProvider implements RoleRemoteService {
      * @return List<MenuTreeDTO>
      */
     @Override
-    public List<MenuTreeDTO> getRoleHasMenuTree(Long roleId) {
+    @GetMapping("/getRoleHasMenuTree")
+    public List<MenuTreeDTO> getRoleHasMenuTree(@RequestParam(name = "roleId") Long roleId) {
         return menuService.roleHasMenuTree(roleId);
     }
 
@@ -90,7 +95,8 @@ public class RoleRemoteServiceProvider implements RoleRemoteService {
      * @return List<Long>
      */
     @Override
-    public RoleCheckedMenuDTO getRoleHasMenus(Long roleId) {
+    @GetMapping("getRoleHasMenus")
+    public RoleCheckedMenuDTO getRoleHasMenus(@RequestParam(name = "roleId") Long roleId) {
         return roleMenuService.getRoleHasMenus(roleId);
     }
 
@@ -101,7 +107,8 @@ public class RoleRemoteServiceProvider implements RoleRemoteService {
      * @return yes or no
      */
     @Override
-    public Boolean roleSetMenu(@Valid RoleCheckMenuParam param) {
+    @PutMapping("roleSetMenu")
+    public Boolean roleSetMenu(@RequestBody RoleCheckMenuParam param) {
         roleMenuService.roleSetMenu(param);
         return true;
     }

@@ -83,14 +83,16 @@
 
         <!-- client end -->
 
+        <!-- 声明式服务调用组件 openfeign start -->
         <dependency>
-            <groupId>org.apache.dubbo</groupId>
-            <artifactId>dubbo-spring-boot-starter</artifactId>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
         </dependency>
+        <!-- 声明式服务调用组件 openfeign end-->
 
         <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-loadbalancer</artifactId>
         </dependency>
 
         <!-- nacos 服务发现 start -->
@@ -121,6 +123,7 @@
             <artifactId>logback-adapter</artifactId>
             <version>1.0.0</version>
         </dependency>
+
 
         <dependency>
             <groupId>org.projectlombok</groupId>

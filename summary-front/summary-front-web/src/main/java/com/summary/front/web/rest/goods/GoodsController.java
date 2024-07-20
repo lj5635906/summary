@@ -5,7 +5,7 @@ import com.summary.client.goods.param.CreateGoodsParam;
 import com.summary.client.remote.GoodsRemoteService;
 import com.summary.common.core.dto.R;
 import jakarta.validation.Valid;
-import org.apache.dubbo.config.annotation.DubboReference;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/web/goods")
 public class GoodsController {
 
-    @DubboReference
+    @Autowired
     private GoodsRemoteService goodsRemoteService;
 
     /**

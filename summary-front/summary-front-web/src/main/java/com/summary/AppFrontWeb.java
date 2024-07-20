@@ -1,7 +1,6 @@
 package com.summary;
 
 import lombok.extern.slf4j.Slf4j;
-import org.apache.dubbo.config.spring.context.annotation.EnableDubbo;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -19,7 +18,6 @@ import org.springframework.context.ConfigurableApplicationContext;
 @Slf4j
 @SpringBootApplication
 @EnableDiscoveryClient
-@EnableDubbo
 public class AppFrontWeb implements ApplicationRunner, DisposableBean {
     private static ConfigurableApplicationContext ctx;
 

@@ -5,7 +5,6 @@ import com.summary.client.seckill.dto.SeckillStateDTO;
 import com.summary.client.seckill.param.SeckillActionParam;
 import com.summary.common.core.dto.R;
 import jakarta.validation.Valid;
-import org.apache.dubbo.config.annotation.DubboReference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/web/seckill")
 public class SeckillController {
 
-    @DubboReference
+    @Autowired
     private SeckillRemoteService seckillRemoteService;
 
     /**

@@ -5,8 +5,8 @@ import com.summary.client.goods.dto.GoodsSkuDTO;
 import com.summary.client.remote.GoodsSkuSearchRemoteService;
 import com.summary.client.search.param.GoodsSkuSearchParam;
 import com.summary.common.core.page.PageResult;
-import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 
@@ -16,19 +16,22 @@ import java.io.IOException;
  * @author jie.luo
  * @since 2024/6/24
  */
-@DubboService
+@RestController
+@RequestMapping("/search/goods")
 public class GoodsSkuSearchRemoteServiceProvider implements GoodsSkuSearchRemoteService {
 
     @Autowired
     private GoodsSkuSearchService goodsSkuSearchService;
 
     @Override
-    public Long importGoodsSkuToElasticsearch(Long skuId) throws IOException {
+    @RequestMapping("importGoodsSkuToElasticsearch")
+    public Long importGoodsSkuToElasticsearch(@RequestParam(name = "skuId") Long skuId) throws IOException {
         return goodsSkuSearchService.importGoodsSkuToElasticsearch(skuId);
     }
 
     @Override
-    public PageResult<GoodsSkuDTO> searchGoodsSkus(GoodsSkuSearchParam param) throws IOException {
+    @PostMapping("searchGoodsSkus")
+    public PageResult<GoodsSkuDTO> searchGoodsSkus(@RequestBody GoodsSkuSearchParam param) throws IOException {
         return goodsSkuSearchService.searchGoodsSkus(param);
     }
 }

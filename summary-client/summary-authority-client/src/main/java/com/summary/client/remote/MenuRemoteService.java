@@ -5,6 +5,8 @@ import com.summary.client.authority.param.AddMenuParam;
 import com.summary.client.authority.param.DeleteMenuParam;
 import com.summary.client.authority.param.ModifyMenuParam;
 import jakarta.validation.Valid;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -14,8 +16,8 @@ import java.util.List;
  * @author jie.luo
  * @since 2024/5/30
  */
+@FeignClient(name = "summary-authority", path = "/authority/menu")
 public interface MenuRemoteService {
-
 
     /**
      * 添加菜单
@@ -23,7 +25,8 @@ public interface MenuRemoteService {
      * @param param AddMenuParam
      * @return yes or no
      */
-     Long addMenu(@Valid AddMenuParam param);
+    @PostMapping("/addMenu")
+    Long addMenu(@Valid @RequestBody AddMenuParam param);
 
     /**
      * 修改菜单
@@ -31,7 +34,8 @@ public interface MenuRemoteService {
      * @param param ModifyMenuParam
      * @return yes or no
      */
-     Boolean modifyMenu(@Valid ModifyMenuParam param);
+    @PutMapping("/modifyMenu")
+    Boolean modifyMenu(@Valid @RequestBody ModifyMenuParam param);
 
     /**
      * 删除菜单
@@ -39,13 +43,15 @@ public interface MenuRemoteService {
      * @param param DeleteMenuParam
      * @return yes or no
      */
-     Boolean deleteMenuData(@Valid DeleteMenuParam param);
+    @DeleteMapping("/deleteMenuData")
+    Boolean deleteMenuData(@Valid @RequestBody DeleteMenuParam param);
 
     /**
      * 获取菜单树
      *
      * @return List<MenuTreeVo>
      */
-     List<MenuTreeDTO> getMenuTree();
+    @GetMapping("getMenuTree")
+    List<MenuTreeDTO> getMenuTree();
 
 }

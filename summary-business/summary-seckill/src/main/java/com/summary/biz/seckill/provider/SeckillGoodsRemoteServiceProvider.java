@@ -1,12 +1,12 @@
 package com.summary.biz.seckill.provider;
 
 import com.summary.biz.seckill.service.SeckillGoodsService;
-import com.summary.client.seckill.dto.SeckillGoodsDTO;
 import com.summary.client.remote.SeckillGoodsRemoteService;
+import com.summary.client.seckill.dto.SeckillGoodsDTO;
 import com.summary.client.seckill.param.CreateSeckillGoodsParam;
 import jakarta.validation.Valid;
-import org.apache.dubbo.config.annotation.DubboService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -16,7 +16,8 @@ import java.util.List;
  * @author myabtis-plus
  * @since 2024-06-01
  */
-@DubboService
+@RestController
+@RequestMapping("/seckill/goods")
 public class SeckillGoodsRemoteServiceProvider implements SeckillGoodsRemoteService {
 
     @Autowired
@@ -29,7 +30,8 @@ public class SeckillGoodsRemoteServiceProvider implements SeckillGoodsRemoteServ
      * @return 秒杀id
      */
     @Override
-    public Long createSeckillGoods(@Valid CreateSeckillGoodsParam param) {
+    @PostMapping("/createSeckillGoods")
+    public Long createSeckillGoods(@Valid @RequestBody CreateSeckillGoodsParam param) {
         return seckillGoodsService.createSeckillGoods(param);
     }
 
@@ -40,7 +42,8 @@ public class SeckillGoodsRemoteServiceProvider implements SeckillGoodsRemoteServ
      * @return 商品详情
      */
     @Override
-    public SeckillGoodsDTO getSeckillGoods(Long seckillId) {
+    @GetMapping("/getSeckillGoods")
+    public SeckillGoodsDTO getSeckillGoods(@RequestParam(name = "seckillId") Long seckillId) {
         return seckillGoodsService.getSeckillGoods(seckillId);
     }
 
@@ -50,6 +53,7 @@ public class SeckillGoodsRemoteServiceProvider implements SeckillGoodsRemoteServ
      * @return 商品列表
      */
     @Override
+    @GetMapping("/getSeckillGoodsList")
     public List<SeckillGoodsDTO> getSeckillGoodsList() {
         return seckillGoodsService.pageSeckillGoods();
     }

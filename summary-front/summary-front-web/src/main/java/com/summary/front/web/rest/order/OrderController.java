@@ -4,7 +4,7 @@ import com.summary.client.order.param.CreateOrderParam;
 import com.summary.client.remote.OrderRemoteService;
 import com.summary.common.core.dto.R;
 import jakarta.validation.Valid;
-import org.apache.dubbo.config.annotation.DubboReference;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/web/order")
 public class OrderController {
 
-    @DubboReference
+    @Autowired
     private OrderRemoteService orderRemoteService;
 
     /**

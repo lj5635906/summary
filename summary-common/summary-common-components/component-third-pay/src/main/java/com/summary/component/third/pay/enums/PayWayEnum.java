@@ -48,7 +48,7 @@ public enum PayWayEnum {
      * H5支付是指商户在微信客户端外的移动端网页展示商品或服务，用户在前述页面确认使用微信支付时，商户发起本服务呼起微信客户端进行支付。
      * 主要用于触屏版的手机浏览器请求微信支付的场景。可以方便的从外部浏览器唤起微信支付。
      */
-    WX_PAY_WEB("WX_PAY_WEB", WxPayConstants.TradeType.MWEB, WX_PAY, "微信H5支付"),
+    WX_PAY_WEB("WX_PAY_WEB", WxPayConstants.TradeType.H5, WX_PAY, "微信H5支付"),
     /**
      * 微信Native支付
      * Native支付是指商户系统按微信支付协议生成支付二维码，用户再用微信“扫一扫”完成支付的模式。该模式适用于PC网站、实体店单品或订单、媒体广告支付等场景。

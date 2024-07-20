@@ -4,6 +4,11 @@ import com.summary.client.seckill.dto.SeckillStateDTO;
 import com.summary.client.seckill.param.SeckillActionParam;
 import com.summary.common.core.dto.R;
 import jakarta.validation.Valid;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * 秒杀相关接口
@@ -11,6 +16,7 @@ import jakarta.validation.Valid;
  * @author jie.luo
  * @since 2024/06/01
  */
+@FeignClient(value = "summary-seckill", path = "/seckill")
 public interface SeckillRemoteService {
 
     /**
@@ -19,7 +25,8 @@ public interface SeckillRemoteService {
      * @param param {@link SeckillActionParam}
      * @return 返回秒杀状态信息
      */
-    R<SeckillStateDTO> seckillAction(@Valid SeckillActionParam param);
+    @PostMapping("/seckillAction")
+    R<SeckillStateDTO> seckillAction(@Valid @RequestBody SeckillActionParam param);
 
     /**
      * 查询用户对应的 秒杀状态信息
@@ -28,5 +35,6 @@ public interface SeckillRemoteService {
      * @param customerId 用户id
      * @return 秒杀状态信息
      */
-    SeckillStateDTO querySeckillState(Long seckillId, Long customerId);
+    @GetMapping("/querySeckillState")
+    SeckillStateDTO querySeckillState(@RequestParam(name = "seckillId") Long seckillId, @RequestParam(name = "customerId") Long customerId);
 }
