@@ -71,6 +71,8 @@ public class AliPayService {
                 AlipayTradeAppPayResponse response = Factory
                         .Payment
                         .App()
+                        .optional("time_expire",payParam.getTimeExpire())
+                        .optional("passback_params",payParam.getAttach())
                         .pay(payParam.getBody(), payParam.getOutTradeNo(), fenToYuan(payParam.getAmount()));
                 return (T) response;
             }
@@ -79,6 +81,8 @@ public class AliPayService {
                 AlipayTradePagePayResponse response = Factory
                         .Payment
                         .Page()
+                        .optional("time_expire",payParam.getTimeExpire())
+                        .optional("passback_params",payParam.getAttach())
                         .pay(payParam.getBody(), payParam.getOutTradeNo(), fenToYuan(payParam.getAmount()), payParam.getReturnUrl());
                 return (T) response;
             }
@@ -87,6 +91,8 @@ public class AliPayService {
                 AlipayTradeWapPayResponse response = Factory
                         .Payment
                         .Wap()
+                        .optional("time_expire",payParam.getTimeExpire())
+                        .optional("passback_params",payParam.getAttach())
                         .pay(payParam.getBody(), payParam.getOutTradeNo(), fenToYuan(payParam.getAmount()), payParam.getQuitUrl(), payParam.getReturnUrl());
                 return (T) response;
             }

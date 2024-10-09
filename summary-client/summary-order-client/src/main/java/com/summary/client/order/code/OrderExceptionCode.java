@@ -17,6 +17,9 @@ public enum OrderExceptionCode implements CustomCodeService {
      * 业务模块-权限服务-异常码
      */
     by_goods_check_error(40000, "购买商品验证出现异常"),
+    order_no_exist(40001, "订单不存在"),
+    order_payed(40002, "订单已支付"),
+
 
     UNKNOWN_EXCEPTION(-1, "未知错误");
 

@@ -10,6 +10,14 @@
     <artifactId>summary-order</artifactId>
     <packaging>jar</packaging>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.summary</groupId>
+            <artifactId>component-third-pay</artifactId>
+            <version>${summary.version}</version>
+        </dependency>
+    </dependencies>
+
     <build>
         <finalName>app</finalName>
         <plugins>

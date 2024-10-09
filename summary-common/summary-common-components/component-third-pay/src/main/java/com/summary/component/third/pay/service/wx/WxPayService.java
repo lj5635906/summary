@@ -64,6 +64,7 @@ public class WxPayService {
                 request.setNotifyUrl(StrUtil.isBlank(payParam.getNotifyUrl()) ? wxPayProperties.getNotifyUrl() : payParam.getNotifyUrl());
                 request.setOutTradeNo(payParam.getOutTradeNo());
                 request.setTimeExpire(payParam.getTimeExpire());
+                request.setAttach(payParam.getAttach());
 
                 com.wechat.pay.java.service.payments.app.model.PrepayWithRequestPaymentResponse response = service.prepayWithRequestPayment(request);
 
@@ -84,6 +85,7 @@ public class WxPayService {
                 request.setNotifyUrl(StrUtil.isBlank(payParam.getNotifyUrl()) ? wxPayProperties.getNotifyUrl() : payParam.getNotifyUrl());
                 request.setOutTradeNo(payParam.getOutTradeNo());
                 request.setTimeExpire(payParam.getTimeExpire());
+                request.setAttach(payParam.getAttach());
 
                 com.wechat.pay.java.service.payments.nativepay.model.PrepayResponse prepay = service.prepay(request);
 
@@ -103,6 +105,7 @@ public class WxPayService {
                 request.setNotifyUrl(StrUtil.isBlank(payParam.getNotifyUrl()) ? wxPayProperties.getNotifyUrl() : payParam.getNotifyUrl());
                 request.setOutTradeNo(payParam.getOutTradeNo());
                 request.setTimeExpire(payParam.getTimeExpire());
+                request.setAttach(payParam.getAttach());
 
                 com.wechat.pay.java.service.payments.h5.model.PrepayResponse prepay = service.prepay(request);
 
@@ -122,6 +125,8 @@ public class WxPayService {
                 request.setNotifyUrl(StrUtil.isBlank(payParam.getNotifyUrl()) ? wxPayProperties.getNotifyUrl() : payParam.getNotifyUrl());
                 request.setOutTradeNo(payParam.getOutTradeNo());
                 request.setTimeExpire(payParam.getTimeExpire());
+                request.setAttach(payParam.getAttach());
+
                 Payer payer = new Payer();
                 payer.setOpenid(payParam.getOpenId());
                 request.setPayer(payer);

@@ -39,4 +39,8 @@ public class PayParam {
      * 交易结束时间.
      */
     private String timeExpire;
+    /**
+     * 附加数据
+     */
+    private String attach;
 }

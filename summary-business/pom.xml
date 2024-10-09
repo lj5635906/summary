@@ -56,6 +56,11 @@
             <artifactId>summary-search-client</artifactId>
             <version>${summary.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.summary</groupId>
+            <artifactId>component-auth</artifactId>
+            <version>${summary.version}</version>
+        </dependency>
 
         <!-- client end -->
 

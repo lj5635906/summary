@@ -46,6 +46,10 @@ public class GlobalConstant {
          */
         String DEFAULT_CHARSET = "UTF-8";
         /**
+         * 空字符串
+         */
+        String EMPTY_STRING = "";
+        /**
          * 字符串 .
          */
         String STRING_POINT = ".";

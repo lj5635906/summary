@@ -30,7 +30,7 @@ public class ThirdPayAutoConfiguration {
         // 加载支付宝支付配置信息
         AliPayService.loadAliPayOptions(aliPayProperties);
 
-        return new ThirdPayServiceImpl();
+        return new ThirdPayServiceImpl(wxPayService(wxPayProperties));
     }
 
     @Bean

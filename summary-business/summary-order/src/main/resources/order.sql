@@ -1,4 +1,3 @@
-
 drop table if exists o_order;
 CREATE TABLE o_order(
     order_id 	            bigint(20)	 	NOT NULL PRIMARY KEY 	AUTO_INCREMENT	COMMENT '订单id',
@@ -31,7 +30,7 @@ CREATE TABLE o_order(
 /** 订单-类目表 */
 DROP TABLE IF EXISTS order_item;
 CREATE  TABLE  order_item(
-    item_id                             bigint(20)              NOT NULL    PRIMARY KEY   AUTO_INCREMENT    COMMENT '主键id',
+    item_id                             bigint(20)              NOT NULL    PRIMARY KEY   AUTO_INCREMENT    COMMENT '订单-类目id',
 
     order_id                            bigint(20)              NOT NULL                    COMMENT '订单id',
 
@@ -75,3 +74,49 @@ CREATE TABLE order_water(
 
     KEY index_order_id (order_id)
 )ENGINE=InnoDB CHARSET=utf8mb4 COMMENT='订单流水';
+
+
+/** 订单-支付信息 */
+DROP TABLE IF EXISTS order_payment;
+CREATE  TABLE  order_payment(
+    payment_id                          bigint(20)              NOT NULL    PRIMARY KEY   AUTO_INCREMENT    COMMENT '订单-支付id',
+
+    order_id                            bigint(20)              NOT NULL                    COMMENT '订单id',
+
+    pay_client_type                     int(3)                  NOT NULL                    COMMENT '支付客户端类型',
+    pay_platform 	                    varchar(20)	 	        NOT NULL                    COMMENT '支付平台',
+    pay_way 	                        varchar(20) 	        NOT NULL                    COMMENT '支付方式',
+    pay_state 	                        int(3)	 	            NOT NULL                     COMMENT '支付状态:0:支付中、1:已支付、2:退款中、3:已退款',
+    start_pay_time 			            datetime 		        NOT NULL 	                COMMENT '发起支付时间',
+    pay_time 			                datetime 		        NOT NULL 	                COMMENT '支付时间',
+    start_refund_time 			        datetime 		        NOT NULL 	                COMMENT '发起退款时间',
+    refund_time 			            datetime 		        NOT NULL 	                COMMENT '退款时间',
+
+    payment_item_id                     bigint(20)              NOT NULL                    COMMENT '订单-支付子表id',
+
+    version 				int(11) 		NOT NULL DEFAULT 0			COMMENT '版本号',
+    create_time 			datetime 		DEFAULT CURRENT_TIMESTAMP 	COMMENT '创建时间',
+    update_time 			datetime 		DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    delete_flag 			boolean 		NOT NULL DEFAULT 0			COMMENT '删除标志(0/false-未删除,1/true-已删除)',
+    KEY index_order_id (order_id)
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '订单-支付信息';
+
+/** 订单-支付子表 */
+DROP TABLE IF EXISTS order_payment_item;
+CREATE  TABLE  order_payment_item(
+    payment_item_id                          bigint(20)              NOT NULL    PRIMARY KEY   AUTO_INCREMENT    COMMENT '订单-支付子表id',
+
+    order_id                            bigint(20)              NOT NULL                    COMMENT '订单id',
+    payment_id                          bigint(20)              NOT NULL                    COMMENT '订单-支付id',
+
+    app_id                              varchar(20) 		    NOT NULL				    COMMENT '应用appId',
+    mch_id       		                varchar(20) 		    NOT NULL				    COMMENT '商户号id',
+    pay_way 	                        int(3)	 	            NOT NULL                    COMMENT '支付方式',
+    pay_info                            text         		    NOT NULL				    COMMENT '支付信息',
+
+    version 				int(11) 		NOT NULL DEFAULT 0			COMMENT '版本号',
+    create_time 			datetime 		DEFAULT CURRENT_TIMESTAMP 	COMMENT '创建时间',
+    update_time 			datetime 		DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+    delete_flag 			boolean 		NOT NULL DEFAULT 0			COMMENT '删除标志(0/false-未删除,1/true-已删除)',
+    KEY index_order_id (order_id)
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '订单-支付信息';

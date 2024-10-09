@@ -8,6 +8,10 @@ package com.summary.component.third.pay.enums;
  */
 public enum PayPlatformEnum {
     /**
+     * 0元购
+     */
+    FREE,
+    /**
      * 支付宝支付
      */
     ALI_PAY,

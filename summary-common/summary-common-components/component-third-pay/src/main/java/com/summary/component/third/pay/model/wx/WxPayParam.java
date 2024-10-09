@@ -23,8 +23,5 @@ public class WxPayParam extends PayParam {
      * 微信openid, 仅微信公众号/小程序支付时需要
      */
     private String openId;
-    /**
-     * 附加数据
-     */
-    private String attach;
+
 }
